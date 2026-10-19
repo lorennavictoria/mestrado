@@ -1,0 +1,16 @@
+[
+  {
+    "document_id": "THYROID_POC_001",
+    "title": "Documento clínico demonstrativo para câncer diferenciado de tireoide",
+    "version": "1.0",
+    "keywords": ["papillary thyroid carcinoma progression metastatic radioiodine systemic therapy"],
+    "summary": "Documento demonstrativo: estratégias precisam ser avaliadas conforme histologia, progressão, radioiodo-avididade, tratamentos prévios e condições do paciente."
+  },
+  {
+    "document_id": "THYROID_POC_002",
+    "title": "Documento demonstrativo de toxicidade cardiovascular",
+    "version": "1.0",
+    "keywords": ["systemic therapy hypertension cardiovascular toxicity thyroid"],
+    "summary": "Documento demonstrativo: riscos cardiovasculares exigem avaliação individualizada e monitoramento; não substitui diretriz clínica."
+  }
+]

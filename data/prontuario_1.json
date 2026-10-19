@@ -1,0 +1,931 @@
+{
+  "prontuario_id": "THYROID_CASE_001",
+  "tipo_dado": "paciente_ficticio_para_pesquisa",
+  "data_referencia": "2026-09-15",
+
+  "paciente": {
+    "id": "PAC_001",
+    "idade": 62,
+    "sexo_biologico": "feminino",
+    "peso_kg": 68.4,
+    "altura_cm": 162,
+    "imc": 26.1,
+    "estado_funcional": {
+      "ecog": 1,
+      "descricao": "Paciente ambulatorial, independente para atividades de vida diária e capaz de realizar atividades leves. Refere redução da tolerância a esforços prolongados, principalmente por fadiga, mas permanece ativa durante a maior parte do dia."
+    }
+  },
+
+  "motivo_avaliacao_atual": {
+    "descricao": "Reavaliação oncológica após identificação de crescimento de nódulos pulmonares previamente conhecidos e elevação progressiva da tireoglobulina durante acompanhamento de carcinoma papilífero de tireoide.",
+    "questao_clinica_principal": "Avaliar progressão da doença metastática e definir necessidade de nova estratégia terapêutica.",
+    "sintomas_atuais": [
+      {
+        "sintoma": "fadiga",
+        "inicio": "aproximadamente 4 meses",
+        "intensidade": "leve a moderada",
+        "descricao": "Relata cansaço principalmente no final do dia, sem limitação importante para atividades domésticas."
+      },
+      {
+        "sintoma": "tosse seca",
+        "inicio": "aproximadamente 6 semanas",
+        "intensidade": "leve",
+        "descricao": "Tosse seca esporádica, sem expectoração, hemoptise ou febre."
+      },
+      {
+        "sintoma": "dispneia",
+        "presente": false,
+        "descricao": "Nega dispneia em repouso. Refere apenas discreto cansaço após subir dois lances de escada."
+      },
+      {
+        "sintoma": "dor",
+        "presente": false,
+        "descricao": "Nega dor cervical, torácica ou óssea."
+      }
+    ]
+  },
+
+  "historia_doenca_atual": {
+    "resumo": "Paciente iniciou investigação em março de 2022 após perceber aumento indolor na região anterior direita do pescoço. Ultrassonografia identificou nódulo sólido hipoecoico de 2,8 cm no lobo direito da tireoide, com margens irregulares, microcalcificações e linfonodos cervicais suspeitos. Punção aspirativa revelou citologia Bethesda VI, compatível com carcinoma papilífero. Foi submetida a tireoidectomia total e esvaziamento cervical central e lateral direito. O anatomopatológico confirmou carcinoma papilífero clássico multifocal, com maior foco de 3,1 cm, extensão extratireoidiana microscópica, invasão linfática e comprometimento linfonodal. Posteriormente recebeu radioiodoterapia. Durante o seguimento apresentou redução inicial da tireoglobulina, porém, a partir de 2024, houve elevação progressiva do marcador. Tomografias seriadas demonstraram pequenos nódulos pulmonares bilaterais, inicialmente estáveis e posteriormente progressivos. Cintilografia pós-radioiodo mais recente mostrou ausência de captação significativa nas lesões pulmonares.",
+
+    "linha_tempo": [
+      {
+        "data": "2022-03-10",
+        "evento": "Paciente percebe nódulo cervical anterior direito, indolor e de crescimento lento."
+      },
+      {
+        "data": "2022-03-22",
+        "evento": "Ultrassonografia demonstra nódulo tireoidiano suspeito de 2,8 cm no lobo direito e linfonodos cervicais suspeitos."
+      },
+      {
+        "data": "2022-04-05",
+        "evento": "PAAF do nódulo classificada como Bethesda VI, compatível com carcinoma papilífero da tireoide."
+      },
+      {
+        "data": "2022-05-02",
+        "evento": "Realizada tireoidectomia total associada a esvaziamento cervical central e lateral direito."
+      },
+      {
+        "data": "2022-07-18",
+        "evento": "Realizada primeira radioiodoterapia com I-131, atividade de 150 mCi."
+      },
+      {
+        "data": "2023-01-20",
+        "evento": "Tireoglobulina em queda e ultrassonografia cervical sem evidência estrutural de doença."
+      },
+      {
+        "data": "2024-03-15",
+        "evento": "Detectada elevação progressiva da tireoglobulina durante supressão de TSH."
+      },
+      {
+        "data": "2024-05-10",
+        "evento": "Tomografia de tórax identifica múltiplos micronódulos pulmonares bilaterais, maior medindo 6 mm."
+      },
+      {
+        "data": "2025-02-21",
+        "evento": "Nova tomografia demonstra aumento discreto dos nódulos pulmonares, maior medindo 9 mm."
+      },
+      {
+        "data": "2025-06-30",
+        "evento": "Segunda radioiodoterapia realizada devido à suspeita de doença metastática diferenciada."
+      },
+      {
+        "data": "2025-07-07",
+        "evento": "Cintilografia pós-dose demonstra discreta captação no leito tireoidiano, sem captação significativa nos nódulos pulmonares."
+      },
+      {
+        "data": "2026-08-25",
+        "evento": "Tomografia demonstra progressão pulmonar, com maior lesão medindo 15 mm."
+      },
+      {
+        "data": "2026-09-15",
+        "evento": "Caso encaminhado para discussão multidisciplinar devido à progressão estrutural e bioquímica."
+      }
+    ]
+  },
+
+  "antecedentes_pessoais": {
+    "doencas": [
+      {
+        "diagnostico": "hipertensão arterial sistêmica",
+        "ano_diagnostico": 2016,
+        "status": "controlada",
+        "descricao": "Pressão arterial habitualmente entre 120-135/70-85 mmHg com uso regular de losartana."
+      },
+      {
+        "diagnostico": "dislipidemia",
+        "ano_diagnostico": 2019,
+        "status": "controlada parcialmente",
+        "descricao": "Em tratamento com atorvastatina, sem história de eventos cardiovasculares."
+      },
+      {
+        "diagnostico": "hipotireoidismo pós-tireoidectomia",
+        "ano_diagnostico": 2022,
+        "status": "iatrogênico e esperado",
+        "descricao": "Em reposição com levotiroxina em dose supressiva de TSH devido ao risco oncológico."
+      }
+    ],
+
+    "doencas_negadas": [
+      "diabetes mellitus",
+      "insuficiência cardíaca",
+      "doença arterial coronariana",
+      "arritmia conhecida",
+      "doença renal crônica",
+      "doença hepática crônica",
+      "doença pulmonar obstrutiva crônica",
+      "doença autoimune sistêmica"
+    ],
+
+    "cirurgias_previas": [
+      {
+        "procedimento": "colecistectomia videolaparoscópica",
+        "ano": 2014,
+        "complicacoes": "nenhuma"
+      },
+      {
+        "procedimento": "tireoidectomia total com esvaziamento cervical central e lateral direito",
+        "ano": 2022,
+        "complicacoes": "hipocalcemia transitória no pós-operatório imediato, resolvida após reposição de cálcio e calcitriol"
+      }
+    ]
+  },
+
+  "antecedentes_familiares": {
+    "cancer_tireoide": {
+      "presente": false,
+      "descricao": "Não há familiares de primeiro grau com câncer de tireoide conhecido."
+    },
+    "outros_canceres": [
+      {
+        "parentesco": "mãe",
+        "diagnostico": "câncer de mama",
+        "idade_diagnostico": 71
+      },
+      {
+        "parentesco": "irmão",
+        "diagnostico": "adenocarcinoma de próstata",
+        "idade_diagnostico": 65
+      }
+    ],
+    "sindrome_endocrina_hereditaria": "Sem história familiar sugestiva de MEN2 ou síndrome hereditária conhecida."
+  },
+
+  "habitos_de_vida": {
+    "tabagismo": {
+      "status": "nunca fumou",
+      "carga_tabagica_macos_ano": 0
+    },
+    "alcool": {
+      "status": "uso ocasional",
+      "descricao": "Consumo aproximado de uma a duas doses de bebida alcoólica por mês."
+    },
+    "atividade_fisica": {
+      "nivel": "moderado",
+      "descricao": "Realiza caminhadas de aproximadamente 30 minutos, três vezes por semana."
+    },
+    "alimentacao": "Dieta variada, sem restrições relevantes no momento."
+  },
+
+  "alergias": [
+    {
+      "substancia": "dipirona",
+      "reacao": "urticária generalizada",
+      "gravidade": "moderada",
+      "status": "medicamento contraindicado"
+    }
+  ],
+
+  "medicamentos_atuais": [
+    {
+      "medicamento": "levotiroxina",
+      "dose": "125 mcg",
+      "via": "oral",
+      "frequencia": "uma vez ao dia, em jejum",
+      "indicacao": "reposição hormonal e supressão de TSH",
+      "adesao": "boa"
+    },
+    {
+      "medicamento": "losartana",
+      "dose": "50 mg",
+      "via": "oral",
+      "frequencia": "duas vezes ao dia",
+      "indicacao": "hipertensão arterial",
+      "adesao": "boa"
+    },
+    {
+      "medicamento": "atorvastatina",
+      "dose": "20 mg",
+      "via": "oral",
+      "frequencia": "uma vez à noite",
+      "indicacao": "dislipidemia",
+      "adesao": "boa"
+    },
+    {
+      "medicamento": "carbonato de cálcio",
+      "dose": "500 mg",
+      "via": "oral",
+      "frequencia": "uma vez ao dia",
+      "indicacao": "suplementação de cálcio",
+      "adesao": "irregular"
+    },
+    {
+      "medicamento": "colecalciferol",
+      "dose": "2000 UI",
+      "via": "oral",
+      "frequencia": "uma vez ao dia",
+      "indicacao": "manutenção de vitamina D",
+      "adesao": "boa"
+    }
+  ],
+
+  "exame_fisico_atual": {
+    "data": "2026-09-15",
+    "estado_geral": "Bom estado geral, consciente, orientada, hidratada, corada, sem sinais de desconforto respiratório.",
+
+    "sinais_vitais": {
+      "pressao_arterial_mmHg": "128/78",
+      "frequencia_cardiaca_bpm": 82,
+      "frequencia_respiratoria_irpm": 16,
+      "temperatura_celsius": 36.5,
+      "saturacao_oxigenio_percentual": 97
+    },
+
+    "cabeca_pescoco": {
+      "descricao": "Cicatriz cervical transversa bem cicatrizada. Ausência de massa palpável no leito tireoidiano. Pequeno linfonodo palpável em nível IV direito, móvel, aproximadamente 0,8 cm, sem dor.",
+      "disfonia": false,
+      "disfagia": false,
+      "dor": false
+    },
+
+    "cardiovascular": "Ritmo cardíaco regular em dois tempos, sem sopros auscultáveis.",
+
+    "respiratorio": "Murmúrio vesicular presente bilateralmente, sem sibilos, estertores ou roncos.",
+
+    "abdome": "Plano, flácido, indolor à palpação, sem massas ou visceromegalias.",
+
+    "extremidades": "Sem edema periférico. Pulsos presentes e simétricos.",
+
+    "neurologico": "Sem déficit neurológico focal identificado."
+  },
+
+  "diagnostico_inicial": {
+    "data": "2022-04-05",
+    "origem": "PAAF de nódulo tireoidiano",
+
+    "ultrassom_inicial": {
+      "lobo_direito": {
+        "nodulo_principal": {
+          "localizacao": "terço médio e inferior do lobo direito",
+          "dimensoes_mm": "28 x 23 x 21",
+          "composicao": "sólido",
+          "ecogenicidade": "marcadamente hipoecoico",
+          "margens": "irregulares",
+          "forma": "mais alto que largo",
+          "microcalcificacoes": true,
+          "vascularizacao": "predominantemente intranodular",
+          "extensao_extratireoidiana_suspeita": true,
+          "acr_tirads": "TR5"
+        }
+      },
+
+      "lobo_esquerdo": {
+        "nodulos": [
+          {
+            "dimensoes_mm": "7 x 5 x 5",
+            "descricao": "Nódulo sólido hipoecoico, bem delimitado, sem microcalcificações.",
+            "acr_tirads": "TR4"
+          }
+        ]
+      },
+
+      "linfonodos": [
+        {
+          "localizacao": "nível IV direito",
+          "dimensoes_mm": "16 x 9",
+          "caracteristicas": "arredondado, perda do hilo gorduroso e presença de microcalcificações",
+          "suspeito_para_metastase": true
+        }
+      ]
+    },
+
+    "paaf_nodulo_principal": {
+      "resultado_bethesda": "VI",
+      "descricao": "Amostra hipercelular apresentando agrupamentos papilíferos, sobreposição nuclear, núcleos aumentados e claros, sulcos nucleares e inclusões intranucleares. Achados citológicos compatíveis com carcinoma papilífero da tireoide."
+    },
+
+    "paaf_linfonodo": {
+      "resultado": "positivo para células compatíveis com carcinoma papilífero de tireoide",
+      "tireoglobulina_lavado_ng_ml": 1420
+    }
+  },
+
+  "cirurgia_oncologica": {
+    "data": "2022-05-02",
+    "procedimento": [
+      "tireoidectomia total",
+      "esvaziamento cervical central bilateral nível VI",
+      "esvaziamento cervical lateral direito níveis II, III e IV"
+    ],
+
+    "achados_intraoperatorios": "Tumor endurecido no lobo direito, aderido parcialmente à musculatura pré-tireoidiana, sem invasão macroscópica evidente da traqueia ou esôfago. Linfonodos aumentados no compartimento central e cadeia jugular direita.",
+
+    "nervo_laringeo_recorrente": {
+      "direito": "identificado e preservado",
+      "esquerdo": "identificado e preservado"
+    },
+
+    "paratireoides": "Três glândulas paratireoides identificadas e preservadas; uma não visualizada.",
+
+    "complicacoes_imediatas": [
+      {
+        "evento": "hipocalcemia",
+        "descricao": "Cálcio total mínimo de 7,5 mg/dL no segundo dia pós-operatório, associado a parestesia perioral leve.",
+        "conduta": "Carbonato de cálcio e calcitriol.",
+        "desfecho": "Resolução clínica em aproximadamente três semanas."
+      }
+    ]
+  },
+
+  "anatomopatologico": {
+    "data": "2022-05-09",
+
+    "tumor_principal": {
+      "diagnostico": "carcinoma papilífero de tireoide, variante clássica",
+      "localizacao": "lobo direito",
+      "maior_dimensao_cm": 3.1,
+      "encapsulamento": "não encapsulado",
+      "margem_infiltrativa": true,
+      "invasao_capsular": true,
+      "invasao_linfatica": true,
+      "invasao_vascular": false,
+      "invasao_perineural": false,
+      "necrose_tumoral": false,
+      "atividade_mitotica": "baixa",
+      "extensao_extratireoidiana": "Extensão microscópica para tecido adiposo peritireoidiano e musculatura pré-tireoidiana."
+    },
+
+    "multifocalidade": {
+      "presente": true,
+      "numero_focos_identificados": 3,
+      "descricao": "Além da lesão principal de 3,1 cm no lobo direito, foram encontrados dois microcarcinomas papilíferos, um de 0,6 cm no lobo direito e outro de 0,4 cm no lobo esquerdo."
+    },
+
+    "margens_cirurgicas": {
+      "status": "livres",
+      "menor_distancia_margem_mm": 1.2
+    },
+
+    "linfonodos": {
+      "total_avaliados": 31,
+      "total_positivos": 9,
+      "maior_metastase_cm": 1.4,
+      "extensao_extranodal": true,
+
+      "por_regiao": [
+        {
+          "nivel": "VI central",
+          "avaliados": 12,
+          "positivos": 5
+        },
+        {
+          "nivel": "II direito",
+          "avaliados": 6,
+          "positivos": 0
+        },
+        {
+          "nivel": "III direito",
+          "avaliados": 7,
+          "positivos": 2
+        },
+        {
+          "nivel": "IV direito",
+          "avaliados": 6,
+          "positivos": 2
+        }
+      ]
+    },
+
+    "estadiamento_patologico": {
+      "pT": "pT3b",
+      "pN": "pN1b",
+      "cM_no_momento": "cM0"
+    }
+  },
+
+  "perfil_molecular": {
+    "material": "tecido tumoral da tireoidectomia",
+    "data_teste": "2025-09-20",
+
+    "resultados": [
+      {
+        "gene": "BRAF",
+        "alteracao": "p.V600E",
+        "resultado": "detectada",
+        "fracao_alelica_percentual": 31.4,
+        "interpretacao": "Alteração molecular compatível com carcinoma papilífero de tireoide e potencialmente relevante para estratégias terapêuticas futuras."
+      },
+      {
+        "gene": "TERT",
+        "alteracao": "mutação de promotor C228T/C250T",
+        "resultado": "não detectada"
+      },
+      {
+        "gene": "RET",
+        "alteracao": "fusão ou variante ativadora",
+        "resultado": "não detectada"
+      },
+      {
+        "gene": "NTRK1_NTRK2_NTRK3",
+        "resultado": "nenhuma fusão detectada"
+      },
+      {
+        "gene": "NRAS_HRAS_KRAS",
+        "resultado": "nenhuma variante patogênica detectada"
+      }
+    ]
+  },
+
+  "estadiamento_e_risco": {
+    "diagnostico": "carcinoma papilífero diferenciado da tireoide",
+    "estadiamento_inicial": {
+      "tnm": "pT3b pN1b cM0",
+      "descricao": "Tumor com extensão extratireoidiana para musculatura pré-tireoidiana e metástases linfonodais cervicais laterais."
+    },
+
+    "classificacao_risco_recorrencia": {
+      "sistema": "ATA",
+      "categoria_inicial": "alto risco",
+      "fatores": [
+        "extensão extratireoidiana",
+        "metástases linfonodais múltiplas",
+        "extensão extranodal",
+        "mutação BRAF V600E"
+      ]
+    }
+  },
+
+  "radioiodoterapia": [
+    {
+      "data": "2022-07-18",
+      "atividade_I131_mCi": 150,
+
+      "preparo": {
+        "metodo": "retirada temporária da levotiroxina",
+        "TSH_mUI_L": 68.2,
+        "tireoglobulina_estimulada_ng_ml": 18.7,
+        "anti_tireoglobulina_UI_ml": 12
+      },
+
+      "cintilografia_pos_dose": {
+        "descricao": "Captação focal no leito tireoidiano, compatível com remanescente tireoidiano. Não foram identificados focos inequívocos de captação à distância.",
+        "conclusao": "Remanescente cervical sem evidência cintilográfica de doença metastática."
+      },
+
+      "efeitos_adversos": [
+        "náusea leve durante dois dias",
+        "xerostomia discreta e transitória"
+      ]
+    },
+
+    {
+      "data": "2025-06-30",
+      "atividade_I131_mCi": 150,
+
+      "indicacao": "Elevação persistente da tireoglobulina associada a nódulos pulmonares suspeitos para metástases.",
+
+      "preparo": {
+        "metodo": "TSH recombinante",
+        "TSH_mUI_L": 81.5,
+        "tireoglobulina_estimulada_ng_ml": 86.3,
+        "anti_tireoglobulina_UI_ml": 8
+      },
+
+      "cintilografia_pos_dose": {
+        "descricao": "Discreta captação residual cervical. Ausência de captação significativa correspondente aos nódulos pulmonares identificados na tomografia.",
+        "conclusao": "Lesões pulmonares suspeitas não demonstram avidez significativa por radioiodo."
+      }
+    }
+  ],
+
+  "evolucao_tireoglobulina": [
+    {
+      "data": "2022-08-20",
+      "TSH_mUI_L": 0.12,
+      "tireoglobulina_ng_ml": 4.8,
+      "anti_tireoglobulina_UI_ml": 13
+    },
+    {
+      "data": "2023-01-20",
+      "TSH_mUI_L": 0.08,
+      "tireoglobulina_ng_ml": 1.9,
+      "anti_tireoglobulina_UI_ml": 10
+    },
+    {
+      "data": "2023-08-15",
+      "TSH_mUI_L": 0.06,
+      "tireoglobulina_ng_ml": 2.6,
+      "anti_tireoglobulina_UI_ml": 9
+    },
+    {
+      "data": "2024-03-15",
+      "TSH_mUI_L": 0.07,
+      "tireoglobulina_ng_ml": 8.9,
+      "anti_tireoglobulina_UI_ml": 9
+    },
+    {
+      "data": "2024-11-18",
+      "TSH_mUI_L": 0.05,
+      "tireoglobulina_ng_ml": 21.4,
+      "anti_tireoglobulina_UI_ml": 8
+    },
+    {
+      "data": "2025-05-12",
+      "TSH_mUI_L": 0.04,
+      "tireoglobulina_ng_ml": 37.6,
+      "anti_tireoglobulina_UI_ml": 8
+    },
+    {
+      "data": "2026-02-16",
+      "TSH_mUI_L": 0.03,
+      "tireoglobulina_ng_ml": 62.8,
+      "anti_tireoglobulina_UI_ml": 7
+    },
+    {
+      "data": "2026-09-10",
+      "TSH_mUI_L": 0.04,
+      "tireoglobulina_ng_ml": 94.2,
+      "anti_tireoglobulina_UI_ml": 7
+    }
+  ],
+
+  "imagem_oncologica": {
+    "ultrassom_cervical_2026_08_12": {
+      "leito_tireoidiano": "Ausência de tecido tireoidiano identificável. Não são observadas massas no leito cirúrgico.",
+      "linfonodos": [
+        {
+          "localizacao": "nível IV direito",
+          "dimensoes_mm": "8 x 5",
+          "descricao": "Linfonodo hipoecoico, arredondado e sem hilo gorduroso evidente.",
+          "comparacao": "Estável em relação ao exame de fevereiro de 2026."
+        }
+      ],
+      "conclusao": "Pequeno linfonodo cervical direito indeterminado, sem evidência de progressão estrutural cervical significativa."
+    },
+
+    "tomografias_torax": [
+      {
+        "data": "2024-05-10",
+        "descricao": "Múltiplos micronódulos pulmonares sólidos, não calcificados, distribuídos bilateralmente, predominando nos lobos inferiores. Maior nódulo localizado no segmento basal posterior do lobo inferior direito, medindo 6 mm.",
+        "conclusao": "Nódulos pulmonares indeterminados, porém suspeitos no contexto oncológico."
+      },
+      {
+        "data": "2025-02-21",
+        "descricao": "Persistência de múltiplos nódulos pulmonares bilaterais. Lesão de referência no lobo inferior direito aumentou de 6 mm para 9 mm. Segundo nódulo no lobo superior esquerdo aumentou de 4 mm para 7 mm.",
+        "conclusao": "Progressão discreta de doença nodular pulmonar, aumentando suspeita de metástases."
+      },
+      {
+        "data": "2026-08-25",
+        "descricao": "Aumento numérico e dimensional de múltiplos nódulos pulmonares sólidos bilaterais. Lesão de referência no lobo inferior direito mede atualmente 15 x 13 mm. Nódulo no lobo superior esquerdo mede 12 x 9 mm. Surgimento de três novos micronódulos entre 4 e 6 mm. Ausência de derrame pleural ou linfonodomegalias mediastinais significativas.",
+        "conclusao": "Progressão radiológica de doença pulmonar metastática."
+      }
+    ],
+
+    "pet_ct_2026_09_05": {
+      "radiofarmaco": "18F-FDG",
+      "achados": [
+        {
+          "local": "nódulo pulmonar no lobo inferior direito",
+          "dimensao_mm": 15,
+          "SUVmax": 5.7,
+          "interpretacao": "Hipermetabolismo moderado, compatível com implante metastático no contexto clínico."
+        },
+        {
+          "local": "nódulo pulmonar no lobo superior esquerdo",
+          "dimensao_mm": 12,
+          "SUVmax": 4.9,
+          "interpretacao": "Hipermetabolismo moderado, suspeito para implante metastático."
+        }
+      ],
+      "outros_achados": "Ausência de lesões ósseas, hepáticas ou mediastinais hipermetabólicas suspeitas.",
+      "conclusao": "Doença pulmonar metabolicamente ativa, sem evidência de outras metástases à distância."
+    }
+  },
+
+  "exames_laboratoriais_atuais": {
+    "data": "2026-09-10",
+
+    "hemograma": {
+      "hemoglobina_g_dl": 12.8,
+      "hematocrito_percentual": 38.6,
+      "leucocitos_mm3": 6240,
+      "neutrofilos_mm3": 3619,
+      "linfocitos_mm3": 1934,
+      "plaquetas_mm3": 247000,
+      "interpretacao": "Hemograma dentro de limites considerados adequados, sem anemia, leucopenia ou trombocitopenia."
+    },
+
+    "funcao_renal": {
+      "creatinina_mg_dl": 0.86,
+      "ureia_mg_dl": 31,
+      "egfr_ml_min_1_73m2": 76,
+      "interpretacao": "Função renal preservada."
+    },
+
+    "funcao_hepatica": {
+      "AST_U_L": 24,
+      "ALT_U_L": 21,
+      "fosfatase_alcalina_U_L": 88,
+      "GGT_U_L": 28,
+      "bilirrubina_total_mg_dl": 0.6,
+      "albumina_g_dl": 4.2,
+      "interpretacao": "Sem evidência laboratorial de disfunção hepática."
+    },
+
+    "eletrolitos": {
+      "sodio_mEq_L": 140,
+      "potassio_mEq_L": 4.2,
+      "magnesio_mg_dl": 1.9
+    },
+
+    "metabolismo_mineral": {
+      "calcio_total_mg_dl": 8.7,
+      "calcio_ionizado_mmol_L": 1.16,
+      "fosforo_mg_dl": 3.6,
+      "PTH_pg_ml": 31,
+      "vitamina_D_25OH_ng_ml": 34,
+      "interpretacao": "Metabolismo do cálcio atualmente estável, sem hipocalcemia clinicamente significativa."
+    },
+
+    "funcao_tireoidiana": {
+      "TSH_mUI_L": 0.04,
+      "T4_livre_ng_dl": 1.72,
+      "interpretacao": "TSH suprimido em contexto de terapia supressiva com levotiroxina."
+    },
+
+    "marcadores_oncologicos": {
+      "tireoglobulina_ng_ml": 94.2,
+      "anti_tireoglobulina_UI_ml": 7,
+      "interpretacao": "Tireoglobulina elevada e em tendência progressiva, com anticorpos anti-tireoglobulina baixos e estáveis, permitindo interpretação da tendência do marcador."
+    }
+  },
+
+  "avaliacao_cardiovascular_pre_tratamento": {
+    "eletrocardiograma": {
+      "ritmo": "sinusal",
+      "frequencia_bpm": 78,
+      "QTc_ms": 432,
+      "alteracoes_significativas": false
+    },
+
+    "ecocardiograma": {
+      "fracao_ejecao_ventriculo_esquerdo_percentual": 64,
+      "funcao_sistolica": "preservada",
+      "alteracoes_estruturais_relevantes": "não identificadas"
+    },
+
+    "risco_relevante": "Hipertensão arterial pré-existente deve ser considerada caso sejam utilizados medicamentos capazes de elevar a pressão arterial."
+  },
+
+  "avaliacao_atual_do_cancer": {
+    "diagnostico": "Carcinoma papilífero diferenciado da tireoide com metástases pulmonares.",
+
+    "status": "doença metastática progressiva",
+
+    "evidencias_de_progressao": [
+      "Aumento progressivo da tireoglobulina sob supressão adequada de TSH.",
+      "Crescimento documentado dos nódulos pulmonares em tomografias seriadas.",
+      "Aparecimento de novos nódulos pulmonares.",
+      "Captação de FDG em lesões pulmonares no PET-CT."
+    ],
+
+    "evidencias_de_refratariedade_ao_radioiodo": [
+      "Ausência de captação significativa de I-131 nas lesões pulmonares após radioiodoterapia.",
+      "Progressão estrutural após duas exposições terapêuticas ao radioiodo.",
+      "Elevação persistente da tireoglobulina apesar do tratamento."
+    ],
+
+    "localizacoes_conhecidas_da_doenca": [
+      {
+        "local": "pulmões",
+        "status": "metastático, bilateral e progressivo"
+      },
+      {
+        "local": "pescoço",
+        "status": "sem evidência clara de progressão estrutural significativa"
+      }
+    ],
+
+    "metastase_ossea": false,
+    "metastase_hepatica": false,
+    "metastase_cerebral": false
+  },
+
+  "problemas_clinicos_ativos": [
+    {
+      "problema": "carcinoma papilífero da tireoide metastático",
+      "gravidade": "alta relevância oncológica",
+      "status": "progressivo",
+      "evidencias": [
+        "progressão radiológica pulmonar",
+        "tireoglobulina crescente",
+        "PET-CT com lesões pulmonares metabolicamente ativas"
+      ]
+    },
+    {
+      "problema": "provável doença refratária ao radioiodo",
+      "gravidade": "alta relevância terapêutica",
+      "status": "fortemente suspeita",
+      "evidencias": [
+        "ausência de captação pulmonar significativa de I-131",
+        "progressão após radioiodoterapia"
+      ]
+    },
+    {
+      "problema": "hipertensão arterial",
+      "gravidade": "leve",
+      "status": "controlada",
+      "implicacao_terapeutica": "Necessita monitorização rigorosa caso seja considerada terapia sistêmica associada a hipertensão como evento adverso."
+    },
+    {
+      "problema": "supressão crônica de TSH",
+      "gravidade": "monitorização necessária",
+      "status": "intencional",
+      "implicacao_terapeutica": "Considerar risco cardiovascular e ósseo associado à supressão prolongada, especialmente pela idade."
+    }
+  ],
+
+  "fatores_favoraveis": [
+    "ECOG 1.",
+    "Função renal preservada.",
+    "Função hepática preservada.",
+    "Ausência de anemia.",
+    "Ausência de doença cardiovascular estrutural significativa.",
+    "Doença metastática atualmente restrita aos pulmões.",
+    "Baixa carga sintomática.",
+    "Presença de mutação BRAF V600E potencialmente acionável em determinados contextos terapêuticos."
+  ],
+
+  "fatores_desfavoraveis": [
+    "Progressão radiológica documentada.",
+    "Aumento contínuo da tireoglobulina.",
+    "Ausência de captação significativa de radioiodo nas metástases.",
+    "Metástases pulmonares bilaterais.",
+    "História inicial de extensão extratireoidiana.",
+    "Metástases linfonodais múltiplas com extensão extranodal.",
+    "Mutação BRAF V600E."
+  ],
+
+  "restricoes_e_riscos_terapeuticos": [
+    {
+      "fator": "hipertensão arterial",
+      "descricao": "Atualmente controlada com losartana, mas representa fator relevante para tratamentos sistêmicos associados a aumento de pressão arterial."
+    },
+    {
+      "fator": "idade de 62 anos",
+      "descricao": "Não constitui contraindicação isolada, porém deve ser considerada juntamente com risco cardiovascular e toxicidades cumulativas."
+    },
+    {
+      "fator": "baixa carga sintomática",
+      "descricao": "Apesar da progressão estrutural, a paciente apresenta poucos sintomas, o que deve ser considerado na relação entre benefício esperado e toxicidade de tratamento sistêmico."
+    }
+  ],
+
+  "tratamentos_ja_realizados": [
+    {
+      "tratamento": "tireoidectomia total",
+      "resultado": "controle cervical inicial adequado"
+    },
+    {
+      "tratamento": "esvaziamento cervical central e lateral",
+      "resultado": "remoção de doença linfonodal identificável"
+    },
+    {
+      "tratamento": "radioiodoterapia 150 mCi em 2022",
+      "resultado": "redução inicial da tireoglobulina"
+    },
+    {
+      "tratamento": "segunda radioiodoterapia 150 mCi em 2025",
+      "resultado": "ausência de resposta estrutural significativa das metástases pulmonares"
+    },
+    {
+      "tratamento": "supressão de TSH com levotiroxina",
+      "resultado": "TSH mantido consistentemente abaixo de 0,1 mUI/L"
+    }
+  ],
+
+  "opcoes_em_discussao_multidisciplinar": [
+    {
+      "opcao": "vigilância ativa de curto intervalo",
+      "objetivo": "Adiar terapia sistêmica enquanto a doença permanecer pouco sintomática e com velocidade de progressão considerada aceitável.",
+      "aspectos_favoraveis": [
+        "Paciente pouco sintomática.",
+        "ECOG preservado.",
+        "Ausência de comprometimento de órgão vital iminente."
+      ],
+      "aspectos_contrarios": [
+        "Progressão radiológica documentada.",
+        "Surgimento de novas lesões.",
+        "Aumento consistente da tireoglobulina."
+      ]
+    },
+    {
+      "opcao": "terapia sistêmica com inibidor multiquinase",
+      "objetivo": "Reduzir ou estabilizar doença metastática progressiva não responsiva ao radioiodo.",
+      "riscos_relevantes_no_contexto_da_paciente": [
+        "Hipertensão arterial.",
+        "Fadiga.",
+        "Diarreia.",
+        "Síndrome mão-pé.",
+        "Perda de peso.",
+        "Proteinúria."
+      ],
+      "dados_do_paciente_que_precisam_ser_monitorados": [
+        "pressão arterial",
+        "função renal",
+        "proteinúria",
+        "peso",
+        "estado nutricional",
+        "função hepática",
+        "QTc"
+      ]
+    },
+    {
+      "opcao": "estratégia direcionada à alteração BRAF",
+      "objetivo": "Considerar terapia molecularmente direcionada ou estratégia de rediferenciação em contexto apropriado.",
+      "fundamento": "Tumor apresenta mutação BRAF V600E.",
+      "limitacoes": "A indicação depende do contexto terapêutico específico, disponibilidade, linha de tratamento e avaliação multidisciplinar."
+    }
+  ],
+
+  "avaliacao_multidisciplinar": {
+    "data": "2026-09-18",
+
+    "participantes": [
+      "oncologia clínica",
+      "endocrinologia",
+      "medicina nuclear",
+      "cirurgia de cabeça e pescoço",
+      "radiologia",
+      "patologia"
+    ],
+
+    "resumo": "Caso de carcinoma papilífero de tireoide previamente tratado cirurgicamente e com duas radioiodoterapias, apresentando atualmente progressão pulmonar estrutural e bioquímica. Lesões metastáticas não demonstraram captação significativa de radioiodo. A paciente apresenta bom estado funcional e baixa carga sintomática.",
+
+    "pontos_para_decisao": [
+      "Determinar velocidade de progressão radiológica.",
+      "Avaliar momento adequado para início de terapia sistêmica.",
+      "Considerar perfil molecular BRAF V600E na sequência terapêutica.",
+      "Controlar rigorosamente a hipertensão antes e durante eventual terapia sistêmica.",
+      "Evitar exposição adicional ao radioiodo caso não haja evidência de benefício esperado."
+    ]
+  },
+
+  "estado_clinico_resumido_para_reasoning": {
+    "paciente": "Mulher de 62 anos, ECOG 1, com hipertensão controlada, função renal e hepática preservadas e sem doença cardiovascular estrutural relevante.",
+
+    "cancer": "Carcinoma papilífero clássico de tireoide, inicialmente pT3b pN1b, BRAF V600E positivo, submetido a tireoidectomia total, esvaziamento cervical e duas radioiodoterapias.",
+
+    "estado_atual_doenca": "Doença pulmonar metastática bilateral com progressão radiológica objetiva entre 2024 e 2026. Maior lesão pulmonar atualmente com 15 mm. PET-CT demonstra atividade metabólica nas principais lesões.",
+
+    "biomarcadores": "Tireoglobulina aumentou de 1,9 ng/mL em janeiro de 2023 para 94,2 ng/mL em setembro de 2026, mantendo TSH adequadamente suprimido e anticorpos anti-tireoglobulina baixos.",
+
+    "radioiodo": "Lesões pulmonares não apresentaram captação significativa de I-131 após segunda radioiodoterapia e continuaram crescendo posteriormente.",
+
+    "sintomas": "Paciente apresenta apenas fadiga leve e tosse seca ocasional, sem dispneia relevante, dor ou comprometimento funcional importante.",
+
+    "problema_de_decisao": "Determinar se a progressão atual justifica início de terapia sistêmica, manutenção temporária de vigilância ou consideração de estratégia molecularmente direcionada.",
+
+    "principais_variaveis_para_reasoning": [
+      "progressão estrutural pulmonar",
+      "velocidade de crescimento das metástases",
+      "tireoglobulina progressivamente crescente",
+      "ausência de captação de radioiodo",
+      "BRAF V600E positivo",
+      "ECOG 1",
+      "hipertensão arterial controlada",
+      "função renal normal",
+      "função hepática normal",
+      "ausência de metástases ósseas ou cerebrais",
+      "baixa carga sintomática"
+    ]
+  },
+
+  "dados_ausentes_ou_incertezas": [
+    {
+      "dado": "confirmação histológica de lesão pulmonar",
+      "status": "não realizada",
+      "comentario": "A natureza metastática das lesões é considerada altamente provável pelo contexto clínico, evolução radiológica, tireoglobulina e PET-CT, mas não há biópsia pulmonar."
+    },
+    {
+      "dado": "velocidade formal de crescimento tumoral",
+      "status": "não calculada",
+      "comentario": "Há documentação de crescimento serial, porém o tempo de duplicação tumoral ainda não foi calculado."
+    },
+    {
+      "dado": "proteinúria basal",
+      "status": "não avaliada recentemente",
+      "comentario": "Deve ser obtida antes de eventual início de terapia antiangiogênica."
+    }
+  ]
+}
