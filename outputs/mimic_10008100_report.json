@@ -1,0 +1,1554 @@
+{
+  "case_id": "MIMIC-IV-10008100",
+  "patient_state": {
+    "case_id": "MIMIC-IV-10008100",
+    "cancer": {
+      "histology": "unknown; ICD-9 193 malignant neoplasm of thyroid gland",
+      "differentiation": null,
+      "tnm_stage": null,
+      "recurrence_risk": null,
+      "metastatic": null,
+      "metastatic_sites": [],
+      "iodine_avidity": null,
+      "progression_status": null,
+      "molecular_profile": {}
+    },
+    "patient": {
+      "age_years": 86,
+      "sex_at_birth": "F",
+      "gender_identity": null,
+      "weight_kg": null,
+      "height_cm": null,
+      "performance_status": null,
+      "frailty_assessment": null,
+      "functional_status": null,
+      "pregnancy_status": null,
+      "allergies": []
+    },
+    "active_problems": [
+      {
+        "fact_id": "comorbidity:Coronary atherosclerosis of native coronary artery (ICD-9 41401)",
+        "statement": "Comorbidade ativa: Coronary atherosclerosis of native coronary artery (ICD-9 41401)",
+        "source_ids": [
+          "comorbidity:Coronary atherosclerosis of native coronary artery (ICD-9 41401)"
+        ],
+        "evidence": [
+          {
+            "finding": "Coronary atherosclerosis of native coronary artery (ICD-9 41401)",
+            "source": "medical_record"
+          }
+        ],
+        "status": "active"
+      },
+      {
+        "fact_id": "comorbidity:Other and unspecified angina pectoris (ICD-9 4139)",
+        "statement": "Comorbidade ativa: Other and unspecified angina pectoris (ICD-9 4139)",
+        "source_ids": [
+          "comorbidity:Other and unspecified angina pectoris (ICD-9 4139)"
+        ],
+        "evidence": [
+          {
+            "finding": "Other and unspecified angina pectoris (ICD-9 4139)",
+            "source": "medical_record"
+          }
+        ],
+        "status": "active"
+      },
+      {
+        "fact_id": "comorbidity:Unspecified essential hypertension (ICD-9 4019)",
+        "statement": "Comorbidade ativa: Unspecified essential hypertension (ICD-9 4019)",
+        "source_ids": [
+          "comorbidity:Unspecified essential hypertension (ICD-9 4019)"
+        ],
+        "evidence": [
+          {
+            "finding": "Unspecified essential hypertension (ICD-9 4019)",
+            "source": "medical_record"
+          }
+        ],
+        "status": "active"
+      },
+      {
+        "fact_id": "comorbidity:Old myocardial infarction (ICD-9 412)",
+        "statement": "Comorbidade ativa: Old myocardial infarction (ICD-9 412)",
+        "source_ids": [
+          "comorbidity:Old myocardial infarction (ICD-9 412)"
+        ],
+        "evidence": [
+          {
+            "finding": "Old myocardial infarction (ICD-9 412)",
+            "source": "medical_record"
+          }
+        ],
+        "status": "active"
+      },
+      {
+        "fact_id": "comorbidity:Raynaud's syndrome (ICD-9 4430)",
+        "statement": "Comorbidade ativa: Raynaud's syndrome (ICD-9 4430)",
+        "source_ids": [
+          "comorbidity:Raynaud's syndrome (ICD-9 4430)"
+        ],
+        "evidence": [
+          {
+            "finding": "Raynaud's syndrome (ICD-9 4430)",
+            "source": "medical_record"
+          }
+        ],
+        "status": "active"
+      },
+      {
+        "fact_id": "comorbidity:Occlusion and stenosis of carotid artery without mention of cerebral infarction (ICD-9 43310)",
+        "statement": "Comorbidade ativa: Occlusion and stenosis of carotid artery without mention of cerebral infarction (ICD-9 43310)",
+        "source_ids": [
+          "comorbidity:Occlusion and stenosis of carotid artery without mention of cerebral infarction (ICD-9 43310)"
+        ],
+        "evidence": [
+          {
+            "finding": "Occlusion and stenosis of carotid artery without mention of cerebral infarction (ICD-9 43310)",
+            "source": "medical_record"
+          }
+        ],
+        "status": "active"
+      },
+      {
+        "fact_id": "active_comorbidity_summary",
+        "statement": "Comorbidades ativas documentadas: Coronary atherosclerosis of native coronary artery (ICD-9 41401); Other and unspecified angina pectoris (ICD-9 4139); Unspecified essential hypertension (ICD-9 4019); Old myocardial infarction (ICD-9 412); Raynaud's syndrome (ICD-9 4430); Occlusion and stenosis of carotid artery without mention of cerebral infarction (ICD-9 43310)",
+        "source_ids": [
+          "comorbidity:Coronary atherosclerosis of native coronary artery (ICD-9 41401)",
+          "comorbidity:Other and unspecified angina pectoris (ICD-9 4139)",
+          "comorbidity:Unspecified essential hypertension (ICD-9 4019)",
+          "comorbidity:Old myocardial infarction (ICD-9 412)",
+          "comorbidity:Raynaud's syndrome (ICD-9 4430)",
+          "comorbidity:Occlusion and stenosis of carotid artery without mention of cerebral infarction (ICD-9 43310)"
+        ],
+        "evidence": [
+          {
+            "finding": "Coronary atherosclerosis of native coronary artery (ICD-9 41401)",
+            "source": "medical_record"
+          },
+          {
+            "finding": "Other and unspecified angina pectoris (ICD-9 4139)",
+            "source": "medical_record"
+          },
+          {
+            "finding": "Unspecified essential hypertension (ICD-9 4019)",
+            "source": "medical_record"
+          },
+          {
+            "finding": "Old myocardial infarction (ICD-9 412)",
+            "source": "medical_record"
+          },
+          {
+            "finding": "Raynaud's syndrome (ICD-9 4430)",
+            "source": "medical_record"
+          },
+          {
+            "finding": "Occlusion and stenosis of carotid artery without mention of cerebral infarction (ICD-9 43310)",
+            "source": "medical_record"
+          }
+        ],
+        "status": "active"
+      },
+      {
+        "fact_id": "abnormal_lab_summary:hematocrit",
+        "statement": "Anormalidade laboratorial documentada em Hematocrit: 1 resultado(s); mais recente 35.0 % em 2181-12-11 (abnormal).",
+        "source_ids": [
+          "lab:Hematocrit:2181-12-11"
+        ],
+        "evidence": [
+          {
+            "finding": "Hematocrit=35.0 %",
+            "source": "lab:2181-12-11"
+          }
+        ],
+        "status": "active"
+      },
+      {
+        "fact_id": "abnormal_lab_summary:hemoglobin",
+        "statement": "Anormalidade laboratorial documentada em Hemoglobin: 1 resultado(s); mais recente 11.9 g/dL em 2181-12-11 (abnormal).",
+        "source_ids": [
+          "lab:Hemoglobin:2181-12-11"
+        ],
+        "evidence": [
+          {
+            "finding": "Hemoglobin=11.9 g/dL",
+            "source": "lab:2181-12-11"
+          }
+        ],
+        "status": "active"
+      },
+      {
+        "fact_id": "abnormal_lab_summary:mch",
+        "statement": "Anormalidade laboratorial documentada em MCH: 1 resultado(s); mais recente 32.1 pg em 2181-12-11 (abnormal).",
+        "source_ids": [
+          "lab:MCH:2181-12-11"
+        ],
+        "evidence": [
+          {
+            "finding": "MCH=32.1 pg",
+            "source": "lab:2181-12-11"
+          }
+        ],
+        "status": "active"
+      },
+      {
+        "fact_id": "abnormal_lab_summary:red blood cells",
+        "statement": "Anormalidade laboratorial documentada em Red Blood Cells: 1 resultado(s); mais recente 3.71 m/uL em 2181-12-11 (abnormal).",
+        "source_ids": [
+          "lab:Red Blood Cells:2181-12-11"
+        ],
+        "evidence": [
+          {
+            "finding": "Red Blood Cells=3.71 m/uL",
+            "source": "lab:2181-12-11"
+          }
+        ],
+        "status": "active"
+      },
+      {
+        "fact_id": "abnormal_lab_summary:calcium, total",
+        "statement": "Anormalidade laboratorial documentada em Calcium, Total: 3 resultado(s); mais recente 8.3 mg/dL em 2182-03-12 (abnormal).",
+        "source_ids": [
+          "lab:Calcium, Total:2181-12-11",
+          "lab:Calcium, Total:2181-12-18",
+          "lab:Calcium, Total:2182-03-12"
+        ],
+        "evidence": [
+          {
+            "finding": "Calcium, Total=8.0 mg/dL",
+            "source": "lab:2181-12-11"
+          },
+          {
+            "finding": "Calcium, Total=7.4 mg/dL",
+            "source": "lab:2181-12-18"
+          },
+          {
+            "finding": "Calcium, Total=8.3 mg/dL",
+            "source": "lab:2182-03-12"
+          }
+        ],
+        "status": "active"
+      },
+      {
+        "fact_id": "abnormal_lab_summary:glucose",
+        "statement": "Anormalidade laboratorial documentada em Glucose: 1 resultado(s); mais recente 175 mg/dL em 2181-12-11 (abnormal).",
+        "source_ids": [
+          "lab:Glucose:2181-12-11"
+        ],
+        "evidence": [
+          {
+            "finding": "Glucose=175 mg/dL",
+            "source": "lab:2181-12-11"
+          }
+        ],
+        "status": "active"
+      },
+      {
+        "fact_id": "abnormal_lab_summary:thyroid stimulating hormone",
+        "statement": "Anormalidade laboratorial documentada em Thyroid Stimulating Hormone: 1 resultado(s); mais recente 11 uIU/mL em 2182-03-12 (abnormal).",
+        "source_ids": [
+          "lab:Thyroid Stimulating Hormone:2182-03-12"
+        ],
+        "evidence": [
+          {
+            "finding": "Thyroid Stimulating Hormone=11 uIU/mL",
+            "source": "lab:2182-03-12"
+          }
+        ],
+        "status": "active"
+      },
+      {
+        "fact_id": "prior_treatment:MIMIC-PROC-064-1",
+        "statement": "Tratamento prévio Complete thyroidectomy: unknown",
+        "source_ids": [
+          "MIMIC-PROC-064-1"
+        ],
+        "evidence": [
+          {
+            "finding": "unknown",
+            "source": "MIMIC-PROC-064-1"
+          }
+        ],
+        "status": "historical"
+      },
+      {
+        "fact_id": "prior_treatment:MIMIC-PROC-0695-2",
+        "statement": "Tratamento prévio Parathyroid tissue reimplantation: unknown",
+        "source_ids": [
+          "MIMIC-PROC-0695-2"
+        ],
+        "evidence": [
+          {
+            "finding": "unknown",
+            "source": "MIMIC-PROC-0695-2"
+          }
+        ],
+        "status": "historical"
+      },
+      {
+        "fact_id": "prior_treatment:MIMIC-PROC-8604-3",
+        "statement": "Tratamento prévio Other incision with drainage of skin and subcutaneous tissue: unknown",
+        "source_ids": [
+          "MIMIC-PROC-8604-3"
+        ],
+        "evidence": [
+          {
+            "finding": "unknown",
+            "source": "MIMIC-PROC-8604-3"
+          }
+        ],
+        "status": "historical"
+      }
+    ],
+    "previous_treatments": [
+      {
+        "treatment_id": "MIMIC-PROC-064-1",
+        "name": "Complete thyroidectomy",
+        "started_at": "2181-12-10",
+        "ended_at": "2181-12-10",
+        "response": "unknown",
+        "toxicities": []
+      },
+      {
+        "treatment_id": "MIMIC-PROC-0695-2",
+        "name": "Parathyroid tissue reimplantation",
+        "started_at": "2181-12-10",
+        "ended_at": "2181-12-10",
+        "response": "unknown",
+        "toxicities": []
+      },
+      {
+        "treatment_id": "MIMIC-PROC-8604-3",
+        "name": "Other incision with drainage of skin and subcutaneous tissue",
+        "started_at": "2181-12-10",
+        "ended_at": "2181-12-10",
+        "response": "unknown",
+        "toxicities": []
+      }
+    ],
+    "medications": [
+      {
+        "name": "Morphine Sulfate",
+        "status": "completed",
+        "dose": "2 mg",
+        "route": "IV",
+        "frequency": null,
+        "indication": null,
+        "started_at": "2181-12-10",
+        "ended_at": "2181-12-11"
+      },
+      {
+        "name": "Metoprolol Tartrate",
+        "status": "completed",
+        "dose": "5 mg",
+        "route": "IV",
+        "frequency": "6 doses/24h",
+        "indication": null,
+        "started_at": "2181-12-10",
+        "ended_at": "2181-12-11"
+      },
+      {
+        "name": "Amlodipine",
+        "status": "completed",
+        "dose": "5 mg",
+        "route": "PO",
+        "frequency": "1 doses/24h",
+        "indication": null,
+        "started_at": "2181-12-10",
+        "ended_at": "2181-12-12"
+      },
+      {
+        "name": "Calcium Carbonate",
+        "status": "completed",
+        "dose": "1500 mg",
+        "route": "PO",
+        "frequency": null,
+        "indication": null,
+        "started_at": "2181-12-10",
+        "ended_at": "2181-12-11"
+      },
+      {
+        "name": "Calcium Carbonate",
+        "status": "completed",
+        "dose": "1500 mg",
+        "route": "PO",
+        "frequency": "0 doses/24h",
+        "indication": null,
+        "started_at": "2181-12-10",
+        "ended_at": "2181-12-12"
+      },
+      {
+        "name": "Hydrochlorothiazide",
+        "status": "completed",
+        "dose": "12.5 mg",
+        "route": "PO",
+        "frequency": "1 doses/24h",
+        "indication": null,
+        "started_at": "2181-12-10",
+        "ended_at": "2181-12-12"
+      },
+      {
+        "name": "Calcium Carbonate",
+        "status": "completed",
+        "dose": "2000 mg",
+        "route": "PO",
+        "frequency": "3 doses/24h",
+        "indication": null,
+        "started_at": "2181-12-11",
+        "ended_at": "2181-12-12"
+      },
+      {
+        "name": "Sodium Chloride 0.9%  Flush",
+        "status": "completed",
+        "dose": "3 mL",
+        "route": "IV",
+        "frequency": null,
+        "indication": null,
+        "started_at": "2181-12-10",
+        "ended_at": "2181-12-12"
+      },
+      {
+        "name": "Vial",
+        "status": "completed",
+        "dose": "1 VIAL",
+        "route": "IV",
+        "frequency": "1 doses/24h",
+        "indication": null,
+        "started_at": "2181-12-10",
+        "ended_at": "2181-12-11"
+      },
+      {
+        "name": "Pantoprazole Sodium",
+        "status": "completed",
+        "dose": "40 mg",
+        "route": "IV",
+        "frequency": "1 doses/24h",
+        "indication": null,
+        "started_at": "2181-12-10",
+        "ended_at": "2181-12-11"
+      },
+      {
+        "name": "LR",
+        "status": "completed",
+        "dose": "1000 mL",
+        "route": "IV",
+        "frequency": null,
+        "indication": null,
+        "started_at": "2181-12-10",
+        "ended_at": "2181-12-11"
+      },
+      {
+        "name": "Calcium Carbonate",
+        "status": "completed",
+        "dose": "3000 mg",
+        "route": "PO",
+        "frequency": null,
+        "indication": null,
+        "started_at": "2181-12-11",
+        "ended_at": "2181-12-12"
+      },
+      {
+        "name": "Nadolol",
+        "status": "completed",
+        "dose": "40 mg",
+        "route": "PO",
+        "frequency": "1 doses/24h",
+        "indication": null,
+        "started_at": "2181-12-10",
+        "ended_at": "2181-12-12"
+      },
+      {
+        "name": "Amlodipine",
+        "status": "completed",
+        "dose": "5 mg",
+        "route": "PO",
+        "frequency": "1 doses/24h",
+        "indication": null,
+        "started_at": "2181-12-10",
+        "ended_at": "2181-12-11"
+      },
+      {
+        "name": "Ondansetron",
+        "status": "completed",
+        "dose": "4 mg",
+        "route": "IV",
+        "frequency": null,
+        "indication": null,
+        "started_at": "2181-12-10",
+        "ended_at": "2181-12-12"
+      },
+      {
+        "name": "Liothyronine Sodium",
+        "status": "completed",
+        "dose": "12.5 mcg",
+        "route": "PO",
+        "frequency": "2 doses/24h",
+        "indication": null,
+        "started_at": "2181-12-10",
+        "ended_at": "2181-12-12"
+      },
+      {
+        "name": "Calcium Carbonate",
+        "status": "completed",
+        "dose": "1500 mg",
+        "route": "PO",
+        "frequency": null,
+        "indication": null,
+        "started_at": "2181-12-10",
+        "ended_at": "2181-12-10"
+      },
+      {
+        "name": "Pantoprazole",
+        "status": "completed",
+        "dose": "40 mg",
+        "route": "PO",
+        "frequency": "1 doses/24h",
+        "indication": null,
+        "started_at": "2181-12-11",
+        "ended_at": "2181-12-12"
+      },
+      {
+        "name": "Insulin",
+        "status": "completed",
+        "dose": "0 UNIT",
+        "route": "SC",
+        "frequency": null,
+        "indication": null,
+        "started_at": "2181-12-11",
+        "ended_at": "2181-12-11"
+      },
+      {
+        "name": "Calcium Carbonate",
+        "status": "completed",
+        "dose": "2000 mg",
+        "route": "PO",
+        "frequency": "3 doses/24h",
+        "indication": null,
+        "started_at": "2181-12-12",
+        "ended_at": "2181-12-11"
+      },
+      {
+        "name": "Heparin",
+        "status": "completed",
+        "dose": "5000 UNIT",
+        "route": "SC",
+        "frequency": "3 doses/24h",
+        "indication": null,
+        "started_at": "2181-12-10",
+        "ended_at": "2181-12-11"
+      },
+      {
+        "name": "Sodium Chloride 0.9%  Flush",
+        "status": "completed",
+        "dose": "3 mL",
+        "route": "IV",
+        "frequency": null,
+        "indication": null,
+        "started_at": "2181-12-10",
+        "ended_at": "2181-12-12"
+      },
+      {
+        "name": "Potassium Chl 20 mEq / 1000 mL D5 1/2 NS",
+        "status": "completed",
+        "dose": "1000 mL",
+        "route": "IV",
+        "frequency": null,
+        "indication": null,
+        "started_at": "2181-12-10",
+        "ended_at": "2181-12-11"
+      },
+      {
+        "name": "Metoprolol Tartrate",
+        "status": "completed",
+        "dose": "5 mg",
+        "route": "IV",
+        "frequency": "6 doses/24h",
+        "indication": null,
+        "started_at": "2181-12-10",
+        "ended_at": "2181-12-11"
+      },
+      {
+        "name": "Prochlorperazine",
+        "status": "completed",
+        "dose": "10 mg",
+        "route": "IV",
+        "frequency": null,
+        "indication": null,
+        "started_at": "2181-12-11",
+        "ended_at": "2181-12-12"
+      },
+      {
+        "name": "Calcium Carbonate",
+        "status": "completed",
+        "dose": "1500 mg",
+        "route": "PO",
+        "frequency": null,
+        "indication": null,
+        "started_at": "2181-12-10",
+        "ended_at": "2181-12-10"
+      },
+      {
+        "name": "Prochlorperazine",
+        "status": "completed",
+        "dose": "10 mg",
+        "route": "PO",
+        "frequency": null,
+        "indication": null,
+        "started_at": "2181-12-11",
+        "ended_at": "2181-12-12"
+      },
+      {
+        "name": "Ibuprofen",
+        "status": "completed",
+        "dose": "600 mg",
+        "route": "PO",
+        "frequency": null,
+        "indication": null,
+        "started_at": "2181-12-11",
+        "ended_at": "2181-12-12"
+      },
+      {
+        "name": "Simvastatin",
+        "status": "completed",
+        "dose": "20 mg",
+        "route": "PO",
+        "frequency": "1 doses/24h",
+        "indication": null,
+        "started_at": "2181-12-10",
+        "ended_at": "2181-12-12"
+      },
+      {
+        "name": "Lisinopril",
+        "status": "completed",
+        "dose": "20 mg",
+        "route": "PO",
+        "frequency": "1 doses/24h",
+        "indication": null,
+        "started_at": "2181-12-10",
+        "ended_at": "2181-12-12"
+      },
+      {
+        "name": "Calcitriol",
+        "status": "completed",
+        "dose": "0.25 mcg",
+        "route": "PO",
+        "frequency": "1 doses/24h",
+        "indication": null,
+        "started_at": "2181-12-12",
+        "ended_at": "2181-12-12"
+      },
+      {
+        "name": "Calcitriol",
+        "status": "completed",
+        "dose": "0.25 mcg",
+        "route": "PO",
+        "frequency": "2 doses/24h",
+        "indication": null,
+        "started_at": "2181-12-11",
+        "ended_at": "2181-12-12"
+      },
+      {
+        "name": "Calcium Carbonate",
+        "status": "completed",
+        "dose": "1500 mg",
+        "route": "PO",
+        "frequency": null,
+        "indication": null,
+        "started_at": "2181-12-10",
+        "ended_at": "2181-12-11"
+      },
+      {
+        "name": "Sodium Chloride 0.9%  Flush",
+        "status": "completed",
+        "dose": "3 mL",
+        "route": "IV",
+        "frequency": null,
+        "indication": null,
+        "started_at": "2181-12-11",
+        "ended_at": "2181-12-12"
+      },
+      {
+        "name": "Calcium Carbonate",
+        "status": "completed",
+        "dose": "2000 mg",
+        "route": "PO",
+        "frequency": "2 doses/24h",
+        "indication": null,
+        "started_at": "2181-12-12",
+        "ended_at": "2181-12-12"
+      },
+      {
+        "name": "Hydrocodone-Acetaminophen",
+        "status": "completed",
+        "dose": "1-2 TAB",
+        "route": "PO",
+        "frequency": null,
+        "indication": null,
+        "started_at": "2181-12-10",
+        "ended_at": "2181-12-11"
+      },
+      {
+        "name": "Calcium Carbonate",
+        "status": "completed",
+        "dose": "1500 mg",
+        "route": "PO",
+        "frequency": null,
+        "indication": null,
+        "started_at": "2181-12-10",
+        "ended_at": "2181-12-10"
+      },
+      {
+        "name": "Calcium Carbonate",
+        "status": "completed",
+        "dose": "1500 mg",
+        "route": "PO",
+        "frequency": null,
+        "indication": null,
+        "started_at": "2181-12-10",
+        "ended_at": "2181-12-10"
+      },
+      {
+        "name": "PNEUMOcoccal Vac Polyvalent",
+        "status": "completed",
+        "dose": "0.5 mL",
+        "route": "IM",
+        "frequency": null,
+        "indication": null,
+        "started_at": "2181-12-11",
+        "ended_at": "2181-12-12"
+      }
+    ],
+    "missing_information": [
+      "performance_status",
+      "tnm_stage"
+    ],
+    "data_warnings": [
+      "MIMIC-IV structured extract: no clinical notes, imaging reports, pathology, TNM stage, histology, molecular profile, iodine avidity, progression assessment, functional status, or allergies are available through the retrieved API routes.",
+      "metastatic=false represents no structured metastasis record in the retrieved data, not evidence of absence of metastatic disease.",
+      "Comorbidities are ICD-coded admission diagnoses; their current clinical activity requires review."
+    ]
+  },
+  "generated_treatments": [
+    {
+      "treatment_id": "candidate",
+      "name": "Thyroid hormone replacement therapy",
+      "treatment_class": "Hormonal therapy",
+      "therapeutic_goal": "Maintain euthyroid state and manage hypothyroidism",
+      "reason_for_consideration": [
+        "Patient has a documented history of thyroid cancer and has undergone a complete thyroidectomy.",
+        "Thyroid stimulating hormone (TSH) is elevated, suggesting hypothyroidism.",
+        "Thyroid hormone replacement therapy is a standard treatment for hypothyroidism following thyroidectomy."
+      ],
+      "patient_evidence": [
+        {
+          "finding": "Thyroid Stimulating Hormone: 11 uIU/mL (abnormal)",
+          "source": "lab:Thyroid Stimulating Hormone:2182-03-12"
+        }
+      ],
+      "contraindications_detected": [],
+      "evidence_source_ids": [
+        "lab:Thyroid Stimulating Hormone:2182-03-12"
+      ],
+      "status": "candidate"
+    },
+    {
+      "treatment_id": "candidate",
+      "name": "Cardiovascular monitoring and management",
+      "treatment_class": "Supportive care",
+      "therapeutic_goal": "Monitor and manage cardiovascular comorbidities",
+      "reason_for_consideration": [
+        "Patient has multiple cardiovascular comorbidities including coronary atherosclerosis, angina, hypertension, and old myocardial infarction.",
+        "Cardiovascular comorbidities require individualized assessment and monitoring."
+      ],
+      "patient_evidence": [
+        {
+          "finding": "Comorbidity: Coronary atherosclerosis of native coronary artery (ICD-9 41401)",
+          "source": "comorbidity:Coronary atherosclerosis of native coronary artery (ICD-9 41401)"
+        },
+        {
+          "finding": "Comorbidity: Other and unspecified angina pectoris (ICD-9 4139)",
+          "source": "comorbidity:Other and unspecified angina pectoris (ICD-9 4139)"
+        },
+        {
+          "finding": "Comorbidity: Unspecified essential hypertension (ICD-9 4019)",
+          "source": "comorbidity:Unspecified essential hypertension (ICD-9 4019)"
+        },
+        {
+          "finding": "Comorbidity: Old myocardial infarction (ICD-9 412)",
+          "source": "comorbidity:Old myocardial infarction (ICD-9 412)"
+        }
+      ],
+      "contraindications_detected": [],
+      "evidence_source_ids": [
+        "comorbidity:Coronary atherosclerosis of native coronary artery (ICD-9 41401)",
+        "comorbidity:Other and unspecified angina pectoris (ICD-9 4139)",
+        "comorbidity:Unspecified essential hypertension (ICD-9 4019)",
+        "comorbidity:Old myocardial infarction (ICD-9 412)"
+      ],
+      "status": "candidate"
+    }
+  ],
+  "candidate_treatments": [
+    {
+      "treatment": {
+        "treatment_id": "candidate",
+        "name": "Thyroid hormone replacement therapy",
+        "treatment_class": "Hormonal therapy",
+        "therapeutic_goal": "Maintain euthyroid state and manage hypothyroidism",
+        "reason_for_consideration": [
+          "Patient has a documented history of thyroid cancer and has undergone a complete thyroidectomy.",
+          "Thyroid stimulating hormone (TSH) is elevated, suggesting hypothyroidism.",
+          "Thyroid hormone replacement therapy is a standard treatment for hypothyroidism following thyroidectomy."
+        ],
+        "patient_evidence": [
+          {
+            "finding": "Thyroid Stimulating Hormone: 11 uIU/mL (abnormal)",
+            "source": "lab:Thyroid Stimulating Hormone:2182-03-12"
+          }
+        ],
+        "contraindications_detected": [],
+        "evidence_source_ids": [
+          "lab:Thyroid Stimulating Hormone:2182-03-12"
+        ],
+        "status": "candidate"
+      },
+      "candidate_status": "remains_plausible",
+      "failure_tree": {
+        "treatment_id": "candidate",
+        "outcomes": [
+          {
+            "outcome_id": "candidate:oncologic_failure",
+            "label": "oncologic_failure",
+            "description": "Ausência de resposta ou progressão"
+          },
+          {
+            "outcome_id": "candidate:toxicity",
+            "label": "toxicity",
+            "description": "Toxicidade grave relacionada ao tratamento"
+          },
+          {
+            "outcome_id": "candidate:interruption",
+            "label": "interruption",
+            "description": "Interrupção ou redução de dose"
+          }
+        ],
+        "nodes": [
+          {
+            "node_id": "8bc55638-31b7-46fa-95ae-01c8903bec6e",
+            "parent_id": null,
+            "depth": 1,
+            "outcome_id": "candidate:oncologic_failure",
+            "hypothesis": "Hypothyroidism due to complete thyroidectomy is causing thyroid hormone deficiency leading to cardiovascular complications.",
+            "mechanism": "Complete thyroidectomy removes the thyroid gland, which produces thyroid hormones. Without these hormones, the patient may develop hypothyroidism, leading to cardiovascular issues such as bradycardia, hypotension, and heart failure. Elevated TSH (Thyroid Stimulating Hormone) levels indicate the pituitary gland is stimulating the thyroid to produce more hormones, which is a compensatory mechanism in response to hypothyroidism.",
+            "causal_chain": [],
+            "required_patient_condition": null,
+            "patient_evidence": [],
+            "external_evidence": [
+              {
+                "finding": "Documento demonstrativo: estratégias precisam ser avaliadas conforme histologia, progressão, radioiodo-avididade, tratamentos prévios e condições do paciente.",
+                "source": "THYROID_POC_001"
+              },
+              {
+                "finding": "Documento demonstrativo: riscos cardiovasculares exigem avaliação individualizada e monitoramento; não substitui diretriz clínica.",
+                "source": "THYROID_POC_002"
+              }
+            ],
+            "contradictory_evidence": [],
+            "missing_information": [],
+            "clinical_plausibility": 0.85,
+            "temporal_plausibility": 0.9,
+            "patient_specificity": 0.95,
+            "status": "pruned",
+            "pruning_code": "PRUNED_ABSENT_CONDITION"
+          },
+          {
+            "node_id": "74713b27-deb2-4aa9-ba8a-b3a9f292311c",
+            "parent_id": null,
+            "depth": 1,
+            "outcome_id": "candidate:oncologic_failure",
+            "hypothesis": "Hypothyroidism is causing anemia and electrolyte imbalances, contributing to the patient's comorbid conditions.",
+            "mechanism": "Hypothyroidism can lead to anemia due to decreased erythropoietin production and electrolyte imbalances, such as hypocalcemia, which can affect bone health and cardiac function. The patient's recent lab results show abnormal hematocrit, hemoglobin, MCH, and calcium levels, which are consistent with hypothyroidism.",
+            "causal_chain": [],
+            "required_patient_condition": null,
+            "patient_evidence": [],
+            "external_evidence": [
+              {
+                "finding": "Documento demonstrativo: estratégias precisam ser avaliadas conforme histologia, progressão, radioiodo-avididade, tratamentos prévios e condições do paciente.",
+                "source": "THYROID_POC_001"
+              },
+              {
+                "finding": "Documento demonstrativo: riscos cardiovasculares exigem avaliação individualizada e monitoramento; não substitui diretriz clínica.",
+                "source": "THYROID_POC_002"
+              }
+            ],
+            "contradictory_evidence": [],
+            "missing_information": [],
+            "clinical_plausibility": 0.8,
+            "temporal_plausibility": 0.85,
+            "patient_specificity": 0.9,
+            "status": "pruned",
+            "pruning_code": "PRUNED_ABSENT_CONDITION"
+          },
+          {
+            "node_id": "fbc6c146-8000-4a19-b683-65b1426af111",
+            "parent_id": null,
+            "depth": 1,
+            "outcome_id": "candidate:toxicity",
+            "hypothesis": "Hypothyroidism following complete thyroidectomy may lead to hypocalcemia due to parathyroid gland dysfunction.",
+            "mechanism": "The patient has undergone a complete thyroidectomy, which can lead to hypoparathyroidism, causing hypocalcemia. Elevated TSH levels suggest hypothyroidism, which can exacerbate hypocalcemia.",
+            "causal_chain": [],
+            "required_patient_condition": null,
+            "patient_evidence": [
+              {
+                "finding": "Calcium, Total=8.0 mg/dL",
+                "source": "lab:2181-12-11"
+              },
+              {
+                "finding": "Calcium, Total=7.4 mg/dL",
+                "source": "lab:2181-12-18"
+              },
+              {
+                "finding": "Calcium, Total=8.3 mg/dL",
+                "source": "lab:2182-03-12"
+              }
+            ],
+            "external_evidence": [
+              {
+                "finding": "Documento demonstrativo: estratégias precisam ser avaliadas conforme histologia, progressão, radioiodo-avididade, tratamentos prévios e condições do paciente.",
+                "source": "THYROID_POC_001"
+              },
+              {
+                "finding": "Documento demonstrativo: riscos cardiovasculares exigem avaliação individualizada e monitoramento; não substitui diretriz clínica.",
+                "source": "THYROID_POC_002"
+              }
+            ],
+            "contradictory_evidence": [],
+            "missing_information": [],
+            "clinical_plausibility": 0.8,
+            "temporal_plausibility": 0.9,
+            "patient_specificity": 0.7,
+            "status": "pruned",
+            "pruning_code": "PRUNED_ABSENT_CONDITION"
+          },
+          {
+            "node_id": "4e79d60d-263d-446f-82bf-f2a1d86cf027",
+            "parent_id": null,
+            "depth": 1,
+            "outcome_id": "candidate:toxicity",
+            "hypothesis": "Hypothyroidism may contribute to anemia in the patient.",
+            "mechanism": "Hypothyroidism can impair erythropoiesis, leading to anemia. The patient's recent laboratory results show low hematocrit, hemoglobin, and MCH levels, which are consistent with anemia.",
+            "causal_chain": [],
+            "required_patient_condition": null,
+            "patient_evidence": [
+              {
+                "finding": "Hematocrit=35.0 %",
+                "source": "lab:2181-12-11"
+              },
+              {
+                "finding": "Hemoglobin=11.9 g/dL",
+                "source": "lab:2181-12-11"
+              },
+              {
+                "finding": "MCH=32.1 pg",
+                "source": "lab:2181-12-11"
+              }
+            ],
+            "external_evidence": [
+              {
+                "finding": "Documento demonstrativo: estratégias precisam ser avaliadas conforme histologia, progressão, radioiodo-avididade, tratamentos prévios e condições do paciente.",
+                "source": "THYROID_POC_001"
+              },
+              {
+                "finding": "Documento demonstrativo: riscos cardiovasculares exigem avaliação individualizada e monitoramento; não substitui diretriz clínica.",
+                "source": "THYROID_POC_002"
+              }
+            ],
+            "contradictory_evidence": [],
+            "missing_information": [],
+            "clinical_plausibility": 0.7,
+            "temporal_plausibility": 0.8,
+            "patient_specificity": 0.6,
+            "status": "pruned",
+            "pruning_code": "PRUNED_ABSENT_CONDITION"
+          },
+          {
+            "node_id": "33023ee5-e6de-4aba-bf2a-05ae39493f53",
+            "parent_id": null,
+            "depth": 1,
+            "outcome_id": "candidate:interruption",
+            "hypothesis": "Hypothyroidism due to complete thyroidectomy is causing cardiovascular comorbidities.",
+            "mechanism": "The patient has undergone a complete thyroidectomy, which removes the thyroid gland responsible for producing thyroid hormones. The elevated Thyroid Stimulating Hormone (TSH) level suggests hypothyroidism. Hypothyroidism can lead to cardiovascular issues such as coronary atherosclerosis, hypertension, and angina pectoris, which are all present in the patient's comorbidity profile.",
+            "causal_chain": [],
+            "required_patient_condition": null,
+            "patient_evidence": [
+              {
+                "finding": "Coronary atherosclerosis of native coronary artery (ICD-9 41401)",
+                "source": "medical_record"
+              },
+              {
+                "finding": "Other and unspecified angina pectoris (ICD-9 4139)",
+                "source": "medical_record"
+              },
+              {
+                "finding": "Unspecified essential hypertension (ICD-9 4019)",
+                "source": "medical_record"
+              },
+              {
+                "finding": "Old myocardial infarction (ICD-9 412)",
+                "source": "medical_record"
+              }
+            ],
+            "external_evidence": [
+              {
+                "finding": "Documento demonstrativo: estratégias precisam ser avaliadas conforme histologia, progressão, radioiodo-avididade, tratamentos prévios e condições do paciente.",
+                "source": "THYROID_POC_001"
+              },
+              {
+                "finding": "Documento demonstrativo: riscos cardiovasculares exigem avaliação individualizada e monitoramento; não substitui diretriz clínica.",
+                "source": "THYROID_POC_002"
+              }
+            ],
+            "contradictory_evidence": [],
+            "missing_information": [],
+            "clinical_plausibility": 0.85,
+            "temporal_plausibility": 0.9,
+            "patient_specificity": 0.8,
+            "status": "pruned",
+            "pruning_code": "PRUNED_ABSENT_CONDITION"
+          },
+          {
+            "node_id": "e2ab1368-094f-46e5-82d4-8d5f1caa66d1",
+            "parent_id": null,
+            "depth": 1,
+            "outcome_id": "candidate:interruption",
+            "hypothesis": "Hypothyroidism is leading to electrolyte imbalances, specifically hypocalcemia.",
+            "mechanism": "Hypothyroidism can cause hypocalcemia by reducing the absorption of calcium in the intestines and increasing its excretion in the kidneys. The patient's recent calcium levels are abnormal, and the patient has a history of thyroid cancer, supporting the need for thyroid hormone replacement therapy.",
+            "causal_chain": [],
+            "required_patient_condition": null,
+            "patient_evidence": [
+              {
+                "finding": "Calcium, Total=8.0 mg/dL",
+                "source": "lab:2181-12-11"
+              },
+              {
+                "finding": "Calcium, Total=7.4 mg/dL",
+                "source": "lab:2181-12-18"
+              },
+              {
+                "finding": "Calcium, Total=8.3 mg/dL",
+                "source": "lab:2182-03-12"
+              }
+            ],
+            "external_evidence": [
+              {
+                "finding": "Documento demonstrativo: estratégias precisam ser avaliadas conforme histologia, progressão, radioiodo-avididade, tratamentos prévios e condições do paciente.",
+                "source": "THYROID_POC_001"
+              },
+              {
+                "finding": "Documento demonstrativo: riscos cardiovasculares exigem avaliação individualizada e monitoramento; não substitui diretriz clínica.",
+                "source": "THYROID_POC_002"
+              }
+            ],
+            "contradictory_evidence": [],
+            "missing_information": [],
+            "clinical_plausibility": 0.8,
+            "temporal_plausibility": 0.85,
+            "patient_specificity": 0.75,
+            "status": "pruned",
+            "pruning_code": "PRUNED_ABSENT_CONDITION"
+          }
+        ],
+        "max_depth": 3
+      },
+      "impacts": [
+        {
+          "impact": "Impacto não específico: Possível aumento do risco de eventos cardiovasculares devido à hipotireoidismo.",
+          "domain": "cardiovascular",
+          "timing": "long_term",
+          "reversibility": "reversible",
+          "severity": "moderate",
+          "patient_specific": false,
+          "evidence": []
+        },
+        {
+          "impact": "Impacto não específico: Possível necessidade de ajustes na dose de medicamentos cardiovasculares devido à hipotireoidismo.",
+          "domain": "cardiovascular",
+          "timing": "short_term",
+          "reversibility": "reversible",
+          "severity": "moderate",
+          "patient_specific": false,
+          "evidence": []
+        },
+        {
+          "impact": "Impacto não específico: Possível interação farmacológica entre medicamentos cardiovasculares e substituição hormonal tiroidea.",
+          "domain": "cardiovascular",
+          "timing": "short_term",
+          "reversibility": "reversible",
+          "severity": "moderate",
+          "patient_specific": false,
+          "evidence": []
+        },
+        {
+          "impact": "Impacto não específico: Possível necessidade de monitoramento mais frequente do estado tiroideo.",
+          "domain": "endocrine",
+          "timing": "short_term",
+          "reversibility": "reversible",
+          "severity": "moderate",
+          "patient_specific": false,
+          "evidence": []
+        },
+        {
+          "impact": "Impacto não específico: Possível necessidade de ajustes na dose de medicamentos anticoagulantes.",
+          "domain": "hematologic",
+          "timing": "short_term",
+          "reversibility": "reversible",
+          "severity": "moderate",
+          "patient_specific": false,
+          "evidence": []
+        }
+      ],
+      "forecast": {
+        "horizon": "12 months",
+        "disease_control": "plausible",
+        "adverse_outcome_risk": "unknown",
+        "confidence_in_reasoning": "low",
+        "rationale": []
+      },
+      "missing_information": [
+        "performance_status",
+        "tnm_stage"
+      ],
+      "uncertainties": [
+        "Ausência de mecanismo suportado não demonstra eficácia."
+      ]
+    },
+    {
+      "treatment": {
+        "treatment_id": "candidate",
+        "name": "Cardiovascular monitoring and management",
+        "treatment_class": "Supportive care",
+        "therapeutic_goal": "Monitor and manage cardiovascular comorbidities",
+        "reason_for_consideration": [
+          "Patient has multiple cardiovascular comorbidities including coronary atherosclerosis, angina, hypertension, and old myocardial infarction.",
+          "Cardiovascular comorbidities require individualized assessment and monitoring."
+        ],
+        "patient_evidence": [
+          {
+            "finding": "Comorbidity: Coronary atherosclerosis of native coronary artery (ICD-9 41401)",
+            "source": "comorbidity:Coronary atherosclerosis of native coronary artery (ICD-9 41401)"
+          },
+          {
+            "finding": "Comorbidity: Other and unspecified angina pectoris (ICD-9 4139)",
+            "source": "comorbidity:Other and unspecified angina pectoris (ICD-9 4139)"
+          },
+          {
+            "finding": "Comorbidity: Unspecified essential hypertension (ICD-9 4019)",
+            "source": "comorbidity:Unspecified essential hypertension (ICD-9 4019)"
+          },
+          {
+            "finding": "Comorbidity: Old myocardial infarction (ICD-9 412)",
+            "source": "comorbidity:Old myocardial infarction (ICD-9 412)"
+          }
+        ],
+        "contraindications_detected": [],
+        "evidence_source_ids": [
+          "comorbidity:Coronary atherosclerosis of native coronary artery (ICD-9 41401)",
+          "comorbidity:Other and unspecified angina pectoris (ICD-9 4139)",
+          "comorbidity:Unspecified essential hypertension (ICD-9 4019)",
+          "comorbidity:Old myocardial infarction (ICD-9 412)"
+        ],
+        "status": "candidate"
+      },
+      "candidate_status": "remains_plausible",
+      "failure_tree": {
+        "treatment_id": "candidate",
+        "outcomes": [
+          {
+            "outcome_id": "candidate:oncologic_failure",
+            "label": "oncologic_failure",
+            "description": "Ausência de resposta ou progressão"
+          },
+          {
+            "outcome_id": "candidate:toxicity",
+            "label": "toxicity",
+            "description": "Toxicidade grave relacionada ao tratamento"
+          },
+          {
+            "outcome_id": "candidate:interruption",
+            "label": "interruption",
+            "description": "Interrupção ou redução de dose"
+          }
+        ],
+        "nodes": [
+          {
+            "node_id": "c53b837b-075f-486e-bcfd-9c8eeec3bd18",
+            "parent_id": null,
+            "depth": 1,
+            "outcome_id": "candidate:oncologic_failure",
+            "hypothesis": "Hipoalbuminemia e hipocalcemia podem estar relacionadas à falha do câncer de tireoide.",
+            "mechanism": "Após a tireoidectomia total, a paciente pode ter desenvolvido hipoalbuminemia e hipocalcemia, que podem afetar a absorção e a disponibilidade de hormônios tiroideos, potencialmente levando à falha do câncer de tireoide.",
+            "causal_chain": [],
+            "required_patient_condition": null,
+            "patient_evidence": [
+              {
+                "finding": "Calcium, Total=8.0 mg/dL",
+                "source": "lab:2181-12-11"
+              },
+              {
+                "finding": "Calcium, Total=7.4 mg/dL",
+                "source": "lab:2181-12-18"
+              },
+              {
+                "finding": "Calcium, Total=8.3 mg/dL",
+                "source": "lab:2182-03-12"
+              },
+              {
+                "finding": "Hematocrit=35.0 %",
+                "source": "lab:2181-12-11"
+              },
+              {
+                "finding": "Hemoglobin=11.9 g/dL",
+                "source": "lab:2181-12-11"
+              },
+              {
+                "finding": "MCH=32.1 pg",
+                "source": "lab:2181-12-11"
+              },
+              {
+                "finding": "Red Blood Cells=3.71 m/uL",
+                "source": "lab:2181-12-11"
+              }
+            ],
+            "external_evidence": [
+              {
+                "finding": "Documento demonstrativo: estratégias precisam ser avaliadas conforme histologia, progressão, radioiodo-avididade, tratamentos prévios e condições do paciente.",
+                "source": "THYROID_POC_001"
+              },
+              {
+                "finding": "Documento demonstrativo: riscos cardiovasculares exigem avaliação individualizada e monitoramento; não substitui diretriz clínica.",
+                "source": "THYROID_POC_002"
+              }
+            ],
+            "contradictory_evidence": [],
+            "missing_information": [],
+            "clinical_plausibility": 0.7,
+            "temporal_plausibility": 0.8,
+            "patient_specificity": 0.9,
+            "status": "pruned",
+            "pruning_code": "PRUNED_NON_SPECIFIC"
+          },
+          {
+            "node_id": "e25c820b-aee3-41ea-8b8e-ba5949378d49",
+            "parent_id": null,
+            "depth": 1,
+            "outcome_id": "candidate:oncologic_failure",
+            "hypothesis": "Falha do câncer de tireoide pode estar associada à disfunção tiroidea devido à presença de hipotireoidismo.",
+            "mechanism": "A paciente apresenta hipocalcemia e anormalidades laboratoriais que podem indicar hipotireoidismo, que pode ser resultado da remoção total da tireoide. A hipotireoidismo pode levar à falha do câncer de tireoide.",
+            "causal_chain": [],
+            "required_patient_condition": null,
+            "patient_evidence": [
+              {
+                "finding": "Calcium, Total=8.0 mg/dL",
+                "source": "lab:2181-12-11"
+              },
+              {
+                "finding": "Calcium, Total=7.4 mg/dL",
+                "source": "lab:2181-12-18"
+              },
+              {
+                "finding": "Calcium, Total=8.3 mg/dL",
+                "source": "lab:2182-03-12"
+              },
+              {
+                "finding": "Thyroid Stimulating Hormone=11 uIU/mL",
+                "source": "lab:2182-03-12"
+              }
+            ],
+            "external_evidence": [
+              {
+                "finding": "Documento demonstrativo: estratégias precisam ser avaliadas conforme histologia, progressão, radioiodo-avididade, tratamentos prévios e condições do paciente.",
+                "source": "THYROID_POC_001"
+              },
+              {
+                "finding": "Documento demonstrativo: riscos cardiovasculares exigem avaliação individualizada e monitoramento; não substitui diretriz clínica.",
+                "source": "THYROID_POC_002"
+              }
+            ],
+            "contradictory_evidence": [],
+            "missing_information": [],
+            "clinical_plausibility": 0.8,
+            "temporal_plausibility": 0.7,
+            "patient_specificity": 0.9,
+            "status": "pruned",
+            "pruning_code": "PRUNED_NON_SPECIFIC"
+          },
+          {
+            "node_id": "fc9cad64-509b-4206-8f4f-e0af153e4b08",
+            "parent_id": null,
+            "depth": 1,
+            "outcome_id": "candidate:toxicity",
+            "hypothesis": "Hipotireoidismo devido à retirada total da tireoide",
+            "mechanism": "A retirada total da tireoide (complete thyroidectomy) pode levar ao hipotireoidismo, especialmente se não houver reposição adequada de hormônios tireoidianos. O hipotireoidismo pode afetar a homeostase de cálcio e a função cardíaca, contribuindo para a hipocalcemia e a instabilidade cardiovascular.",
+            "causal_chain": [],
+            "required_patient_condition": null,
+            "patient_evidence": [
+              {
+                "finding": "Thyroid Stimulating Hormone=11 uIU/mL",
+                "source": "lab:2182-03-12"
+              }
+            ],
+            "external_evidence": [
+              {
+                "finding": "Documento demonstrativo: estratégias precisam ser avaliadas conforme histologia, progressão, radioiodo-avididade, tratamentos prévios e condições do paciente.",
+                "source": "THYROID_POC_001"
+              },
+              {
+                "finding": "Documento demonstrativo: riscos cardiovasculares exigem avaliação individualizada e monitoramento; não substitui diretriz clínica.",
+                "source": "THYROID_POC_002"
+              }
+            ],
+            "contradictory_evidence": [],
+            "missing_information": [],
+            "clinical_plausibility": 0.8,
+            "temporal_plausibility": 0.9,
+            "patient_specificity": 0.95,
+            "status": "pruned",
+            "pruning_code": "PRUNED_ABSENT_CONDITION"
+          },
+          {
+            "node_id": "383b04ee-ca17-4b28-bdf6-1590327cbf9a",
+            "parent_id": null,
+            "depth": 1,
+            "outcome_id": "candidate:toxicity",
+            "hypothesis": "Hipoalbuminemia potencialmente causando hipocalcemia",
+            "mechanism": "A hipoalbuminemia, uma condição comum em pacientes idosos e com múltiplas comorbidades, pode levar a uma redução na capacidade de transporte do cálcio no sangue, resultando em hipocalcemia. A hipocalcemia pode afetar a função cardíaca, especialmente em pacientes com histórico de doença coronariana e infarto antigo.",
+            "causal_chain": [],
+            "required_patient_condition": null,
+            "patient_evidence": [
+              {
+                "finding": "Calcium, Total=8.0 mg/dL",
+                "source": "lab:2181-12-11"
+              },
+              {
+                "finding": "Calcium, Total=7.4 mg/dL",
+                "source": "lab:2181-12-18"
+              },
+              {
+                "finding": "Calcium, Total=8.3 mg/dL",
+                "source": "lab:2182-03-12"
+              }
+            ],
+            "external_evidence": [
+              {
+                "finding": "Documento demonstrativo: estratégias precisam ser avaliadas conforme histologia, progressão, radioiodo-avididade, tratamentos prévios e condições do paciente.",
+                "source": "THYROID_POC_001"
+              },
+              {
+                "finding": "Documento demonstrativo: riscos cardiovasculares exigem avaliação individualizada e monitoramento; não substitui diretriz clínica.",
+                "source": "THYROID_POC_002"
+              }
+            ],
+            "contradictory_evidence": [],
+            "missing_information": [],
+            "clinical_plausibility": 0.75,
+            "temporal_plausibility": 0.85,
+            "patient_specificity": 0.9,
+            "status": "pruned",
+            "pruning_code": "PRUNED_NON_SPECIFIC"
+          },
+          {
+            "node_id": "a3a6cecf-32ea-43ed-bf8b-2585c620c194",
+            "parent_id": null,
+            "depth": 1,
+            "outcome_id": "candidate:toxicity",
+            "hypothesis": "Hipoglicemia potencialmente causando sintomas cardíacos",
+            "mechanism": "A hipoglicemia, observada no laboratório, pode causar sintomas cardíacos como angina, especialmente em pacientes com histórico de doença coronariana e infarto antigo. A hipoglicemia pode ser um efeito colateral de medicamentos como o lisinopril, que foi prescrito.",
+            "causal_chain": [],
+            "required_patient_condition": null,
+            "patient_evidence": [
+              {
+                "finding": "Glucose=175 mg/dL",
+                "source": "lab:2181-12-11"
+              }
+            ],
+            "external_evidence": [
+              {
+                "finding": "Documento demonstrativo: estratégias precisam ser avaliadas conforme histologia, progressão, radioiodo-avididade, tratamentos prévios e condições do paciente.",
+                "source": "THYROID_POC_001"
+              },
+              {
+                "finding": "Documento demonstrativo: riscos cardiovasculares exigem avaliação individualizada e monitoramento; não substitui diretriz clínica.",
+                "source": "THYROID_POC_002"
+              }
+            ],
+            "contradictory_evidence": [],
+            "missing_information": [],
+            "clinical_plausibility": 0.65,
+            "temporal_plausibility": 0.75,
+            "patient_specificity": 0.85,
+            "status": "pruned",
+            "pruning_code": "PRUNED_ABSENT_CONDITION"
+          },
+          {
+            "node_id": "9d2ba874-71d1-4b40-aed9-16203560a19c",
+            "parent_id": null,
+            "depth": 1,
+            "outcome_id": "candidate:interruption",
+            "hypothesis": "Hipoalbuminemia pode estar contribuindo para a hipocalcemia.",
+            "mechanism": "A hipoalbuminemia, uma condição comum em pacientes idosos com múltiplas comorbidades, pode reduzir a capacidade do albumina transportar o cálcio, levando a um aumento na liberação de cálcio livre no sangue. Isso pode resultar em uma leitura de cálcio total baixa, como observado no paciente.",
+            "causal_chain": [],
+            "required_patient_condition": null,
+            "patient_evidence": [
+              {
+                "finding": "Calcium, Total=8.0 mg/dL",
+                "source": "lab:2181-12-11"
+              },
+              {
+                "finding": "Calcium, Total=7.4 mg/dL",
+                "source": "lab:2181-12-18"
+              },
+              {
+                "finding": "Calcium, Total=8.3 mg/dL",
+                "source": "lab:2182-03-12"
+              }
+            ],
+            "external_evidence": [
+              {
+                "finding": "Documento demonstrativo: estratégias precisam ser avaliadas conforme histologia, progressão, radioiodo-avididade, tratamentos prévios e condições do paciente.",
+                "source": "THYROID_POC_001"
+              },
+              {
+                "finding": "Documento demonstrativo: riscos cardiovasculares exigem avaliação individualizada e monitoramento; não substitui diretriz clínica.",
+                "source": "THYROID_POC_002"
+              }
+            ],
+            "contradictory_evidence": [],
+            "missing_information": [],
+            "clinical_plausibility": 0.8,
+            "temporal_plausibility": 0.9,
+            "patient_specificity": 0.7,
+            "status": "pruned",
+            "pruning_code": "PRUNED_NON_SPECIFIC"
+          },
+          {
+            "node_id": "be9ae992-7378-4983-846d-141525bdd98a",
+            "parent_id": null,
+            "depth": 1,
+            "outcome_id": "candidate:interruption",
+            "hypothesis": "Hemodinâmica instável devido à angina pode estar afetando os níveis de cálcio.",
+            "mechanism": "A angina pectoris pode levar a uma instabilidade hemodinâmica, resultando em alterações nos níveis de cálcio. Durante episódios de angina, a demanda metabólica aumenta, o que pode afetar a homeostase de cálcio.",
+            "causal_chain": [],
+            "required_patient_condition": null,
+            "patient_evidence": [
+              {
+                "finding": "Other and unspecified angina pectoris (ICD-9 4139)",
+                "source": "medical_record"
+              }
+            ],
+            "external_evidence": [
+              {
+                "finding": "Documento demonstrativo: estratégias precisam ser avaliadas conforme histologia, progressão, radioiodo-avididade, tratamentos prévios e condições do paciente.",
+                "source": "THYROID_POC_001"
+              },
+              {
+                "finding": "Documento demonstrativo: riscos cardiovasculares exigem avaliação individualizada e monitoramento; não substitui diretriz clínica.",
+                "source": "THYROID_POC_002"
+              }
+            ],
+            "contradictory_evidence": [],
+            "missing_information": [],
+            "clinical_plausibility": 0.7,
+            "temporal_plausibility": 0.8,
+            "patient_specificity": 0.6,
+            "status": "pruned",
+            "pruning_code": "PRUNED_NON_SPECIFIC"
+          },
+          {
+            "node_id": "bbff3677-3920-4151-9979-0ab0183281c2",
+            "parent_id": null,
+            "depth": 1,
+            "outcome_id": "candidate:interruption",
+            "hypothesis": "Hiperinsulinemia pode estar contribuindo para a hipocalcemia.",
+            "mechanism": "A hiperinsulinemia, comumente associada a hipertensão e diabetes, pode levar a uma redução nos níveis de cálcio no sangue, devido à ação da insulina na célula muscular e na célula nervosa, que pode promover a captura de cálcio intracelular.",
+            "causal_chain": [],
+            "required_patient_condition": null,
+            "patient_evidence": [
+              {
+                "finding": "Glucose=175 mg/dL",
+                "source": "lab:2181-12-11"
+              },
+              {
+                "finding": "Thyroid Stimulating Hormone=11 uIU/mL",
+                "source": "lab:2182-03-12"
+              }
+            ],
+            "external_evidence": [
+              {
+                "finding": "Documento demonstrativo: estratégias precisam ser avaliadas conforme histologia, progressão, radioiodo-avididade, tratamentos prévios e condições do paciente.",
+                "source": "THYROID_POC_001"
+              },
+              {
+                "finding": "Documento demonstrativo: riscos cardiovasculares exigem avaliação individualizada e monitoramento; não substitui diretriz clínica.",
+                "source": "THYROID_POC_002"
+              }
+            ],
+            "contradictory_evidence": [],
+            "missing_information": [],
+            "clinical_plausibility": 0.6,
+            "temporal_plausibility": 0.7,
+            "patient_specificity": 0.5,
+            "status": "pruned",
+            "pruning_code": "PRUNED_NON_SPECIFIC"
+          }
+        ],
+        "max_depth": 3
+      },
+      "impacts": [
+        {
+          "impact": "Monitorização e gestão cardiovascular",
+          "domain": "cardiovascular",
+          "timing": "long_term",
+          "reversibility": "unknown",
+          "severity": "moderate",
+          "patient_specific": false,
+          "evidence": []
+        },
+        {
+          "impact": "Anormalidades laboratoriais",
+          "domain": "hematologic",
+          "timing": "short_term",
+          "reversibility": "unknown",
+          "severity": "moderate",
+          "patient_specific": false,
+          "evidence": []
+        },
+        {
+          "impact": "Risco cardiovascular aumentado",
+          "domain": "cardiovascular",
+          "timing": "long_term",
+          "reversibility": "unknown",
+          "severity": "high",
+          "patient_specific": false,
+          "evidence": []
+        }
+      ],
+      "forecast": {
+        "horizon": "12 months",
+        "disease_control": "plausible",
+        "adverse_outcome_risk": "unknown",
+        "confidence_in_reasoning": "low",
+        "rationale": []
+      },
+      "missing_information": [
+        "performance_status",
+        "tnm_stage"
+      ],
+      "uncertainties": [
+        "Ausência de mecanismo suportado não demonstra eficácia."
+      ]
+    }
+  ],
+  "knowledge_base_version": "thyroid-poc-1",
+  "model": "qwen2.5:7b",
+  "timestamp": "2026-10-19T04:28:51.223457+00:00"
+}
