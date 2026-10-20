@@ -1,9 +1,8 @@
 import json
 from pathlib import Path
 
-from prognostico.knowledge import ClinicalKnowledgeBase
 from prognostico.llm import OllamaClient
-from prognostico.models import Evidence, FailureOutcome, MedicalRecord, TreatmentCandidate
+from prognostico.models import FailureOutcome, MedicalRecord, TreatmentCandidate
 from prognostico.record import MedicalRecordValidator
 from prognostico.state import PatientStateBuilder
 from prognostico.thyroid_pipeline import CounterfactualEngine, FailureDraft, ThyroidPrognosisPipeline, reasoning_context
@@ -67,17 +66,14 @@ def test_state_enriches_only_available_structured_data():
 
 
 def test_pipeline_default_counterfactual_depth_is_three():
-    documents = json.loads((ROOT / "data" / "guidelines" / "thyroid_poc.json").read_text())
-
-    pipeline = ThyroidPrognosisPipeline(OllamaClient("http://localhost:11434", "test-model"), ClinicalKnowledgeBase(documents), model_name="test-model")
+    pipeline = ThyroidPrognosisPipeline(OllamaClient("http://localhost:11434", "test-model"), model_name="test-model")
 
     assert pipeline.failure_engine.max_depth == 3
 
 
 def test_counterfactual_validation_links_hypothesis_to_fact_ids():
-    documents = json.loads((ROOT / "data" / "guidelines" / "thyroid_poc.json").read_text())
     state = PatientStateBuilder().build(MedicalRecordValidator().validate(load_record()))
-    engine = CounterfactualEngine(None, ClinicalKnowledgeBase(documents))
+    engine = CounterfactualEngine(None)
     treatment = TreatmentCandidate(
         treatment_id="TX-1",
         name="estratégia analítica",
@@ -98,21 +94,20 @@ def test_counterfactual_validation_links_hypothesis_to_fact_ids():
         patient_specificity=0.8,
     )
 
-    node = engine._validate_and_prune(state, treatment, outcome, None, 1, draft, [Evidence(finding="suporte", source="guideline")])
+    node = engine._validate_and_prune(state, treatment, outcome, None, 1, draft)
 
     assert node.status == "supported"
     assert node.patient_evidence[0].finding == "hipertensão arterial"
 
 
 def test_counterfactual_validation_keeps_valid_fact_ids_when_others_are_unknown():
-    documents = json.loads((ROOT / "data" / "guidelines" / "thyroid_poc.json").read_text())
     state = PatientStateBuilder().build(MedicalRecordValidator().validate(load_record()))
-    engine = CounterfactualEngine(None, ClinicalKnowledgeBase(documents))
+    engine = CounterfactualEngine(None)
     treatment = TreatmentCandidate(treatment_id="TX-1", name="estratégia analítica", treatment_class="systemic_therapy", therapeutic_goal="disease_control", reason_for_consideration=["teste"], patient_evidence=[])
     outcome = FailureOutcome(outcome_id="TX-1:toxicity", label="toxicity", description="teste")
     draft = FailureDraft(hypothesis="Hipótese com uma fonte inválida", mechanism="Mecanismo de teste", causal_chain=["hipertensão", "exposição", "toxicidade"], patient_fact_ids=["comorbidity:hipertensão arterial", "lab:inexistente"], clinical_plausibility=0.8, temporal_plausibility=0.8, patient_specificity=0.8)
 
-    node = engine._validate_and_prune(state, treatment, outcome, None, 1, draft, [Evidence(finding="suporte", source="guideline")])
+    node = engine._validate_and_prune(state, treatment, outcome, None, 1, draft)
 
     assert node.status == "supported"
     assert node.missing_information == ["unknown_patient_fact_id:lab:inexistente"]

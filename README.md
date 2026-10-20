@@ -24,9 +24,7 @@ flowchart TD
     B --> C[Patient State Builder]
     C --> D[PatientState\ncom proveniência]
 
-    D --> E[Clinical Knowledge Base\nrecuperação lexical versionada]
-    D --> F[Dynamic Treatment Generator]
-    E --> F
+    D --> F[Dynamic Treatment Generator\norientado por prompt]
     F --> G[Tratamentos gerados\nTreatmentCandidate]
 
     G --> H{Status do candidato}
@@ -36,8 +34,7 @@ flowchart TD
     subgraph ANALYSIS[Análise Contrafactual por Tratamento]
         I --> K[Failure Outcome Generator]
         K --> L[Failure Hypothesis Generator]
-        D --> L
-        E --> L
+    D --> L
         L --> M[Failure Tree Node]
         M --> N[Validação contra\nprontuário e evidência externa]
         N --> O{Pruning Engine}
@@ -50,7 +47,6 @@ flowchart TD
 
     P --> T[Treatment Impact Agent]
     D --> T
-    E --> T
     T --> U[Forecasting qualitativo\nhorizonte temporal]
 
     J --> V[Decision Synthesis]
@@ -71,9 +67,7 @@ Os candidatos são dinâmicos. Uma hipótese de falha somente permanece na árvo
 
 - `src/prognostico/record.py`: validação de datas, cronologia e conflitos temporais.
 - `src/prognostico/state.py`: estado clínico resumido com evidências de origem.
-- `src/prognostico/knowledge.py`: recuperação versionada de documentos clínicos.
 - `src/prognostico/thyroid_pipeline.py`: geração de candidatos, árvore, poda, impacto e relatório estruturado.
-- `data/guidelines/thyroid_poc.json`: base documental demonstrativa e versionada do MVP.
 - `examples/caso_prognostico.json`: caso sintético de carcinoma papilífero metastático.
 
 ## Uso
@@ -96,7 +90,7 @@ O comando grava `outputs/thyroid_report.json` e `outputs/thyroid_report.md` usan
 
 - O escopo inicial é carcinoma diferenciado de tireoide, com caso sintético.
 - A previsão é qualitativa em horizonte de 12 meses. Não há probabilidade numérica nem calibração sem conjunto de validação.
-- A recuperação atual é lexical e usa documentos demonstrativos; ela deve ser substituída por RAG validado e fontes clínicas versionadas antes de qualquer uso de pesquisa ou clínico.
+- A orientação dos agentes é interna aos prompts; ela não representa evidência recuperada e deve ser validada por especialistas antes de qualquer uso de pesquisa ou clínico.
 
 ## Testes
 

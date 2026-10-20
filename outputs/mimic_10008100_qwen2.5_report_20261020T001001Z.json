@@ -1,0 +1,1113 @@
+{
+  "case_id": "MIMIC-IV-10008100",
+  "patient_state": {
+    "case_id": "MIMIC-IV-10008100",
+    "cancer": {
+      "histology": "unknown; ICD-9 193 malignant neoplasm of thyroid gland",
+      "differentiation": null,
+      "tnm_stage": null,
+      "recurrence_risk": null,
+      "metastatic": null,
+      "metastatic_sites": [],
+      "iodine_avidity": null,
+      "progression_status": null,
+      "molecular_profile": {}
+    },
+    "patient": {
+      "age_years": 86,
+      "sex_at_birth": "F",
+      "gender_identity": null,
+      "weight_kg": null,
+      "height_cm": null,
+      "performance_status": null,
+      "frailty_assessment": null,
+      "functional_status": null,
+      "pregnancy_status": null,
+      "allergies": []
+    },
+    "active_problems": [
+      {
+        "fact_id": "comorbidity:Coronary atherosclerosis of native coronary artery (ICD-9 41401)",
+        "statement": "Comorbidade ativa: Coronary atherosclerosis of native coronary artery (ICD-9 41401)",
+        "source_ids": [
+          "comorbidity:Coronary atherosclerosis of native coronary artery (ICD-9 41401)"
+        ],
+        "evidence": [
+          {
+            "finding": "Coronary atherosclerosis of native coronary artery (ICD-9 41401)",
+            "source": "medical_record"
+          }
+        ],
+        "status": "active"
+      },
+      {
+        "fact_id": "comorbidity:Other and unspecified angina pectoris (ICD-9 4139)",
+        "statement": "Comorbidade ativa: Other and unspecified angina pectoris (ICD-9 4139)",
+        "source_ids": [
+          "comorbidity:Other and unspecified angina pectoris (ICD-9 4139)"
+        ],
+        "evidence": [
+          {
+            "finding": "Other and unspecified angina pectoris (ICD-9 4139)",
+            "source": "medical_record"
+          }
+        ],
+        "status": "active"
+      },
+      {
+        "fact_id": "comorbidity:Unspecified essential hypertension (ICD-9 4019)",
+        "statement": "Comorbidade ativa: Unspecified essential hypertension (ICD-9 4019)",
+        "source_ids": [
+          "comorbidity:Unspecified essential hypertension (ICD-9 4019)"
+        ],
+        "evidence": [
+          {
+            "finding": "Unspecified essential hypertension (ICD-9 4019)",
+            "source": "medical_record"
+          }
+        ],
+        "status": "active"
+      },
+      {
+        "fact_id": "comorbidity:Old myocardial infarction (ICD-9 412)",
+        "statement": "Comorbidade ativa: Old myocardial infarction (ICD-9 412)",
+        "source_ids": [
+          "comorbidity:Old myocardial infarction (ICD-9 412)"
+        ],
+        "evidence": [
+          {
+            "finding": "Old myocardial infarction (ICD-9 412)",
+            "source": "medical_record"
+          }
+        ],
+        "status": "active"
+      },
+      {
+        "fact_id": "comorbidity:Raynaud's syndrome (ICD-9 4430)",
+        "statement": "Comorbidade ativa: Raynaud's syndrome (ICD-9 4430)",
+        "source_ids": [
+          "comorbidity:Raynaud's syndrome (ICD-9 4430)"
+        ],
+        "evidence": [
+          {
+            "finding": "Raynaud's syndrome (ICD-9 4430)",
+            "source": "medical_record"
+          }
+        ],
+        "status": "active"
+      },
+      {
+        "fact_id": "comorbidity:Occlusion and stenosis of carotid artery without mention of cerebral infarction (ICD-9 43310)",
+        "statement": "Comorbidade ativa: Occlusion and stenosis of carotid artery without mention of cerebral infarction (ICD-9 43310)",
+        "source_ids": [
+          "comorbidity:Occlusion and stenosis of carotid artery without mention of cerebral infarction (ICD-9 43310)"
+        ],
+        "evidence": [
+          {
+            "finding": "Occlusion and stenosis of carotid artery without mention of cerebral infarction (ICD-9 43310)",
+            "source": "medical_record"
+          }
+        ],
+        "status": "active"
+      },
+      {
+        "fact_id": "active_comorbidity_summary",
+        "statement": "Comorbidades ativas documentadas: Coronary atherosclerosis of native coronary artery (ICD-9 41401); Other and unspecified angina pectoris (ICD-9 4139); Unspecified essential hypertension (ICD-9 4019); Old myocardial infarction (ICD-9 412); Raynaud's syndrome (ICD-9 4430); Occlusion and stenosis of carotid artery without mention of cerebral infarction (ICD-9 43310)",
+        "source_ids": [
+          "comorbidity:Coronary atherosclerosis of native coronary artery (ICD-9 41401)",
+          "comorbidity:Other and unspecified angina pectoris (ICD-9 4139)",
+          "comorbidity:Unspecified essential hypertension (ICD-9 4019)",
+          "comorbidity:Old myocardial infarction (ICD-9 412)",
+          "comorbidity:Raynaud's syndrome (ICD-9 4430)",
+          "comorbidity:Occlusion and stenosis of carotid artery without mention of cerebral infarction (ICD-9 43310)"
+        ],
+        "evidence": [
+          {
+            "finding": "Coronary atherosclerosis of native coronary artery (ICD-9 41401)",
+            "source": "medical_record"
+          },
+          {
+            "finding": "Other and unspecified angina pectoris (ICD-9 4139)",
+            "source": "medical_record"
+          },
+          {
+            "finding": "Unspecified essential hypertension (ICD-9 4019)",
+            "source": "medical_record"
+          },
+          {
+            "finding": "Old myocardial infarction (ICD-9 412)",
+            "source": "medical_record"
+          },
+          {
+            "finding": "Raynaud's syndrome (ICD-9 4430)",
+            "source": "medical_record"
+          },
+          {
+            "finding": "Occlusion and stenosis of carotid artery without mention of cerebral infarction (ICD-9 43310)",
+            "source": "medical_record"
+          }
+        ],
+        "status": "active"
+      },
+      {
+        "fact_id": "abnormal_lab_summary:hematocrit",
+        "statement": "Anormalidade laboratorial documentada em Hematocrit: 1 resultado(s); mais recente 35.0 % em 2181-12-11 (abnormal).",
+        "source_ids": [
+          "lab:Hematocrit:2181-12-11"
+        ],
+        "evidence": [
+          {
+            "finding": "Hematocrit=35.0 %",
+            "source": "lab:2181-12-11"
+          }
+        ],
+        "status": "active"
+      },
+      {
+        "fact_id": "abnormal_lab_summary:hemoglobin",
+        "statement": "Anormalidade laboratorial documentada em Hemoglobin: 1 resultado(s); mais recente 11.9 g/dL em 2181-12-11 (abnormal).",
+        "source_ids": [
+          "lab:Hemoglobin:2181-12-11"
+        ],
+        "evidence": [
+          {
+            "finding": "Hemoglobin=11.9 g/dL",
+            "source": "lab:2181-12-11"
+          }
+        ],
+        "status": "active"
+      },
+      {
+        "fact_id": "abnormal_lab_summary:mch",
+        "statement": "Anormalidade laboratorial documentada em MCH: 1 resultado(s); mais recente 32.1 pg em 2181-12-11 (abnormal).",
+        "source_ids": [
+          "lab:MCH:2181-12-11"
+        ],
+        "evidence": [
+          {
+            "finding": "MCH=32.1 pg",
+            "source": "lab:2181-12-11"
+          }
+        ],
+        "status": "active"
+      },
+      {
+        "fact_id": "abnormal_lab_summary:red blood cells",
+        "statement": "Anormalidade laboratorial documentada em Red Blood Cells: 1 resultado(s); mais recente 3.71 m/uL em 2181-12-11 (abnormal).",
+        "source_ids": [
+          "lab:Red Blood Cells:2181-12-11"
+        ],
+        "evidence": [
+          {
+            "finding": "Red Blood Cells=3.71 m/uL",
+            "source": "lab:2181-12-11"
+          }
+        ],
+        "status": "active"
+      },
+      {
+        "fact_id": "abnormal_lab_summary:calcium, total",
+        "statement": "Anormalidade laboratorial documentada em Calcium, Total: 3 resultado(s); mais recente 8.3 mg/dL em 2182-03-12 (abnormal).",
+        "source_ids": [
+          "lab:Calcium, Total:2181-12-11",
+          "lab:Calcium, Total:2181-12-18",
+          "lab:Calcium, Total:2182-03-12"
+        ],
+        "evidence": [
+          {
+            "finding": "Calcium, Total=8.0 mg/dL",
+            "source": "lab:2181-12-11"
+          },
+          {
+            "finding": "Calcium, Total=7.4 mg/dL",
+            "source": "lab:2181-12-18"
+          },
+          {
+            "finding": "Calcium, Total=8.3 mg/dL",
+            "source": "lab:2182-03-12"
+          }
+        ],
+        "status": "active"
+      },
+      {
+        "fact_id": "abnormal_lab_summary:glucose",
+        "statement": "Anormalidade laboratorial documentada em Glucose: 1 resultado(s); mais recente 175 mg/dL em 2181-12-11 (abnormal).",
+        "source_ids": [
+          "lab:Glucose:2181-12-11"
+        ],
+        "evidence": [
+          {
+            "finding": "Glucose=175 mg/dL",
+            "source": "lab:2181-12-11"
+          }
+        ],
+        "status": "active"
+      },
+      {
+        "fact_id": "abnormal_lab_summary:thyroid stimulating hormone",
+        "statement": "Anormalidade laboratorial documentada em Thyroid Stimulating Hormone: 1 resultado(s); mais recente 11 uIU/mL em 2182-03-12 (abnormal).",
+        "source_ids": [
+          "lab:Thyroid Stimulating Hormone:2182-03-12"
+        ],
+        "evidence": [
+          {
+            "finding": "Thyroid Stimulating Hormone=11 uIU/mL",
+            "source": "lab:2182-03-12"
+          }
+        ],
+        "status": "active"
+      },
+      {
+        "fact_id": "prior_treatment:MIMIC-PROC-064-1",
+        "statement": "Tratamento prévio Complete thyroidectomy: unknown",
+        "source_ids": [
+          "MIMIC-PROC-064-1"
+        ],
+        "evidence": [
+          {
+            "finding": "unknown",
+            "source": "MIMIC-PROC-064-1"
+          }
+        ],
+        "status": "historical"
+      },
+      {
+        "fact_id": "prior_treatment:MIMIC-PROC-0695-2",
+        "statement": "Tratamento prévio Parathyroid tissue reimplantation: unknown",
+        "source_ids": [
+          "MIMIC-PROC-0695-2"
+        ],
+        "evidence": [
+          {
+            "finding": "unknown",
+            "source": "MIMIC-PROC-0695-2"
+          }
+        ],
+        "status": "historical"
+      },
+      {
+        "fact_id": "prior_treatment:MIMIC-PROC-8604-3",
+        "statement": "Tratamento prévio Other incision with drainage of skin and subcutaneous tissue: unknown",
+        "source_ids": [
+          "MIMIC-PROC-8604-3"
+        ],
+        "evidence": [
+          {
+            "finding": "unknown",
+            "source": "MIMIC-PROC-8604-3"
+          }
+        ],
+        "status": "historical"
+      }
+    ],
+    "previous_treatments": [
+      {
+        "treatment_id": "MIMIC-PROC-064-1",
+        "name": "Complete thyroidectomy",
+        "started_at": "2181-12-10",
+        "ended_at": "2181-12-10",
+        "response": "unknown",
+        "toxicities": []
+      },
+      {
+        "treatment_id": "MIMIC-PROC-0695-2",
+        "name": "Parathyroid tissue reimplantation",
+        "started_at": "2181-12-10",
+        "ended_at": "2181-12-10",
+        "response": "unknown",
+        "toxicities": []
+      },
+      {
+        "treatment_id": "MIMIC-PROC-8604-3",
+        "name": "Other incision with drainage of skin and subcutaneous tissue",
+        "started_at": "2181-12-10",
+        "ended_at": "2181-12-10",
+        "response": "unknown",
+        "toxicities": []
+      }
+    ],
+    "medications": [
+      {
+        "name": "Morphine Sulfate",
+        "status": "completed",
+        "dose": "2 mg",
+        "route": "IV",
+        "frequency": null,
+        "indication": null,
+        "started_at": "2181-12-10",
+        "ended_at": "2181-12-11"
+      },
+      {
+        "name": "Metoprolol Tartrate",
+        "status": "completed",
+        "dose": "5 mg",
+        "route": "IV",
+        "frequency": "6 doses/24h",
+        "indication": null,
+        "started_at": "2181-12-10",
+        "ended_at": "2181-12-11"
+      },
+      {
+        "name": "Amlodipine",
+        "status": "completed",
+        "dose": "5 mg",
+        "route": "PO",
+        "frequency": "1 doses/24h",
+        "indication": null,
+        "started_at": "2181-12-10",
+        "ended_at": "2181-12-12"
+      },
+      {
+        "name": "Calcium Carbonate",
+        "status": "completed",
+        "dose": "1500 mg",
+        "route": "PO",
+        "frequency": null,
+        "indication": null,
+        "started_at": "2181-12-10",
+        "ended_at": "2181-12-11"
+      },
+      {
+        "name": "Calcium Carbonate",
+        "status": "completed",
+        "dose": "1500 mg",
+        "route": "PO",
+        "frequency": "0 doses/24h",
+        "indication": null,
+        "started_at": "2181-12-10",
+        "ended_at": "2181-12-12"
+      },
+      {
+        "name": "Hydrochlorothiazide",
+        "status": "completed",
+        "dose": "12.5 mg",
+        "route": "PO",
+        "frequency": "1 doses/24h",
+        "indication": null,
+        "started_at": "2181-12-10",
+        "ended_at": "2181-12-12"
+      },
+      {
+        "name": "Calcium Carbonate",
+        "status": "completed",
+        "dose": "2000 mg",
+        "route": "PO",
+        "frequency": "3 doses/24h",
+        "indication": null,
+        "started_at": "2181-12-11",
+        "ended_at": "2181-12-12"
+      },
+      {
+        "name": "Sodium Chloride 0.9%  Flush",
+        "status": "completed",
+        "dose": "3 mL",
+        "route": "IV",
+        "frequency": null,
+        "indication": null,
+        "started_at": "2181-12-10",
+        "ended_at": "2181-12-12"
+      },
+      {
+        "name": "Vial",
+        "status": "completed",
+        "dose": "1 VIAL",
+        "route": "IV",
+        "frequency": "1 doses/24h",
+        "indication": null,
+        "started_at": "2181-12-10",
+        "ended_at": "2181-12-11"
+      },
+      {
+        "name": "Pantoprazole Sodium",
+        "status": "completed",
+        "dose": "40 mg",
+        "route": "IV",
+        "frequency": "1 doses/24h",
+        "indication": null,
+        "started_at": "2181-12-10",
+        "ended_at": "2181-12-11"
+      },
+      {
+        "name": "LR",
+        "status": "completed",
+        "dose": "1000 mL",
+        "route": "IV",
+        "frequency": null,
+        "indication": null,
+        "started_at": "2181-12-10",
+        "ended_at": "2181-12-11"
+      },
+      {
+        "name": "Calcium Carbonate",
+        "status": "completed",
+        "dose": "3000 mg",
+        "route": "PO",
+        "frequency": null,
+        "indication": null,
+        "started_at": "2181-12-11",
+        "ended_at": "2181-12-12"
+      },
+      {
+        "name": "Nadolol",
+        "status": "completed",
+        "dose": "40 mg",
+        "route": "PO",
+        "frequency": "1 doses/24h",
+        "indication": null,
+        "started_at": "2181-12-10",
+        "ended_at": "2181-12-12"
+      },
+      {
+        "name": "Amlodipine",
+        "status": "completed",
+        "dose": "5 mg",
+        "route": "PO",
+        "frequency": "1 doses/24h",
+        "indication": null,
+        "started_at": "2181-12-10",
+        "ended_at": "2181-12-11"
+      },
+      {
+        "name": "Ondansetron",
+        "status": "completed",
+        "dose": "4 mg",
+        "route": "IV",
+        "frequency": null,
+        "indication": null,
+        "started_at": "2181-12-10",
+        "ended_at": "2181-12-12"
+      },
+      {
+        "name": "Liothyronine Sodium",
+        "status": "completed",
+        "dose": "12.5 mcg",
+        "route": "PO",
+        "frequency": "2 doses/24h",
+        "indication": null,
+        "started_at": "2181-12-10",
+        "ended_at": "2181-12-12"
+      },
+      {
+        "name": "Calcium Carbonate",
+        "status": "completed",
+        "dose": "1500 mg",
+        "route": "PO",
+        "frequency": null,
+        "indication": null,
+        "started_at": "2181-12-10",
+        "ended_at": "2181-12-10"
+      },
+      {
+        "name": "Pantoprazole",
+        "status": "completed",
+        "dose": "40 mg",
+        "route": "PO",
+        "frequency": "1 doses/24h",
+        "indication": null,
+        "started_at": "2181-12-11",
+        "ended_at": "2181-12-12"
+      },
+      {
+        "name": "Insulin",
+        "status": "completed",
+        "dose": "0 UNIT",
+        "route": "SC",
+        "frequency": null,
+        "indication": null,
+        "started_at": "2181-12-11",
+        "ended_at": "2181-12-11"
+      },
+      {
+        "name": "Calcium Carbonate",
+        "status": "completed",
+        "dose": "2000 mg",
+        "route": "PO",
+        "frequency": "3 doses/24h",
+        "indication": null,
+        "started_at": "2181-12-12",
+        "ended_at": "2181-12-11"
+      },
+      {
+        "name": "Heparin",
+        "status": "completed",
+        "dose": "5000 UNIT",
+        "route": "SC",
+        "frequency": "3 doses/24h",
+        "indication": null,
+        "started_at": "2181-12-10",
+        "ended_at": "2181-12-11"
+      },
+      {
+        "name": "Sodium Chloride 0.9%  Flush",
+        "status": "completed",
+        "dose": "3 mL",
+        "route": "IV",
+        "frequency": null,
+        "indication": null,
+        "started_at": "2181-12-10",
+        "ended_at": "2181-12-12"
+      },
+      {
+        "name": "Potassium Chl 20 mEq / 1000 mL D5 1/2 NS",
+        "status": "completed",
+        "dose": "1000 mL",
+        "route": "IV",
+        "frequency": null,
+        "indication": null,
+        "started_at": "2181-12-10",
+        "ended_at": "2181-12-11"
+      },
+      {
+        "name": "Metoprolol Tartrate",
+        "status": "completed",
+        "dose": "5 mg",
+        "route": "IV",
+        "frequency": "6 doses/24h",
+        "indication": null,
+        "started_at": "2181-12-10",
+        "ended_at": "2181-12-11"
+      },
+      {
+        "name": "Prochlorperazine",
+        "status": "completed",
+        "dose": "10 mg",
+        "route": "IV",
+        "frequency": null,
+        "indication": null,
+        "started_at": "2181-12-11",
+        "ended_at": "2181-12-12"
+      },
+      {
+        "name": "Calcium Carbonate",
+        "status": "completed",
+        "dose": "1500 mg",
+        "route": "PO",
+        "frequency": null,
+        "indication": null,
+        "started_at": "2181-12-10",
+        "ended_at": "2181-12-10"
+      },
+      {
+        "name": "Prochlorperazine",
+        "status": "completed",
+        "dose": "10 mg",
+        "route": "PO",
+        "frequency": null,
+        "indication": null,
+        "started_at": "2181-12-11",
+        "ended_at": "2181-12-12"
+      },
+      {
+        "name": "Ibuprofen",
+        "status": "completed",
+        "dose": "600 mg",
+        "route": "PO",
+        "frequency": null,
+        "indication": null,
+        "started_at": "2181-12-11",
+        "ended_at": "2181-12-12"
+      },
+      {
+        "name": "Simvastatin",
+        "status": "completed",
+        "dose": "20 mg",
+        "route": "PO",
+        "frequency": "1 doses/24h",
+        "indication": null,
+        "started_at": "2181-12-10",
+        "ended_at": "2181-12-12"
+      },
+      {
+        "name": "Lisinopril",
+        "status": "completed",
+        "dose": "20 mg",
+        "route": "PO",
+        "frequency": "1 doses/24h",
+        "indication": null,
+        "started_at": "2181-12-10",
+        "ended_at": "2181-12-12"
+      },
+      {
+        "name": "Calcitriol",
+        "status": "completed",
+        "dose": "0.25 mcg",
+        "route": "PO",
+        "frequency": "1 doses/24h",
+        "indication": null,
+        "started_at": "2181-12-12",
+        "ended_at": "2181-12-12"
+      },
+      {
+        "name": "Calcitriol",
+        "status": "completed",
+        "dose": "0.25 mcg",
+        "route": "PO",
+        "frequency": "2 doses/24h",
+        "indication": null,
+        "started_at": "2181-12-11",
+        "ended_at": "2181-12-12"
+      },
+      {
+        "name": "Calcium Carbonate",
+        "status": "completed",
+        "dose": "1500 mg",
+        "route": "PO",
+        "frequency": null,
+        "indication": null,
+        "started_at": "2181-12-10",
+        "ended_at": "2181-12-11"
+      },
+      {
+        "name": "Sodium Chloride 0.9%  Flush",
+        "status": "completed",
+        "dose": "3 mL",
+        "route": "IV",
+        "frequency": null,
+        "indication": null,
+        "started_at": "2181-12-11",
+        "ended_at": "2181-12-12"
+      },
+      {
+        "name": "Calcium Carbonate",
+        "status": "completed",
+        "dose": "2000 mg",
+        "route": "PO",
+        "frequency": "2 doses/24h",
+        "indication": null,
+        "started_at": "2181-12-12",
+        "ended_at": "2181-12-12"
+      },
+      {
+        "name": "Hydrocodone-Acetaminophen",
+        "status": "completed",
+        "dose": "1-2 TAB",
+        "route": "PO",
+        "frequency": null,
+        "indication": null,
+        "started_at": "2181-12-10",
+        "ended_at": "2181-12-11"
+      },
+      {
+        "name": "Calcium Carbonate",
+        "status": "completed",
+        "dose": "1500 mg",
+        "route": "PO",
+        "frequency": null,
+        "indication": null,
+        "started_at": "2181-12-10",
+        "ended_at": "2181-12-10"
+      },
+      {
+        "name": "Calcium Carbonate",
+        "status": "completed",
+        "dose": "1500 mg",
+        "route": "PO",
+        "frequency": null,
+        "indication": null,
+        "started_at": "2181-12-10",
+        "ended_at": "2181-12-10"
+      },
+      {
+        "name": "PNEUMOcoccal Vac Polyvalent",
+        "status": "completed",
+        "dose": "0.5 mL",
+        "route": "IM",
+        "frequency": null,
+        "indication": null,
+        "started_at": "2181-12-11",
+        "ended_at": "2181-12-12"
+      }
+    ],
+    "missing_information": [
+      "performance_status",
+      "tnm_stage"
+    ],
+    "data_warnings": [
+      "MIMIC-IV structured extract: no clinical notes, imaging reports, pathology, TNM stage, histology, molecular profile, iodine avidity, progression assessment, functional status, or allergies are available through the retrieved API routes.",
+      "No structured metastasis record was retrieved; this is not evidence of absence of metastatic disease.",
+      "Comorbidities are ICD-coded admission diagnoses; their current clinical activity requires review."
+    ]
+  },
+  "generated_treatments": [
+    {
+      "treatment_id": "candidate",
+      "name": "Reavaliação diagnóstica",
+      "treatment_class": "diagnostic",
+      "therapeutic_goal": "Determinar se há evidências de câncer de tireoide",
+      "reason_for_consideration": [
+        "Histologia desconhecida",
+        "Ausência de dados sobre estadiamento (TNM) e caracterização molecular"
+      ],
+      "patient_evidence": [
+        {
+          "finding": "cancer.histology",
+          "source": "unknown; ICD-9 193 malignant neoplasm of thyroid gland"
+        },
+        {
+          "finding": "missing_information",
+          "source": "performance_status, tnm_stage"
+        }
+      ],
+      "contraindications_detected": [],
+      "evidence_source_ids": [],
+      "status": "candidate"
+    }
+  ],
+  "candidate_treatments": [
+    {
+      "treatment": {
+        "treatment_id": "candidate",
+        "name": "Reavaliação diagnóstica",
+        "treatment_class": "diagnostic",
+        "therapeutic_goal": "Determinar se há evidências de câncer de tireoide",
+        "reason_for_consideration": [
+          "Histologia desconhecida",
+          "Ausência de dados sobre estadiamento (TNM) e caracterização molecular"
+        ],
+        "patient_evidence": [
+          {
+            "finding": "cancer.histology",
+            "source": "unknown; ICD-9 193 malignant neoplasm of thyroid gland"
+          },
+          {
+            "finding": "missing_information",
+            "source": "performance_status, tnm_stage"
+          }
+        ],
+        "contraindications_detected": [],
+        "evidence_source_ids": [],
+        "status": "candidate"
+      },
+      "candidate_status": "remains_plausible",
+      "failure_tree": {
+        "treatment_id": "candidate",
+        "outcomes": [
+          {
+            "outcome_id": "candidate:oncologic_failure",
+            "label": "oncologic_failure",
+            "description": "Ausência de resposta ou progressão"
+          },
+          {
+            "outcome_id": "candidate:toxicity",
+            "label": "toxicity",
+            "description": "Toxicidade grave relacionada ao tratamento"
+          },
+          {
+            "outcome_id": "candidate:interruption",
+            "label": "interruption",
+            "description": "Interrupção ou redução de dose"
+          }
+        ],
+        "nodes": [
+          {
+            "node_id": "11f47d8f-9343-49fe-8af7-f60e260427c4",
+            "parent_id": null,
+            "depth": 1,
+            "outcome_id": "candidate:oncologic_failure",
+            "hypothesis": "Hipótese contrafactual: Falha do câncer de tireoide devido à insuficiência cardíaca exacerbada.",
+            "mechanism": "A insuficiência cardíaca exacerbada pode levar a um aumento da demanda metabólica, o que pode resultar em um consumo excessivo de iodeto pelo tecido tumoral. Isso pode levar a uma falha do tecido tumoral devido à insuficiência de suprimento de iodeto.",
+            "causal_chain": [],
+            "required_patient_condition": null,
+            "patient_evidence": [
+              {
+                "finding": "Old myocardial infarction (ICD-9 412)",
+                "source": "medical_record"
+              }
+            ],
+            "external_evidence": [],
+            "contradictory_evidence": [],
+            "missing_information": [],
+            "clinical_plausibility": 0.7,
+            "temporal_plausibility": 0.8,
+            "patient_specificity": 0.9,
+            "status": "pruned",
+            "pruning_code": "PRUNED_NON_SPECIFIC"
+          },
+          {
+            "node_id": "4ffe337c-0a2e-4472-850d-d6a97438cc5e",
+            "parent_id": null,
+            "depth": 1,
+            "outcome_id": "candidate:oncologic_failure",
+            "hypothesis": "Hipótese contrafactual: Falha do câncer de tireoide devido à hipertensão arterial sistêmica.",
+            "mechanism": "A hipertensão arterial sistêmica pode causar um aumento na pressão arterial sistêmica, o que pode levar a um aumento na demanda metabólica do tecido tumoral. Isso pode resultar em uma falha do tecido tumoral devido à insuficiência de suprimento de iodeto.",
+            "causal_chain": [],
+            "required_patient_condition": null,
+            "patient_evidence": [
+              {
+                "finding": "Unspecified essential hypertension (ICD-9 4019)",
+                "source": "medical_record"
+              }
+            ],
+            "external_evidence": [],
+            "contradictory_evidence": [],
+            "missing_information": [],
+            "clinical_plausibility": 0.6,
+            "temporal_plausibility": 0.7,
+            "patient_specificity": 0.8,
+            "status": "pruned",
+            "pruning_code": "PRUNED_NON_SPECIFIC"
+          },
+          {
+            "node_id": "9e06cb14-3dfd-4e17-b377-e03dc37d4639",
+            "parent_id": null,
+            "depth": 1,
+            "outcome_id": "candidate:oncologic_failure",
+            "hypothesis": "Hipótese contrafactual: Falha do câncer de tireoide devido à anemia.",
+            "mechanism": "A anemia pode levar a um déficit de hemoglobina, o que pode resultar em um consumo reduzido de iodeto pelo tecido tumoral. Isso pode levar a uma falha do tecido tumoral devido à insuficiência de suprimento de iodeto.",
+            "causal_chain": [],
+            "required_patient_condition": null,
+            "patient_evidence": [
+              {
+                "finding": "Hemoglobin=11.9 g/dL",
+                "source": "lab:2181-12-11"
+              },
+              {
+                "finding": "Red Blood Cells=3.71 m/uL",
+                "source": "lab:2181-12-11"
+              }
+            ],
+            "external_evidence": [],
+            "contradictory_evidence": [],
+            "missing_information": [],
+            "clinical_plausibility": 0.5,
+            "temporal_plausibility": 0.6,
+            "patient_specificity": 0.7,
+            "status": "pruned",
+            "pruning_code": "PRUNED_NON_SPECIFIC"
+          },
+          {
+            "node_id": "d0f0e005-02ea-4224-af62-13e7748a7eff",
+            "parent_id": null,
+            "depth": 1,
+            "outcome_id": "candidate:toxicity",
+            "hypothesis": "Hipótese contrafactual: Falha da tireoide devido à aterosclerose coronariana.",
+            "mechanism": "A aterosclerose coronariana pode levar a uma insuficiência cardíaca, reduzindo a perfusão sanguínea ao tecido da tireoide, resultando em falha da tireoide.",
+            "causal_chain": [],
+            "required_patient_condition": null,
+            "patient_evidence": [
+              {
+                "finding": "Coronary atherosclerosis of native coronary artery (ICD-9 41401)",
+                "source": "medical_record"
+              }
+            ],
+            "external_evidence": [],
+            "contradictory_evidence": [],
+            "missing_information": [],
+            "clinical_plausibility": 0.8,
+            "temporal_plausibility": 0.7,
+            "patient_specificity": 0.9,
+            "status": "pruned",
+            "pruning_code": "PRUNED_NON_SPECIFIC"
+          },
+          {
+            "node_id": "133455e1-034d-44ac-9ca2-1fcb38e0063e",
+            "parent_id": null,
+            "depth": 1,
+            "outcome_id": "candidate:toxicity",
+            "hypothesis": "Hipótese contrafactual: Falha da tireoide devido à hipertensão arterial essencial.",
+            "mechanism": "A hipertensão arterial essencial pode causar uma pressão arterial elevada, o que pode levar a um comprometimento da perfusão sanguínea ao tecido da tireoide, resultando em falha da tireoide.",
+            "causal_chain": [],
+            "required_patient_condition": null,
+            "patient_evidence": [
+              {
+                "finding": "Unspecified essential hypertension (ICD-9 4019)",
+                "source": "medical_record"
+              }
+            ],
+            "external_evidence": [],
+            "contradictory_evidence": [],
+            "missing_information": [],
+            "clinical_plausibility": 0.7,
+            "temporal_plausibility": 0.6,
+            "patient_specificity": 0.8,
+            "status": "pruned",
+            "pruning_code": "PRUNED_NON_SPECIFIC"
+          },
+          {
+            "node_id": "1748462f-2a62-490c-a1ca-584a3cd81850",
+            "parent_id": null,
+            "depth": 1,
+            "outcome_id": "candidate:toxicity",
+            "hypothesis": "Hipótese contrafactual: Falha da tireoide devido ao infarto antigo.",
+            "mechanism": "O infarto antigo pode causar um dano persistente ao tecido cardíaco, reduzindo a capacidade do coração de bombear sangue eficientemente, o que pode levar a uma insuficiência cardíaca e, consequentemente, à falha da tireoide.",
+            "causal_chain": [],
+            "required_patient_condition": null,
+            "patient_evidence": [
+              {
+                "finding": "Old myocardial infarction (ICD-9 412)",
+                "source": "medical_record"
+              }
+            ],
+            "external_evidence": [],
+            "contradictory_evidence": [],
+            "missing_information": [],
+            "clinical_plausibility": 0.6,
+            "temporal_plausibility": 0.5,
+            "patient_specificity": 0.7,
+            "status": "pruned",
+            "pruning_code": "PRUNED_NON_SPECIFIC"
+          },
+          {
+            "node_id": "a8ac2c40-ce33-41f1-b83b-480de35d8a1e",
+            "parent_id": null,
+            "depth": 1,
+            "outcome_id": "candidate:interruption",
+            "hypothesis": "Hipótese contrafactual: Falha da tireoide devido à anemia.",
+            "mechanism": "A anemia, documentada pela baixa hemoglobina e hematocrito, pode levar a uma redução na oxigenação do tecido da tireoide, resultando em falha da tireoide.",
+            "causal_chain": [],
+            "required_patient_condition": null,
+            "patient_evidence": [
+              {
+                "finding": "Hemoglobin=11.9 g/dL",
+                "source": "lab:2181-12-11"
+              },
+              {
+                "finding": "Hematocrit=35.0 %",
+                "source": "lab:2181-12-11"
+              }
+            ],
+            "external_evidence": [],
+            "contradictory_evidence": [],
+            "missing_information": [],
+            "clinical_plausibility": 0.8,
+            "temporal_plausibility": 0.9,
+            "patient_specificity": 0.7,
+            "status": "pruned",
+            "pruning_code": "PRUNED_NON_SPECIFIC"
+          },
+          {
+            "node_id": "ed619636-7087-4b46-ab96-ec4f83f98399",
+            "parent_id": null,
+            "depth": 1,
+            "outcome_id": "candidate:interruption",
+            "hypothesis": "Hipótese contrafactual: Falha da tireoide devido à aterosclerose coronariana.",
+            "mechanism": "A aterosclerose coronariana pode levar a insuficiência cardíaca, reduzindo a capacidade de bombear sangue e oxigênio para a tireoide. Isso pode resultar em falha da tireoide devido à falta de oxigênio e nutrientes.",
+            "causal_chain": [],
+            "required_patient_condition": null,
+            "patient_evidence": [
+              {
+                "finding": "Coronary atherosclerosis of native coronary artery (ICD-9 41401)",
+                "source": "medical_record"
+              }
+            ],
+            "external_evidence": [],
+            "contradictory_evidence": [],
+            "missing_information": [],
+            "clinical_plausibility": 0.7,
+            "temporal_plausibility": 0.8,
+            "patient_specificity": 0.6,
+            "status": "pruned",
+            "pruning_code": "PRUNED_NON_SPECIFIC"
+          },
+          {
+            "node_id": "049dd6ed-0dac-49ac-8462-1a9cfff24c33",
+            "parent_id": null,
+            "depth": 1,
+            "outcome_id": "candidate:interruption",
+            "hypothesis": "Hipótese contrafactual: Falha da tireoide devido à hipertensão arterial.",
+            "mechanism": "A hipertensão arterial pode causar danos aos vasos sanguíneos, incluindo os vasos que nutrem a tireoide. Isso pode levar a uma redução no fluxo sanguíneo, resultando em falha da tireoide.",
+            "causal_chain": [],
+            "required_patient_condition": null,
+            "patient_evidence": [
+              {
+                "finding": "Unspecified essential hypertension (ICD-9 4019)",
+                "source": "medical_record"
+              }
+            ],
+            "external_evidence": [],
+            "contradictory_evidence": [],
+            "missing_information": [],
+            "clinical_plausibility": 0.6,
+            "temporal_plausibility": 0.7,
+            "patient_specificity": 0.5,
+            "status": "pruned",
+            "pruning_code": "PRUNED_NON_SPECIFIC"
+          }
+        ],
+        "max_depth": 3
+      },
+      "impacts": [
+        {
+          "impact": "Hematocrit reduzido (35.0%) pode indicar anemia, o que pode afetar a capacidade do paciente de realizar atividades diárias.",
+          "domain": "hematologic",
+          "timing": "permanent",
+          "reversibility": "unknown",
+          "severity": "moderate",
+          "patient_specific": true,
+          "evidence": []
+        },
+        {
+          "impact": "Hemoglobina reduzida (11.9 g/dL) pode indicar anemia, o que pode afetar a capacidade do paciente de realizar atividades diárias.",
+          "domain": "hematologic",
+          "timing": "permanent",
+          "reversibility": "unknown",
+          "severity": "moderate",
+          "patient_specific": true,
+          "evidence": []
+        },
+        {
+          "impact": "MCH reduzido (32.1 pg) pode indicar anemia, o que pode afetar a capacidade do paciente de realizar atividades diárias.",
+          "domain": "hematologic",
+          "timing": "permanent",
+          "reversibility": "unknown",
+          "severity": "moderate",
+          "patient_specific": true,
+          "evidence": []
+        },
+        {
+          "impact": "Contagem de eritrócitos reduzida (3.71 m/uL) pode indicar anemia, o que pode afetar a capacidade do paciente de realizar atividades diárias.",
+          "domain": "hematologic",
+          "timing": "permanent",
+          "reversibility": "unknown",
+          "severity": "moderate",
+          "patient_specific": true,
+          "evidence": []
+        },
+        {
+          "impact": "Calcium reduzido (8.3 mg/dL) pode indicar hipocalcemia, o que pode causar sintomas como formigueiro, espasmos musculares e tremores.",
+          "domain": "endocrine",
+          "timing": "permanent",
+          "reversibility": "unknown",
+          "severity": "moderate",
+          "patient_specific": true,
+          "evidence": []
+        },
+        {
+          "impact": "Glicemia elevada (175 mg/dL) pode indicar hiperglicemia, o que pode afetar a capacidade do paciente de realizar atividades diárias.",
+          "domain": "endocrine",
+          "timing": "permanent",
+          "reversibility": "unknown",
+          "severity": "moderate",
+          "patient_specific": true,
+          "evidence": []
+        },
+        {
+          "impact": "Hormônio estimulante da tireoide (TSH) elevado (11 uIU/mL) pode indicar hipotiroidismo, o que pode causar sintomas como fadiga, baixa resistência e alterações metabólicas.",
+          "domain": "endocrine",
+          "timing": "permanent",
+          "reversibility": "unknown",
+          "severity": "moderate",
+          "patient_specific": true,
+          "evidence": []
+        }
+      ],
+      "forecast": {
+        "horizon": "12 months",
+        "disease_control": "plausible",
+        "adverse_outcome_risk": "unknown",
+        "confidence_in_reasoning": "low",
+        "rationale": []
+      },
+      "missing_information": [
+        "performance_status",
+        "tnm_stage"
+      ],
+      "uncertainties": [
+        "Ausência de mecanismo suportado não demonstra eficácia."
+      ]
+    }
+  ],
+  "reasoning_guidance_version": "thyroid-internal-prompts-v1",
+  "model": "Qwen2.5-7B-Instruct-Q4_K_M",
+  "timestamp": "2026-10-20T00:10:01.599004+00:00"
+}

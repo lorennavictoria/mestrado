@@ -367,6 +367,6 @@ class AnalysisReport(BaseModel):
     patient_state: PatientState
     generated_treatments: list[TreatmentCandidate]
     candidate_treatments: list[TreatmentAnalysis]
-    knowledge_base_version: str
+    reasoning_guidance_version: str
     model: str
     timestamp: str
