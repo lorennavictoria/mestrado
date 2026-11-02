@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Literal
+from typing import Any, Literal
 
 from pydantic import BaseModel, ConfigDict, Field
 
@@ -8,6 +8,12 @@ from pydantic import BaseModel, ConfigDict, Field
 class Evidence(BaseModel):
     finding: str
     source: str | None = None
+    document_id: str | None = None
+    guideline_version: str | None = None
+    page: int | None = None
+    chunk_id: str | None = None
+    scope: list[str] = Field(default_factory=list)
+    relevance: str | None = None
 
 
 class PatientCharacteristics(BaseModel):
@@ -287,9 +293,18 @@ class TreatmentCandidate(BaseModel):
     name: str
     treatment_class: str
     therapeutic_goal: str
+    components: list[str] = Field(default_factory=list)
+    sequence: list[str] = Field(default_factory=list)
+    monitoring: list[str] = Field(default_factory=list)
+    potential_adverse_events: list[str] = Field(default_factory=list)
+    guideline_version: str | None = None
+    references: list[str] = Field(default_factory=list)
+    guideline_query: str = ""
     reason_for_consideration: list[str]
     patient_evidence: list[Evidence]
+    patient_fact_ids: list[str] = Field(default_factory=list)
     contraindications_detected: list[str] = Field(default_factory=list)
+    eligibility_missing: list[str] = Field(default_factory=list)
     evidence_source_ids: list[str] = Field(default_factory=list)
     status: Literal["candidate", "not_applicable", "insufficient_information"] = "candidate"
 
@@ -298,6 +313,14 @@ class FailureOutcome(BaseModel):
     outcome_id: str
     label: Literal["oncologic_failure", "toxicity", "intolerance", "interruption", "progression", "hospitalization", "functional_decline", "mortality"]
     description: str
+
+
+class OutcomeScenario(BaseModel):
+    outcome_id: str
+    label: Literal["response_control", "persistence", "recurrence_progression", "toxicity", "quality_of_life", "subsequent_therapy", "mortality"]
+    description: str
+    mechanism: str | None = None
+    modifiers: list[str] = Field(default_factory=list)
 
 
 class NodeEvidenceValidation(BaseModel):
@@ -320,11 +343,14 @@ class FailureTreeNode(BaseModel):
     external_evidence: list[Evidence] = Field(default_factory=list)
     contradictory_evidence: list[Evidence] = Field(default_factory=list)
     missing_information: list[str] = Field(default_factory=list)
+    generation_context: dict[str, Any] = Field(default_factory=dict)
+    validation_trace: dict[str, Any] = Field(default_factory=dict)
     clinical_plausibility: float = Field(ge=0, le=1)
     temporal_plausibility: float = Field(ge=0, le=1)
     patient_specificity: float = Field(ge=0, le=1)
     status: Literal["active", "supported", "pruned", "unresolved"] = "active"
-    pruning_code: Literal["PRUNED_CONTRADICTION", "PRUNED_ABSENT_CONDITION", "PRUNED_UNSUPPORTED_MECHANISM", "PRUNED_TEMPORAL", "PRUNED_NON_SPECIFIC", "UNRESOLVED_MISSING_DATA"] | None = None
+    pruning_code: Literal["PRUNED_CONTRADICTION", "PRUNED_ABSENT_CONDITION", "PRUNED_TEMPORAL", "UNRESOLVED_MISSING_DATA", "UNRESOLVED_INSUFFICIENT_SUPPORT"] | None = None
+    critique: str | None = None
 
 
 class CounterfactualTree(BaseModel):
@@ -332,6 +358,23 @@ class CounterfactualTree(BaseModel):
     outcomes: list[FailureOutcome]
     nodes: list[FailureTreeNode]
     max_depth: int
+    outcome_generation_context: dict[str, Any] = Field(default_factory=dict)
+    outcome_generation_trace: dict[str, Any] = Field(default_factory=dict)
+
+
+class OutcomeTree(BaseModel):
+    treatment_id: str
+    root_description: str
+    outcomes: list[OutcomeScenario] = Field(default_factory=list)
+    evidence: list[Evidence] = Field(default_factory=list)
+    generation_context: dict[str, Any] = Field(default_factory=dict)
+
+
+class EligibilityAssessment(BaseModel):
+    status: Literal["eligible", "ineligible", "indeterminate"]
+    reasons: list[str] = Field(default_factory=list)
+    missing_requirements: list[str] = Field(default_factory=list)
+    citations: list[Evidence] = Field(default_factory=list)
 
 
 class TreatmentImpact(BaseModel):
@@ -341,6 +384,7 @@ class TreatmentImpact(BaseModel):
     reversibility: Literal["reversible", "irreversible", "unknown"]
     severity: Literal["low", "moderate", "high", "unknown"]
     patient_specific: bool
+    patient_fact_ids: list[str] = Field(default_factory=list)
     evidence: list[Evidence] = Field(default_factory=list)
 
 
@@ -352,21 +396,37 @@ class QualitativeForecast(BaseModel):
     rationale: list[str] = Field(default_factory=list)
 
 
+class CausalReasoningSummary(BaseModel):
+    outcome_id: str
+    outcome_description: str
+    supported_paths: list[list[str]] = Field(default_factory=list)
+    narrative: list[str] = Field(default_factory=list)
+    limitations: list[str] = Field(default_factory=list)
+
+
 class TreatmentAnalysis(BaseModel):
     treatment: TreatmentCandidate
+    eligibility: EligibilityAssessment | None = None
+    outcome_tree: OutcomeTree | None = None
     candidate_status: Literal["remains_plausible", "high_risk", "contraindication_identified", "insufficient_information", "not_applicable"]
     failure_tree: CounterfactualTree
     impacts: list[TreatmentImpact] = Field(default_factory=list)
     forecast: QualitativeForecast
+    reasoning_summary: list[CausalReasoningSummary] = Field(default_factory=list)
     missing_information: list[str] = Field(default_factory=list)
     uncertainties: list[str] = Field(default_factory=list)
 
 
 class AnalysisReport(BaseModel):
+    run_id: str | None = None
     case_id: str
     patient_state: PatientState
     generated_treatments: list[TreatmentCandidate]
     candidate_treatments: list[TreatmentAnalysis]
     reasoning_guidance_version: str
+    knowledge_base_version: str = "unavailable"
+    catalog_version: str = "unavailable"
+    execution_parameters: dict[str, Any] = Field(default_factory=dict)
+    audit_events: list[dict[str, Any]] = Field(default_factory=list)
     model: str
     timestamp: str

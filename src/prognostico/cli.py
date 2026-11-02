@@ -96,6 +96,8 @@ def render_markdown(report: AnalysisReport) -> str:
         "## Metadados da Execução",
         f"- Modelo: `{report.model}`",
         f"- Orientação interna: `{report.reasoning_guidance_version}`",
+        f"- Catálogo terapêutico: `{report.catalog_version}`",
+        f"- Base de diretrizes: `{report.knowledge_base_version}`",
         f"- Gerado em: `{report.timestamp}`",
         "",
         "## Estado Clínico e Oncológico",
@@ -119,10 +121,15 @@ def render_markdown(report: AnalysisReport) -> str:
     lines.extend([f"- Alerta de validação: {item}" for item in state.data_warnings])
     lines.extend(["", "## Estratégias Geradas e Elegibilidade"])
     for item in report.generated_treatments:
-        lines.extend([f"### {item.name}", f"- Status inicial: `{display(item.status)}`", f"- Classe: `{display(item.treatment_class)}`; objetivo: `{item.therapeutic_goal}`", f"- Motivos: {'; '.join(item.reason_for_consideration) or 'não informado'}", f"- Evidência do paciente: {evidence_text(item.patient_evidence)}", f"- Contraindicações detectadas: {', '.join(item.contraindications_detected) or 'nenhuma registrada'}", f"- Fontes externas recuperadas: {', '.join(item.evidence_source_ids) or 'nenhuma registrada'}", ""])
+        lines.extend([f"### {item.name}", f"- Status inicial: `{display(item.status)}`", f"- Classe: `{display(item.treatment_class)}`; objetivo: `{item.therapeutic_goal}`", f"- Motivos: {'; '.join(item.reason_for_consideration) or 'não informado'}", f"- Evidência do paciente: {evidence_text(item.patient_evidence)}", f"- Contraindicações detectadas: {', '.join(item.contraindications_detected) or 'nenhuma registrada'}", f"- Critérios ausentes: {', '.join(item.eligibility_missing) or 'nenhum'}", f"- Fontes externas recuperadas: {', '.join(item.evidence_source_ids) or 'nenhuma registrada'}", ""])
     lines.append("## Análise Contrafactual por Tratamento Candidato")
     for analysis in report.candidate_treatments:
-        lines.extend(["", f"### {analysis.treatment.name}", f"- Status após análise: `{display(analysis.candidate_status)}`", f"- Profundidade máxima da árvore: `{analysis.failure_tree.max_depth}`"])
+        eligibility = analysis.eligibility
+        outcome_tree = analysis.outcome_tree
+        lines.extend(["", f"### {analysis.treatment.name}", f"- Status após análise: `{display(analysis.candidate_status)}`", f"- Elegibilidade: `{display(eligibility.status) if eligibility else 'não registrada'}`; motivos: {'; '.join(eligibility.reasons) if eligibility else 'não informado'}", f"- Critérios pendentes: {', '.join(eligibility.missing_requirements) if eligibility else 'não informado'}", f"- Diretrizes de elegibilidade: {evidence_text(eligibility.citations) if eligibility else 'não registradas'}", f"- Raiz da árvore de desfechos: {outcome_tree.root_description if outcome_tree else 'não registrada'}", f"- Diretrizes da árvore de desfechos: {evidence_text(outcome_tree.evidence) if outcome_tree else 'não registradas'}", f"- Profundidade máxima da árvore de falhas: `{analysis.failure_tree.max_depth}`"])
+        if outcome_tree:
+            lines.append("#### Cenários de Desfecho")
+            lines.extend([f"- `{display(item.label)}`: {item.description}. Mecanismo: {item.mechanism or 'não especificado'}; modificadores: {', '.join(item.modifiers) or 'não especificados'}" for item in outcome_tree.outcomes] or ["- Nenhum cenário registrado."])
         for outcome in analysis.failure_tree.outcomes:
             lines.append(f"#### Desfecho contrafactual: {outcome.description}")
             nodes = [node for node in analysis.failure_tree.nodes if node.outcome_id == outcome.outcome_id]
@@ -131,6 +138,11 @@ def render_markdown(report: AnalysisReport) -> str:
             for node in nodes:
                 lines.extend([f"- Hipótese: {node.hypothesis}", f"- Estado: `{display(node.status)}`{f'; poda: `{node.pruning_code}`' if node.pruning_code else ''}", f"- Mecanismo: {node.mechanism}", f"- Cadeia causal: {' → '.join(node.causal_chain) or 'não explicitada'}", f"- Condição necessária: `{node.required_patient_condition or 'não especificada'}`", f"- Evidência do prontuário: {evidence_text(node.patient_evidence)}", f"- Evidência externa: {evidence_text(node.external_evidence)}", f"- Evidência contraditória: {evidence_text(node.contradictory_evidence)}", f"- Plausibilidade clínica/temporal/especificidade: `{node.clinical_plausibility:.2f}` / `{node.temporal_plausibility:.2f}` / `{node.patient_specificity:.2f}`"])
                 lines.extend([f"- Informação ausente: `{item}`" for item in node.missing_information])
+        lines.append("#### Síntese das Cadeias Causais Sustentadas")
+        for summary in analysis.reasoning_summary:
+            lines.append(f"- Desfecho: {summary.outcome_description}")
+            lines.extend([f"  - {item}" for item in summary.narrative] or ["  - Nenhuma cadeia sustentada."])
+            lines.extend([f"  - Limitação: {item}" for item in summary.limitations])
         lines.append("#### Impactos mesmo com controle oncológico")
         lines.extend([f"- {item.impact.rstrip('.')}. Domínio: `{display(item.domain)}`; tempo: `{display(item.timing)}`; reversibilidade: `{display(item.reversibility)}`; gravidade: `{display(item.severity)}`; específico ao paciente: `{'sim' if item.patient_specific else 'não'}`; evidência: {evidence_text(item.evidence)}" for item in analysis.impacts] or ["- Não descritos."])
         lines.extend(["#### Prognóstico Qualitativo", f"- Horizonte: `{analysis.forecast.horizon}`", f"- Controle da doença: `{display(analysis.forecast.disease_control)}`", f"- Risco de desfecho adverso: `{display(analysis.forecast.adverse_outcome_risk)}`", f"- Confiança no raciocínio: `{display(analysis.forecast.confidence_in_reasoning)}`", f"- Fundamentação: {'; '.join(analysis.forecast.rationale) or 'não disponível'}", f"- Informações adicionais úteis: {', '.join(analysis.missing_information) or 'nenhuma identificada'}", f"- Incertezas: {'; '.join(analysis.uncertainties) or 'nenhuma adicional'}"])
@@ -142,18 +154,21 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="MVP de prognóstico para câncer de tireoide")
     parser.add_argument("input", type=Path, help="prontuário JSON estruturado")
     parser.add_argument("--out", type=Path, default=Path("outputs/thyroid_report.json"))
-    parser.add_argument("--max-depth", type=int, default=3)
+    parser.add_argument("--max-depth", type=int, default=5)
     parser.add_argument("--provider", choices=["ollama", "llama-cpp"], default="ollama")
     parser.add_argument("--base-url", help="URL do servidor do provedor")
     parser.add_argument("--model", help="Identificador do modelo no provedor")
+    parser.add_argument("--guideline-index", type=Path, help="Índice JSON de diretrizes processadas")
     args = parser.parse_args()
     config = get_config()
     base_url = args.base_url or config.ollama_base_url
     model = args.model or config.model
-    client_class = LlamaCppClient if args.provider == "llama-cpp" else OllamaClient
-    client = client_class(base_url, model, config.temperature, config.request_timeout_seconds, config.max_output_tokens)
+    if args.provider == "llama-cpp":
+        client = LlamaCppClient(base_url, model, config.temperature, config.request_timeout_seconds, config.max_output_tokens, disable_thinking=config.llama_disable_thinking)
+    else:
+        client = OllamaClient(base_url, model, config.temperature, config.request_timeout_seconds, config.max_output_tokens)
     record = MedicalRecord.model_validate(json.loads(args.input.read_text()))
-    report = ThyroidPrognosisPipeline(client, model_name=model, max_depth=args.max_depth).run(record)
+    report = ThyroidPrognosisPipeline(client, model_name=model, max_depth=args.max_depth, guideline_index=args.guideline_index).run(record)
     timestamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
     output_path = args.out.with_name(f"{args.out.stem}_{timestamp}{args.out.suffix}")
     output_path.parent.mkdir(parents=True, exist_ok=True)

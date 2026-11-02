@@ -56,11 +56,12 @@ class OllamaClient(LLMClient):
 class LlamaCppClient(LLMClient):
     """Cliente para o endpoint OpenAI-compatível do llama-server."""
 
-    def __init__(self, base_url: str, model: str, temperature: float = 0.2, request_timeout_seconds: float = 900.0, max_output_tokens: int = 768) -> None:
+    def __init__(self, base_url: str, model: str, temperature: float = 0.2, request_timeout_seconds: float = 900.0, max_output_tokens: int = 768, *, disable_thinking: bool = False) -> None:
         self.base_url = base_url.rstrip("/")
         self.model = model
         self.temperature = temperature
         self.max_output_tokens = max_output_tokens
+        self.disable_thinking = disable_thinking
         self._client = httpx.Client(timeout=httpx.Timeout(request_timeout_seconds, connect=15.0))
 
     def chat_json(self, system: str, user: str, *, schema: Type[BaseModel]) -> dict:
@@ -68,21 +69,24 @@ class LlamaCppClient(LLMClient):
         for attempt in range(3):
             correction = "" if not attempt else f"\nA resposta anterior falhou na validação: {last_error}. Corrija o JSON e responda somente no schema solicitado."
             try:
+                payload = {
+                    "model": self.model,
+                    "temperature": self.temperature,
+                    "max_tokens": self.max_output_tokens,
+                    "response_format": {
+                        "type": "json_schema",
+                        "json_schema": {"name": schema.__name__, "schema": schema.model_json_schema()},
+                    },
+                    "messages": [
+                        {"role": "system", "content": system},
+                        {"role": "user", "content": user + correction},
+                    ],
+                }
+                if self.disable_thinking:
+                    payload["chat_template_kwargs"] = {"enable_thinking": False}
                 response = self._client.post(
                     f"{self.base_url}/v1/chat/completions",
-                    json={
-                        "model": self.model,
-                        "temperature": self.temperature,
-                        "max_tokens": self.max_output_tokens,
-                        "response_format": {
-                            "type": "json_schema",
-                            "json_schema": {"name": schema.__name__, "schema": schema.model_json_schema()},
-                        },
-                        "messages": [
-                            {"role": "system", "content": system},
-                            {"role": "user", "content": user + correction},
-                        ],
-                    },
+                    json=payload,
                 )
                 response.raise_for_status()
                 content = response.json()["choices"][0]["message"]["content"]

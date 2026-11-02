@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Atlas Clinico</title>
+  <link rel="stylesheet" href="app.css">
+  <style>.graph-node.treatment{background:#dce8ff;border:2px solid #3969b5;color:#18345e}</style>
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="brand"><span class="brand-mark">A</span><div><strong>Atlas Clinico</strong><small>explorador de relatorios</small></div></div>
+    <label class="upload"><input id="report-file" type="file" accept="application/json"><span>Carregar relatorio JSON</span></label>
+    <p id="file-name" class="file-name">Selecione um relatorio local</p>
+    <div class="section-switches">
+      <p class="eyebrow">Exibir secoes</p>
+      <label><input type="checkbox" data-section="overview" checked> Visao geral</label>
+      <label><input type="checkbox" data-section="state" checked> Estado e evidencias</label>
+      <label><input type="checkbox" data-section="strategies" checked> Estrategias</label>
+      <label><input type="checkbox" data-section="tree" checked> Grafo causal</label>
+      <label><input type="checkbox" data-section="impacts" checked> Impactos</label>
+      <label><input type="checkbox" data-section="raw"> JSON bruto</label>
+    </div>
+    <p class="sidebar-note">Os dados permanecem no navegador. Relatorios anteriores a rastreabilidade por no exibem apenas a hipotese e a poda.</p>
+  </aside>
+  <main>
+    <header class="topbar"><div><p class="eyebrow">Analise estruturada</p><h1 id="case-title">Nenhum relatorio carregado</h1></div><div id="model-badge" class="model-badge">aguardando arquivo</div></header>
+    <section id="empty" class="empty"><div class="empty-glyph">+</div><h2>Abra um relatorio</h2><p>Carregue um JSON gerado pelo pipeline para navegar pelas evidencias, estrategias e arvore causal.</p></section>
+    <div id="report" hidden>
+      <section data-view="overview" class="panel overview"><div class="panel-heading"><p class="eyebrow">Resumo do caso</p><h2>Estado oncológico</h2></div><div id="overview-grid" class="metric-grid"></div></section>
+      <section data-view="state" class="panel"><div class="panel-heading"><p class="eyebrow">Proveniencia</p><h2>Fatos ativos e alertas</h2></div><div class="two-columns"><div id="fact-list" class="fact-list"></div><div id="warning-list" class="warning-list"></div></div></section>
+      <section data-view="strategies" class="panel"><div class="panel-heading"><p class="eyebrow">Geracao do modelo</p><h2>Estrategias analisadas</h2></div><div id="strategy-list" class="strategy-list"></div></section>
+       <section data-view="tree" class="panel tree-panel"><div class="panel-heading tree-heading"><div><p class="eyebrow">Arvore de hipoteses causais</p><h2>Fluxo de raciocinio estruturado</h2></div><select id="treatment-select" aria-label="Selecionar estrategia"></select></div><p class="tree-legend"><span class="dot supported"></span>sustentado <span class="dot pruned"></span>podado <span class="dot unresolved"></span>lacuna</p><p>Clique em um nó para revelar apenas os próximos nós do ramo e inspecionar sua rastreabilidade.</p><div id="graph-scroll" class="graph-scroll"><div id="graph" class="graph"><svg id="edges"></svg></div></div><div id="node-detail" class="node-detail"><p>Selecione um nó do grafo para inspecionar a solicitacao enviada ao modelo e o resultado da validacao.</p></div></section>
+      <section data-view="impacts" class="panel"><div class="panel-heading"><p class="eyebrow">Consequencias</p><h2>Impactos e prognostico</h2></div><div id="impact-list" class="impact-list"></div></section>
+      <section data-view="raw" class="panel"><div class="panel-heading"><p class="eyebrow">Auditoria</p><h2>JSON carregado</h2></div><pre id="raw-json"></pre></section>
+    </div>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>

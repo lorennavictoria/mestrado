@@ -1,0 +1,241 @@
+{
+  "case_id": "THYROID-IDEAL-SYNTH-001",
+  "record_date": "2026-03-01",
+  "cancer": {
+    "histology": "papillary_thyroid_carcinoma_classic_variant",
+    "differentiation": "differentiated",
+    "tnm_stage": "pT3b pN1b cM1 (AJCC 8th edition)",
+    "recurrence_risk": "high",
+    "metastatic": true,
+    "metastatic_sites": [
+      "lungs"
+    ],
+    "iodine_avidity": "radioiodine_refractory pulmonary metastases",
+    "progression_status": "radiological_progression documented on serial CT",
+    "molecular_profile": {
+      "BRAF_V600E": "positive",
+      "TERT_promoter": "not_performed",
+      "RET_fusion": "negative",
+      "NTRK_fusion": "negative"
+    }
+  },
+  "patient": {
+    "age_years": 62,
+    "sex_at_birth": "feminino",
+    "gender_identity": "mulher",
+    "weight_kg": 68.0,
+    "height_cm": 162.0,
+    "performance_status": "ECOG 1",
+    "frailty_assessment": "sem fragilidade clínica documentada",
+    "functional_status": "independente para atividades de vida diária; dispneia apenas aos grandes esforços",
+    "pregnancy_status": "not_applicable",
+    "allergies": [
+      "nega alergias medicamentosas conhecidas"
+    ]
+  },
+  "comorbidities": [
+    {
+      "condition": "hipertensão arterial",
+      "status": "active",
+      "diagnosed_at": "2016-01-01",
+      "severity": "controlada",
+      "notes": "Medições domiciliares e ambulatoriais em meta; sem crise hipertensiva documentada."
+    },
+    {
+      "condition": "hipotireoidismo pós-tireoidectomia",
+      "status": "active",
+      "diagnosed_at": "2023-02-01",
+      "severity": "em reposição hormonal",
+      "notes": "TSH mantido em alvo de supressão oncológica, com monitoramento endocrinológico."
+    }
+  ],
+  "lab_results": [
+    {
+      "collected_at": "2026-02-25",
+      "test_name": "creatinina",
+      "value": "0.9",
+      "unit": "mg/dL",
+      "reference_range": "0.6-1.1",
+      "interpretation": "normal"
+    },
+    {
+      "collected_at": "2026-02-25",
+      "test_name": "AST",
+      "value": "22",
+      "unit": "U/L",
+      "reference_range": "10-35",
+      "interpretation": "normal"
+    },
+    {
+      "collected_at": "2026-02-25",
+      "test_name": "ALT",
+      "value": "24",
+      "unit": "U/L",
+      "reference_range": "7-35",
+      "interpretation": "normal"
+    },
+    {
+      "collected_at": "2026-02-25",
+      "test_name": "hemoglobina",
+      "value": "13.1",
+      "unit": "g/dL",
+      "reference_range": "12.0-16.0",
+      "interpretation": "normal"
+    },
+    {
+      "collected_at": "2026-02-25",
+      "test_name": "cálcio total",
+      "value": "9.2",
+      "unit": "mg/dL",
+      "reference_range": "8.5-10.5",
+      "interpretation": "normal"
+    },
+    {
+      "collected_at": "2026-02-25",
+      "test_name": "TSH",
+      "value": "0.12",
+      "unit": "mUI/L",
+      "reference_range": "0.4-4.0",
+      "interpretation": "low"
+    },
+    {
+      "collected_at": "2026-02-25",
+      "test_name": "tireoglobulina sob TSH suprimido",
+      "value": "84",
+      "unit": "ng/mL",
+      "reference_range": "<1.0 após tireoidectomia total",
+      "interpretation": "abnormal"
+    },
+    {
+      "collected_at": "2026-02-25",
+      "test_name": "anticorpo anti-tireoglobulina",
+      "value": "<1",
+      "unit": "IU/mL",
+      "reference_range": "negativo",
+      "interpretation": "normal"
+    }
+  ],
+  "vital_signs": [
+    {
+      "measured_at": "2026-03-01",
+      "name": "pressão arterial sistólica",
+      "value": 128,
+      "unit": "mmHg",
+      "reference_range": "<140"
+    },
+    {
+      "measured_at": "2026-03-01",
+      "name": "pressão arterial diastólica",
+      "value": 76,
+      "unit": "mmHg",
+      "reference_range": "<90"
+    },
+    {
+      "measured_at": "2026-03-01",
+      "name": "frequência cardíaca",
+      "value": 74,
+      "unit": "bpm",
+      "reference_range": "60-100"
+    }
+  ],
+  "medications": [
+    {
+      "name": "levotiroxina",
+      "status": "active",
+      "dose": "125 mcg",
+      "route": "oral",
+      "frequency": "uma vez ao dia",
+      "indication": "supressão de TSH após tireoidectomia por carcinoma diferenciado",
+      "started_at": "2023-02-02"
+    },
+    {
+      "name": "losartana",
+      "status": "active",
+      "dose": "50 mg",
+      "route": "oral",
+      "frequency": "uma vez ao dia",
+      "indication": "hipertensão arterial",
+      "started_at": "2024-01-15"
+    }
+  ],
+  "prior_treatments": [
+    {
+      "treatment_id": "PT-001",
+      "name": "tireoidectomia total com esvaziamento cervical lateral direito",
+      "started_at": "2023-02-01",
+      "ended_at": "2023-02-01",
+      "response": "stable",
+      "toxicities": [
+        "hipoparatireoidismo transitório resolvido"
+      ]
+    },
+    {
+      "treatment_id": "PT-002",
+      "name": "ablação com I-131 150 mCi",
+      "started_at": "2023-05-01",
+      "ended_at": "2023-05-10",
+      "response": "progression",
+      "toxicities": [
+        "xerostomia leve transitória"
+      ]
+    }
+  ],
+  "imaging_studies": [
+    {
+      "study_id": "PATH-2023-02",
+      "performed_at": "2023-02-01",
+      "modality": "anatomopatológico",
+      "finding": "carcinoma papilífero de tireoide variante clássica, 3.8 cm, extensão extratireoidiana macroscópica e 5 de 24 linfonodos cervicais positivos",
+      "impression": "pT3b pN1b; margens cirúrgicas negativas"
+    },
+    {
+      "study_id": "WBS-2023-05",
+      "performed_at": "2023-05-10",
+      "modality": "cintilografia pós-terapia com I-131",
+      "finding": "captação em leito tireoidiano; sem captação significativa nos micronódulos pulmonares",
+      "impression": "metástases pulmonares sem avidez demonstrável ao radioiodo"
+    },
+    {
+      "study_id": "CT-2025-09",
+      "performed_at": "2025-09-01",
+      "modality": "TC de tórax com contraste",
+      "finding": "múltiplos nódulos pulmonares bilaterais; maior nódulo no lobo inferior direito com 9 mm",
+      "impression": "doença metastática pulmonar mensurável"
+    },
+    {
+      "study_id": "CT-2026-02",
+      "performed_at": "2026-02-20",
+      "modality": "TC de tórax com contraste",
+      "finding": "aumento do maior nódulo pulmonar no lobo inferior direito de 9 mm para 15 mm; outros nódulos também aumentaram",
+      "impression": "progressão radiológica em comparação com 2025-09"
+    }
+  ],
+  "clinical_notes": [
+    {
+      "recorded_at": "2026-03-01",
+      "category": "oncologia",
+      "author_role": "oncologista clínico",
+      "text": "Carcinoma papilífero metastático pulmonar, refratário ao radioiodo, com progressão radiológica documentada. ECOG 1. Discutir em reunião multidisciplinar terapia sistêmica, incluindo avaliação cardiovascular e monitoramento de pressão arterial."
+    },
+    {
+      "recorded_at": "2026-03-01",
+      "category": "endocrinologia",
+      "author_role": "endocrinologista",
+      "text": "Em levotiroxina com TSH 0,12 mUI/L. Manter decisão de supressão individualizada conforme risco cardiovascular e plano oncológico."
+    },
+    {
+      "recorded_at": "2026-03-01",
+      "category": "preferências",
+      "author_role": "enfermagem de navegação",
+      "text": "Paciente deseja participar da decisão, prioriza preservação de independência funcional e aceita discutir terapia sistêmica após explicação de riscos e monitoramento."
+    }
+  ],
+  "preferences": [
+    "Participar da decisão compartilhada com oncologia, endocrinologia e cardiologia.",
+    "Preservar independência funcional e qualidade de vida.",
+    "Aceita discutir terapia sistêmica se houver plano de monitoramento de toxicidade e pressão arterial."
+  ],
+  "data_warnings": [
+    "Caso sintético educacional construído para testar o pipeline; não representa um paciente real nem deve orientar cuidado clínico."
+  ]
+}

@@ -10,6 +10,15 @@ class PatientStateBuilder:
         record = validation.normalized_record
         facts: list[ProvenancedFact] = []
         cancer = record.cancer
+        facts.append(ProvenancedFact(fact_id="cancer_documented", statement=f"Câncer de tireoide documentado: {cancer.histology}", source_ids=["cancer.histology"], evidence=[Evidence(finding=cancer.histology, source="cancer.histology")], status="active"))
+        if cancer.tnm_stage:
+            facts.append(ProvenancedFact(fact_id="cancer_tnm_stage", statement=f"Estadiamento TNM documentado: {cancer.tnm_stage}", source_ids=["cancer.tnm_stage"], evidence=[Evidence(finding=cancer.tnm_stage, source="cancer.tnm_stage")], status="active"))
+        if cancer.recurrence_risk:
+            facts.append(ProvenancedFact(fact_id="cancer_recurrence_risk", statement=f"Risco de recorrência: {cancer.recurrence_risk}", source_ids=["cancer.recurrence_risk"], evidence=[Evidence(finding=cancer.recurrence_risk, source="cancer.recurrence_risk")], status="active"))
+        if cancer.iodine_avidity:
+            facts.append(ProvenancedFact(fact_id="cancer_iodine_avidity", statement=f"Iodo-avididade: {cancer.iodine_avidity}", source_ids=["cancer.iodine_avidity"], evidence=[Evidence(finding=cancer.iodine_avidity, source="cancer.iodine_avidity")], status="active"))
+        for marker, result in cancer.molecular_profile.items():
+            facts.append(ProvenancedFact(fact_id=f"molecular_profile:{marker}", statement=f"Perfil molecular {marker}: {result}", source_ids=[f"cancer.molecular_profile:{marker}"], evidence=[Evidence(finding=f"{marker}={result}", source=f"cancer.molecular_profile:{marker}")], status="active"))
         if cancer.progression_status:
             facts.append(ProvenancedFact(fact_id="cancer_progression", statement=f"Estado de progressão: {cancer.progression_status}", source_ids=["cancer"], evidence=[Evidence(finding=cancer.progression_status, source="cancer")], status="active"))
         if cancer.metastatic:
