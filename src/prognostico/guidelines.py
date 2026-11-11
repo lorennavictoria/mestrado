@@ -50,7 +50,19 @@ def _chunks(text: str, *, size: int = 1200) -> list[str]:
 def build_index(source_dir: Path, output_path: Path) -> dict:
     records: list[dict] = []
     manifest: list[dict] = []
-    for document in DOCUMENTS:
+    documents = DOCUMENTS
+    if source_dir.name == "source" and source_dir.parent.name == "br":
+        documents = tuple(
+            GuidelineDocument(
+                "BR_SBOC_MED_2026" if "medular" in path.name.casefold() else "BR_MS_PCDT_CDT_2026" if "pcdt" in path.name.casefold() else "BR_SBOC_CDT_ANAP_2026",
+                path.name,
+                "Diretriz brasileira de câncer de tireoide",
+                "2026",
+                ("medullary",) if "medular" in path.name.casefold() else ("differentiated", "anaplastic"),
+            )
+            for path in sorted(source_dir.glob("*.pdf"))
+        )
+    for document in documents:
         path = source_dir / document.filename
         if not path.exists():
             continue
@@ -85,6 +97,8 @@ def build_index(source_dir: Path, output_path: Path) -> dict:
 
 class GuidelineRetriever:
     def __init__(self, index_path: Path) -> None:
+        if not index_path.exists() and index_path.parts[-3:] == ("guidelines", "processed", "index.json"):
+            index_path = index_path.parents[2] / "guidelines" / "br" / "processed" / "index.json"
         self.index_path = index_path
         self._index = json.loads(index_path.read_text()) if index_path.exists() else {"schema_version": "1", "documents": [], "chunks": []}
 
@@ -94,6 +108,14 @@ class GuidelineRetriever:
 
     def retrieve(self, query: str, *, scope: str | None = None, limit: int = 3) -> list[Evidence]:
         terms = {token.casefold() for token in re.findall(r"[\w-]{3,}", query)}
+        translations = {
+            "radioiodine": "radioiodo",
+            "thyroid": "tireoide",
+            "cancer": "carcinoma",
+            "differentiated": "diferenciado",
+            "anaplastic": "anaplasico",
+        }
+        terms.update(translations[term] for term in terms & translations.keys())
         scored: list[tuple[int, dict]] = []
         for chunk in self._index["chunks"]:
             if scope and scope not in chunk["scope"]:

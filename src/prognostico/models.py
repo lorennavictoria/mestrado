@@ -309,10 +309,27 @@ class TreatmentCandidate(BaseModel):
     status: Literal["candidate", "not_applicable", "insufficient_information"] = "candidate"
 
 
+class TreatmentContext(BaseModel):
+    treatment_id: str
+    modality: Literal["surgery", "radioiodine", "external_beam_radiotherapy", "systemic_therapy", "targeted_therapy", "chemoradiotherapy", "supportive_care", "monitoring", "unknown"]
+    intent: str = "unknown"
+    target_sites: list[str] = Field(default_factory=list)
+    radiation_field_sites: list[str] = Field(default_factory=list)
+    treated_lesion_ids: list[str] = Field(default_factory=list)
+    untreated_known_lesion_ids: list[str] = Field(default_factory=list)
+    treatment_line: str = "unknown"
+    context_completeness: Literal["complete", "partial", "unknown"] = "unknown"
+    missing_information: list[str] = Field(default_factory=list)
+
+
 class FailureOutcome(BaseModel):
     outcome_id: str
     label: Literal["oncologic_failure", "toxicity", "intolerance", "interruption", "progression", "hospitalization", "functional_decline", "mortality"]
     description: str
+    outcome_type: Literal["local_control_failure", "regional_control_failure", "distant_progression", "irradiated_metastasis_progression", "treatment_toxicity", "treatment_interruption", "mixed_response", "unknown_or_unclassified"] = "unknown_or_unclassified"
+    anatomic_sites: list[str] = Field(default_factory=list)
+    relationship_to_treatment_goal: str = "unknown"
+    is_treatment_failure: bool | None = None
 
 
 class OutcomeScenario(BaseModel):
@@ -351,6 +368,10 @@ class FailureTreeNode(BaseModel):
     status: Literal["active", "supported", "pruned", "unresolved"] = "active"
     pruning_code: Literal["PRUNED_CONTRADICTION", "PRUNED_ABSENT_CONDITION", "PRUNED_TEMPORAL", "UNRESOLVED_MISSING_DATA", "UNRESOLVED_INSUFFICIENT_SUPPORT"] | None = None
     critique: str | None = None
+    critic_decision: Literal["keep", "revise", "relocate", "prune", "uncertain"] = "uncertain"
+    inference_level: Literal["documented", "supported_inference", "speculative"] = "speculative"
+    duplicate_of: str | None = None
+    relocate_to_outcome_id: str | None = None
 
 
 class CounterfactualTree(BaseModel):
@@ -406,6 +427,7 @@ class CausalReasoningSummary(BaseModel):
 
 class TreatmentAnalysis(BaseModel):
     treatment: TreatmentCandidate
+    treatment_context: TreatmentContext | None = None
     eligibility: EligibilityAssessment | None = None
     outcome_tree: OutcomeTree | None = None
     candidate_status: Literal["remains_plausible", "high_risk", "contraindication_identified", "insufficient_information", "not_applicable"]

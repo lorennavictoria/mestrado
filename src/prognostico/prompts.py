@@ -59,6 +59,8 @@ afirme que o evento ocorreu, não gere resposta/controle e não prescreva condut
 
 Cada desfecho deve pertencer a uma categoria diferente e investigar uma via de falha distinta.
 Não apresente duas formulações de progressão, resistência ou toxicidade como desfechos separados.
+Não inclua resistência, radioresistência ou mecanismo molecular na descrição do desfecho sem
+evidência individual; descreva evento, sítio anatômico e relação com o objetivo do tratamento.
 
 Use labels compatíveis com o schema, escreva em português brasileiro e responda somente JSON
 válido no schema solicitado.
@@ -86,6 +88,13 @@ em evidência de que o mecanismo ocorrerá neste paciente.
 Use exclusivamente valores literais de `available_patient_facts[].fact_id` em patient_fact_ids.
 Não crie caminhos de JSON, identificadores de campos, IDs de tratamento ou IDs de medicação.
 Fatos históricos, como tratamentos prévios, podem ser usados quando constarem nessa lista.
+
+VALIDAÇÃO CAUSAL OBRIGATÓRIA: use treatment_context para verificar modalidade, objetivo, alvo,
+campo e lesões tratadas. Refratariedade ao I-131 não implica resistência à EBRT. Progressão em
+lesão fora de campo não demonstra falha ou resistência da EBRT locorregional. Não atribua BRAF,
+reparo de DNA, heterogeneidade ou seleção clonal ao paciente sem evidência individual específica.
+Quando o campo, alvo ou intenção estiver unknown, formule hipótese condicional e reconheça a
+lacuna; não invente localização ou dose.
 
 Se parent for nulo, proponha causas-raiz plausíveis e distintas para o desfecho. Se parent for
 fornecido, expanda obrigatoriamente para trás na cadeia causal: a hipótese filha deve explicar

@@ -17,39 +17,51 @@ def build_message(task: str, context: dict) -> str:
     return f"[TASK {task}]\n\n{json.dumps(context, ensure_ascii=False, separators=(',', ':'))}"
 
 
+def parse_structured_response(content: str, schema: Type[BaseModel]) -> dict:
+    """Accept JSON returned with incidental Markdown fencing by local models."""
+    normalized = content.strip()
+    if normalized.startswith("```"):
+        normalized = normalized.split("\n", 1)[-1].rsplit("```", 1)[0].strip()
+    return schema.model_validate(json.loads(normalized)).model_dump()
+
+
 class OllamaClient(LLMClient):
-    def __init__(self, base_url: str, model: str, temperature: float = 0.2, request_timeout_seconds: float = 900.0, max_output_tokens: int = 768) -> None:
+    def __init__(self, base_url: str, model: str, temperature: float = 0.2, request_timeout_seconds: float = 900.0, max_output_tokens: int = 768, *, think: bool = False) -> None:
         self.base_url = base_url.rstrip("/")
         self.model = model
         self.temperature = temperature
         self.max_output_tokens = max_output_tokens
+        self.think = think
         self._client = httpx.Client(timeout=httpx.Timeout(request_timeout_seconds, connect=15.0))
 
     def chat_json(self, system: str, user: str, *, schema: Type[BaseModel]) -> dict:
         last_error: Exception | None = None
         for attempt in range(3):
             correction = "" if not attempt else f"\nA resposta anterior falhou na validação: {last_error}. Corrija o JSON e responda somente no schema solicitado."
+            content = ""
             try:
                 chunks: list[str] = []
+                payload = {
+                    "model": self.model,
+                    "stream": True,
+                    "format": schema.model_json_schema(),
+                    "think": self.think,
+                    "options": {"temperature": self.temperature, "num_predict": self.max_output_tokens},
+                    "messages": [{"role": "system", "content": system}, {"role": "user", "content": user + correction}],
+                }
                 with self._client.stream(
                     "POST",
                     f"{self.base_url}/api/chat",
-                    json={
-                        "model": self.model,
-                        "stream": True,
-                        "format": schema.model_json_schema(),
-                        "options": {"temperature": self.temperature, "num_predict": self.max_output_tokens},
-                        "messages": [{"role": "system", "content": system}, {"role": "user", "content": user + correction}],
-                    },
+                    json=payload,
                 ) as response:
                     response.raise_for_status()
                     for line in response.iter_lines():
                         if line:
                             chunks.append(json.loads(line)["message"]["content"])
                 content = "".join(chunks)
-                return schema.model_validate(json.loads(content)).model_dump()
-            except (KeyError, json.JSONDecodeError, ValueError) as error:
-                last_error = error
+                return parse_structured_response(content, schema)
+            except (httpx.HTTPError, KeyError, json.JSONDecodeError, ValueError) as error:
+                last_error = ValueError(f"{error}; resposta recebida: {content[:800]!r}")
         raise ValueError(f"resposta estruturada inválida do LLM: {last_error}")
 
 
@@ -68,6 +80,7 @@ class LlamaCppClient(LLMClient):
         last_error: Exception | None = None
         for attempt in range(3):
             correction = "" if not attempt else f"\nA resposta anterior falhou na validação: {last_error}. Corrija o JSON e responda somente no schema solicitado."
+            content = ""
             try:
                 payload = {
                     "model": self.model,
@@ -90,7 +103,7 @@ class LlamaCppClient(LLMClient):
                 )
                 response.raise_for_status()
                 content = response.json()["choices"][0]["message"]["content"]
-                return schema.model_validate(json.loads(content)).model_dump()
+                return parse_structured_response(content, schema)
             except (httpx.HTTPError, KeyError, json.JSONDecodeError, ValueError) as error:
-                last_error = error
+                last_error = ValueError(f"{error}; resposta recebida: {content[:800]!r}")
         raise ValueError(f"resposta estruturada inválida do llama.cpp: {last_error}")

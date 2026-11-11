@@ -2,10 +2,10 @@ import json
 from pathlib import Path
 
 from prognostico.llm import OllamaClient
-from prognostico.models import CounterfactualTree, Evidence, FailureOutcome, FailureTreeNode, MedicalRecord, TreatmentCandidate
+from prognostico.models import CounterfactualTree, Evidence, FailureOutcome, FailureTreeNode, MedicalRecord, TreatmentCandidate, TreatmentContext
 from prognostico.record import MedicalRecordValidator
 from prognostico.state import PatientStateBuilder
-from prognostico.thyroid_pipeline import CounterfactualEngine, FailureDraft, ThyroidPrognosisPipeline, is_redundant_hypothesis, reasoning_context, resolve_patient_facts, summarize_reasoning
+from prognostico.thyroid_pipeline import CounterfactualEngine, FailureDraft, ThyroidPrognosisPipeline, is_redundant_hypothesis, normalize_treatment_context, reasoning_context, resolve_patient_facts, summarize_reasoning
 
 
 ROOT = Path(__file__).parents[1]
@@ -118,7 +118,7 @@ def test_counterfactual_validation_links_hypothesis_to_fact_ids():
         patient_specificity=0.8,
     )
 
-    node = engine._validate_and_prune(state, treatment, outcome, None, 1, draft, guideline_evidence=[Evidence(finding="Trecho de diretriz", source="TEST:p1")])
+    node = engine._validate_and_prune(state, treatment, normalize_treatment_context(state, treatment), outcome, None, 1, draft, guideline_evidence=[Evidence(finding="Trecho de diretriz", source="TEST:p1")])
 
     assert node.status == "supported"
     assert node.patient_evidence[0].finding == "hipertensão arterial"
@@ -131,7 +131,7 @@ def test_counterfactual_validation_keeps_valid_fact_ids_when_others_are_unknown(
     outcome = FailureOutcome(outcome_id="TX-1:toxicity", label="toxicity", description="teste")
     draft = FailureDraft(hypothesis="Hipótese com uma fonte inválida", mechanism="Mecanismo de teste", causal_chain=["hipertensão", "exposição", "toxicidade"], required_patient_condition="hipertensão", patient_fact_ids=["comorbidity:hipertensão arterial", "lab:inexistente"], clinical_plausibility=0.8, temporal_plausibility=0.8, patient_specificity=0.8)
 
-    node = engine._validate_and_prune(state, treatment, outcome, None, 1, draft, guideline_evidence=[Evidence(finding="Trecho de diretriz", source="TEST:p1")])
+    node = engine._validate_and_prune(state, treatment, normalize_treatment_context(state, treatment), outcome, None, 1, draft, guideline_evidence=[Evidence(finding="Trecho de diretriz", source="TEST:p1")])
 
     assert node.status == "unresolved"
     assert node.missing_information == ["unknown_patient_fact_id:lab:inexistente"]
@@ -144,7 +144,7 @@ def test_counterfactual_validation_keeps_low_score_hypothesis_indeterminate():
     outcome = FailureOutcome(outcome_id="TX-1:toxicity", label="toxicity", description="teste")
     draft = FailureDraft(hypothesis="Hipótese ainda pouco específica", mechanism="Mecanismo de teste", causal_chain=["hipertensão", "exposição", "toxicidade"], required_patient_condition="hipertensão", patient_fact_ids=["comorbidity:hipertensão arterial"], clinical_plausibility=0.5, temporal_plausibility=0.8, patient_specificity=0.8)
 
-    node = engine._validate_and_prune(state, treatment, outcome, None, 1, draft, guideline_evidence=[Evidence(finding="Trecho de diretriz", source="TEST:p1")])
+    node = engine._validate_and_prune(state, treatment, normalize_treatment_context(state, treatment), outcome, None, 1, draft, guideline_evidence=[Evidence(finding="Trecho de diretriz", source="TEST:p1")])
 
     assert node.status == "unresolved"
     assert node.pruning_code == "UNRESOLVED_INSUFFICIENT_SUPPORT"
@@ -166,3 +166,18 @@ def test_semantic_deduplication_rejects_rephrased_resistance_hypothesis():
     reformulation = FailureDraft(hypothesis="A progressão radiológica do câncer de tireoide é causada pela resistência da doença ao mecanismo de ação do DTC_RAIRD_MKI", mechanism="Resistência tumoral ao inibidor multiquinase", causal_chain=["doença refratária", "resistência ao inibidor", "progressão radiológica"], required_patient_condition="doença refratária", patient_fact_ids=["cancer_documented"], clinical_plausibility=0.8, temporal_plausibility=0.8, patient_specificity=0.8)
 
     assert is_redundant_hypothesis(reformulation, [original])
+
+
+def test_ebrt_with_unknown_field_keeps_distant_progression_uncertain():
+    state = PatientStateBuilder().build(MedicalRecordValidator().validate(load_record()))
+    engine = CounterfactualEngine(None, None)
+    treatment = TreatmentCandidate(treatment_id="DTC_EBRT", name="Radioterapia externa", treatment_class="radiotherapy", therapeutic_goal="controle locorregional", reason_for_consideration=["teste"], patient_evidence=[], patient_fact_ids=["cancer_documented"])
+    context = TreatmentContext(treatment_id=treatment.treatment_id, modality="external_beam_radiotherapy", intent="controle locorregional", context_completeness="partial", missing_information=["radiation_field_sites", "treated_lesion_ids"])
+    outcome = FailureOutcome(outcome_id="DTC_EBRT:progression", label="progression", description="Progressão pulmonar distante após EBRT", outcome_type="distant_progression", anatomic_sites=["lungs"], relationship_to_treatment_goal="outside_direct_locoregional_target", is_treatment_failure=False)
+    draft = FailureDraft(hypothesis="Metástases pulmonares são resistentes à EBRT", mechanism="Radioresistência tumoral", causal_chain=["EBRT", "resistência", "progressão pulmonar"], required_patient_condition="metástases pulmonares", patient_fact_ids=["metastatic_disease"], clinical_plausibility=0.8, temporal_plausibility=0.8, patient_specificity=0.8)
+
+    node = engine._validate_and_prune(state, treatment, context, outcome, None, 1, draft, guideline_evidence=[Evidence(finding="Trecho de diretriz", source="TEST:p1")])
+
+    assert node.status == "unresolved"
+    assert node.critic_decision == "uncertain"
+    assert "radiation_field_sites" in node.missing_information

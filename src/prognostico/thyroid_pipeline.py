@@ -13,7 +13,7 @@ from .clinical_guidance_prompts import FAILURE_CLINICAL_GUIDANCE_PROMPT, IMPACT_
 from .eligibility import ClinicalEligibilityAgent
 from .guidelines import GuidelineRetriever
 from .llm import LLMClient, build_message
-from .models import (AnalysisReport, CausalReasoningSummary, CounterfactualTree, EligibilityAssessment, Evidence, FailureOutcome, FailureTreeNode, MedicalRecord, OutcomeScenario, OutcomeTree, PatientState, QualitativeForecast, TreatmentAnalysis, TreatmentCandidate, TreatmentImpact)
+from .models import (AnalysisReport, CausalReasoningSummary, CounterfactualTree, EligibilityAssessment, Evidence, FailureOutcome, FailureTreeNode, MedicalRecord, OutcomeScenario, OutcomeTree, PatientState, QualitativeForecast, TreatmentAnalysis, TreatmentCandidate, TreatmentContext, TreatmentImpact)
 from .prompts import FAILURE_OUTCOME_PROMPT, FAILURE_PROMPT, IMPACT_PROMPT, OUTCOME_PROMPT, TREATMENT_PROMPT
 from .record import MedicalRecordValidator
 from .state import PatientStateBuilder
@@ -99,6 +99,33 @@ def resolve_patient_facts(state: PatientState, fact_ids: list[str]) -> list:
     return [available_facts[fact_id] for fact_id in fact_ids if fact_id in available_facts]
 
 
+def normalize_treatment_context(state: PatientState, treatment: TreatmentCandidate) -> TreatmentContext:
+    modalities = {
+        "radiotherapy": "external_beam_radiotherapy",
+        "radioiodine": "radioiodine",
+        "surgery": "surgery",
+        "systemic_therapy": "systemic_therapy",
+        "targeted_therapy": "targeted_therapy",
+        "chemoradiotherapy": "chemoradiotherapy",
+        "supportive_care": "supportive_care",
+        "monitoring": "monitoring",
+    }
+    modality = modalities.get(treatment.treatment_class, "unknown")
+    untreated = [f"metastatic_site:{site}" for site in state.cancer.metastatic_sites]
+    missing: list[str] = []
+    if modality == "external_beam_radiotherapy":
+        missing.extend(["intent", "target_sites", "radiation_field_sites", "treated_lesion_ids"])
+    completeness = "complete" if not missing else "unknown" if len(missing) == 4 else "partial"
+    return TreatmentContext(
+        treatment_id=treatment.treatment_id,
+        modality=modality,
+        intent=treatment.therapeutic_goal or "unknown",
+        untreated_known_lesion_ids=untreated,
+        context_completeness=completeness,
+        missing_information=missing,
+    )
+
+
 def summarize_reasoning(tree: CounterfactualTree) -> list[CausalReasoningSummary]:
     summaries: list[CausalReasoningSummary] = []
     for outcome in tree.outcomes:
@@ -161,9 +188,9 @@ class FailureHypothesisGenerator:
         self.client = client
         self.retriever = retriever
 
-    def run(self, state: PatientState, treatment: TreatmentCandidate, outcome: FailureOutcome, parent: FailureTreeNode | None, depth: int, explored_hypotheses: list[str]) -> tuple[list[FailureDraft], dict, list[Evidence]]:
+    def run(self, state: PatientState, treatment: TreatmentCandidate, treatment_context: TreatmentContext, outcome: FailureOutcome, parent: FailureTreeNode | None, depth: int, explored_hypotheses: list[str]) -> tuple[list[FailureDraft], dict, list[Evidence]]:
         citations = self.retriever.retrieve(f"{treatment.guideline_query} {outcome.description}", scope=histology_scope(state), limit=3)
-        context = {"patient_state": reasoning_context(state), "treatment": treatment.model_dump(), "outcome": outcome.model_dump(), "parent": parent.model_dump() if parent else None, "explored_hypotheses": explored_hypotheses, "guideline_evidence": [item.model_dump() for item in citations], "depth": depth, "iteration_instruction": "Formule causas-raiz distintas para o desfecho." if parent is None else "Avance uma etapa causal anterior, concreta e distinta ao mecanismo do nó-pai; não repita, resuma ou reformule a hipótese do pai."}
+        context = {"patient_state": reasoning_context(state), "treatment": treatment.model_dump(), "treatment_context": treatment_context.model_dump(), "outcome": outcome.model_dump(), "parent": parent.model_dump() if parent else None, "explored_hypotheses": explored_hypotheses, "guideline_evidence": [item.model_dump() for item in citations], "depth": depth, "iteration_instruction": "Formule causas-raiz distintas para o desfecho." if parent is None else "Avance uma etapa causal anterior, concreta e distinta ao mecanismo do nó-pai; não repita, resuma ou reformule a hipótese do pai."}
         result = self.client.chat_json(f"{FAILURE_CLINICAL_GUIDANCE_PROMPT}\n{FAILURE_PROMPT}", build_message("thyroid_failure_generation", context), schema=FailureDraftList)
         return FailureDraftList.model_validate(result).hypotheses, context, citations
 
@@ -173,9 +200,9 @@ class FailureOutcomeGenerator:
         self.client = client
         self.retriever = retriever
 
-    def run(self, state: PatientState, treatment: TreatmentCandidate) -> tuple[list[FailureOutcome], dict, list[Evidence]]:
+    def run(self, state: PatientState, treatment: TreatmentCandidate, treatment_context: TreatmentContext) -> tuple[list[FailureOutcome], dict, list[Evidence]]:
         citations = self.retriever.retrieve(treatment.guideline_query or f"thyroid cancer {treatment.name}", scope=histology_scope(state), limit=3)
-        context = {"patient_state": reasoning_context(state), "treatment": treatment.model_dump(), "guideline_evidence": [item.model_dump() for item in citations]}
+        context = {"patient_state": reasoning_context(state), "treatment": treatment.model_dump(), "treatment_context": treatment_context.model_dump(), "guideline_evidence": [item.model_dump() for item in citations]}
         result = self.client.chat_json(f"{OUTCOME_CLINICAL_GUIDANCE_PROMPT}\n{FAILURE_OUTCOME_PROMPT}", build_message("thyroid_failure_outcome_generation", context), schema=OutcomeDraftList)
         drafts = OutcomeDraftList.model_validate(result).outcomes
         distinct_drafts = []
@@ -185,7 +212,12 @@ class FailureOutcomeGenerator:
                 continue
             seen_labels.add(draft.label)
             distinct_drafts.append(draft)
-        outcomes = [FailureOutcome(outcome_id=f"{treatment.treatment_id}:{index}:{draft.label}", label=draft.label, description=draft.description) for index, draft in enumerate(distinct_drafts, start=1)]
+        outcomes = []
+        for index, draft in enumerate(distinct_drafts, start=1):
+            outcome_type = "treatment_toxicity" if draft.label == "toxicity" else "treatment_interruption" if draft.label in {"intolerance", "interruption"} else "distant_progression" if draft.label == "progression" and state.cancer.metastatic else "unknown_or_unclassified"
+            relationship = "outside_direct_locoregional_target" if outcome_type == "distant_progression" and treatment_context.modality == "external_beam_radiotherapy" else "unknown"
+            failure = False if relationship == "outside_direct_locoregional_target" else None
+            outcomes.append(FailureOutcome(outcome_id=f"{treatment.treatment_id}:{index}:{draft.label}", label=draft.label, description=draft.description, outcome_type=outcome_type, anatomic_sites=state.cancer.metastatic_sites if outcome_type == "distant_progression" else [], relationship_to_treatment_goal=relationship, is_treatment_failure=failure))
         return outcomes, context, citations
 
 
@@ -194,9 +226,9 @@ class OutcomeTreeGenerator:
         self.client = client
         self.retriever = retriever
 
-    def run(self, state: PatientState, treatment: TreatmentCandidate) -> OutcomeTree:
+    def run(self, state: PatientState, treatment: TreatmentCandidate, treatment_context: TreatmentContext) -> OutcomeTree:
         citations = self.retriever.retrieve(treatment.guideline_query or f"thyroid cancer {treatment.name}", scope=histology_scope(state), limit=3)
-        context = {"patient_state": reasoning_context(state), "treatment": treatment.model_dump(), "guideline_evidence": [item.model_dump() for item in citations]}
+        context = {"patient_state": reasoning_context(state), "treatment": treatment.model_dump(), "treatment_context": treatment_context.model_dump(), "guideline_evidence": [item.model_dump() for item in citations]}
         result = self.client.chat_json(f"{OUTCOME_CLINICAL_GUIDANCE_PROMPT}\n{OUTCOME_PROMPT}", build_message("thyroid_outcome_tree_generation", context), schema=OutcomeScenarioDraftList)
         outcomes = [OutcomeScenario(outcome_id=f"{treatment.treatment_id}:outcome:{index}:{draft.label}", **draft.model_dump()) for index, draft in enumerate(OutcomeScenarioDraftList.model_validate(result).outcomes, start=1)]
         return OutcomeTree(treatment_id=treatment.treatment_id, root_description=f"Estratégia aplicada ao estado clínico inicial: {treatment.name}", outcomes=outcomes, evidence=citations, generation_context=context)
@@ -205,16 +237,23 @@ class OutcomeTreeGenerator:
 class ClinicalCritic:
     """Classifies support without treating a model score as clinical refutation."""
 
-    def evaluate(self, state: PatientState, draft: FailureDraft, selected_facts: list, unknown_fact_ids: list[str], guideline_evidence: list[Evidence]) -> tuple[str, str | None, list[str], str]:
+    def evaluate(self, state: PatientState, treatment_context: TreatmentContext, outcome: FailureOutcome, draft: FailureDraft, selected_facts: list, unknown_fact_ids: list[str], guideline_evidence: list[Evidence]) -> tuple[str, str | None, list[str], str, str]:
+        hypothesis = f"{draft.hypothesis} {draft.mechanism}".casefold()
+        if treatment_context.modality == "external_beam_radiotherapy" and treatment_context.context_completeness != "complete":
+            return "unresolved", "UNRESOLVED_MISSING_DATA", treatment_context.missing_information, "Campo, alvo e intenção da EBRT não estão documentados; não é possível atribuir progressão a falha ou resistência da radioterapia.", "uncertain"
+        if treatment_context.modality == "external_beam_radiotherapy" and outcome.relationship_to_treatment_goal == "outside_direct_locoregional_target" and any(term in hypothesis for term in ("radioresist", "reparo de dna", "resistência à radioterapia", "resistencia a radioterapia")):
+            return "unresolved", "UNRESOLVED_INSUFFICIENT_SUPPORT", ["treated_lesion_ids", "radiation_field_sites"], "Mecanismo de resistência à EBRT não explica progressão distante fora do campo sem evidência de lesão efetivamente irradiada.", "relocate"
+        if treatment_context.modality == "external_beam_radiotherapy" and "seleção clonal" in hypothesis:
+            return "unresolved", "UNRESOLVED_INSUFFICIENT_SUPPORT", ["serial_molecular_evidence"], "Progressão após I-131 não demonstra seleção clonal induzida nem resistência à EBRT.", "revise"
         if not selected_facts:
-            return "pruned", "PRUNED_ABSENT_CONDITION", [], "A condição necessária não está documentada no estado ativo."
+            return "pruned", "PRUNED_ABSENT_CONDITION", [], "A condição necessária não está documentada no estado ativo.", "prune"
         if unknown_fact_ids:
-            return "unresolved", "UNRESOLVED_MISSING_DATA", [f"unknown_patient_fact_id:{fact_id}" for fact_id in unknown_fact_ids], "A hipótese referencia fatos que não existem no prontuário ativo."
+            return "unresolved", "UNRESOLVED_MISSING_DATA", [f"unknown_patient_fact_id:{fact_id}" for fact_id in unknown_fact_ids], "A hipótese referencia fatos que não existem no prontuário ativo.", "uncertain"
         if not guideline_evidence:
-            return "unresolved", "UNRESOLVED_MISSING_DATA", ["guideline_evidence"], "Não foi recuperada evidência externa para avaliar o mecanismo."
+            return "unresolved", "UNRESOLVED_MISSING_DATA", ["guideline_evidence"], "Não foi recuperada evidência externa para avaliar o mecanismo.", "uncertain"
         if len(draft.causal_chain) < 3 or min(draft.clinical_plausibility, draft.temporal_plausibility, draft.patient_specificity) < 0.6:
-            return "unresolved", "UNRESOLVED_INSUFFICIENT_SUPPORT", [], "A hipótese exige revisão: a cadeia causal ou o suporte específico ainda é insuficiente para sustentação."
-        return "supported", None, [], "Hipótese ligada a fatos ativos e a evidência externa recuperada; permanece contrafactual."
+            return "unresolved", "UNRESOLVED_INSUFFICIENT_SUPPORT", [], "A hipótese exige revisão: a cadeia causal ou o suporte específico ainda é insuficiente para sustentação.", "revise"
+        return "supported", None, [], "Hipótese ligada a fatos ativos e a evidência externa recuperada; permanece contrafactual.", "keep"
 
 
 class ImpactAgent:
@@ -242,8 +281,8 @@ class CounterfactualEngine:
         self.minimum_plausibility = minimum_plausibility
         self.critic = critic or ClinicalCritic()
 
-    def build(self, state: PatientState, treatment: TreatmentCandidate) -> CounterfactualTree:
-        outcomes, outcome_generation_context, outcome_evidence = self.outcome_generator.run(state, treatment)
+    def build(self, state: PatientState, treatment: TreatmentCandidate, treatment_context: TreatmentContext) -> CounterfactualTree:
+        outcomes, outcome_generation_context, outcome_evidence = self.outcome_generator.run(state, treatment, treatment_context)
         nodes: list[FailureTreeNode] = []
         frontier: list[tuple[FailureOutcome, FailureTreeNode | None]] = [(outcome, None) for outcome in outcomes]
         seen: set[tuple[str, str]] = set()
@@ -252,14 +291,14 @@ class CounterfactualEngine:
             for outcome, parent in frontier:
                 existing_for_outcome = [node for node in nodes if node.outcome_id == outcome.outcome_id]
                 explored_hypotheses = [node.hypothesis for node in existing_for_outcome]
-                drafts, generation_context, guideline_evidence = self.generator.run(state, treatment, outcome, parent, depth, explored_hypotheses)
+                drafts, generation_context, guideline_evidence = self.generator.run(state, treatment, treatment_context, outcome, parent, depth, explored_hypotheses)
                 drafts = sorted(drafts, key=lambda item: item.clinical_plausibility + item.temporal_plausibility + item.patient_specificity, reverse=True)[: self.beam_width]
                 for draft in drafts:
                     key = (outcome.outcome_id, draft.hypothesis.casefold())
                     if key in seen or is_redundant_hypothesis(draft, existing_for_outcome):
                         continue
                     seen.add(key)
-                    node = self._validate_and_prune(state, treatment, outcome, parent, depth, draft, generation_context, guideline_evidence)
+                    node = self._validate_and_prune(state, treatment, treatment_context, outcome, parent, depth, draft, generation_context, guideline_evidence)
                     nodes.append(node)
                     existing_for_outcome.append(node)
                     if node.status == "supported" and depth < self.max_depth:
@@ -269,12 +308,13 @@ class CounterfactualEngine:
                 break
         return CounterfactualTree(treatment_id=treatment.treatment_id, outcomes=outcomes, nodes=nodes, max_depth=self.max_depth, outcome_generation_context=outcome_generation_context, outcome_generation_trace={"outcome_ids": [outcome.outcome_id for outcome in outcomes], "outcome_count": len(outcomes), "evidence_sources": [item.source for item in outcome_evidence]})
 
-    def _validate_and_prune(self, state: PatientState, treatment: TreatmentCandidate, outcome: FailureOutcome, parent: FailureTreeNode | None, depth: int, draft: FailureDraft, generation_context: dict | None = None, guideline_evidence: list[Evidence] | None = None) -> FailureTreeNode:
+    def _validate_and_prune(self, state: PatientState, treatment: TreatmentCandidate, treatment_context: TreatmentContext | None, outcome: FailureOutcome, parent: FailureTreeNode | None, depth: int, draft: FailureDraft, generation_context: dict | None = None, guideline_evidence: list[Evidence] | None = None) -> FailureTreeNode:
         active_facts = {fact.fact_id: fact for fact in state.active_problems if fact.status in {"active", "historical"}}
         selected_facts = resolve_patient_facts(state, draft.patient_fact_ids)
         patient_evidence = [evidence for fact in selected_facts for evidence in fact.evidence]
         unknown_fact_ids = sorted(set(draft.patient_fact_ids) - set(active_facts))
-        status, code, missing, critique = self.critic.evaluate(state, draft, selected_facts, unknown_fact_ids, guideline_evidence or [])
+        context = treatment_context or normalize_treatment_context(state, treatment)
+        status, code, missing, critique, decision = self.critic.evaluate(state, context, outcome, draft, selected_facts, unknown_fact_ids, guideline_evidence or [])
         validation_trace = {
             "requested_patient_fact_ids": draft.patient_fact_ids,
             "resolved_patient_fact_ids": [fact.fact_id for fact in selected_facts],
@@ -284,7 +324,7 @@ class CounterfactualEngine:
             "status": status,
             "pruning_code": code,
         }
-        return FailureTreeNode(node_id=str(uuid4()), parent_id=parent.node_id if parent else None, depth=depth, outcome_id=outcome.outcome_id, hypothesis=draft.hypothesis, mechanism=draft.mechanism, causal_chain=draft.causal_chain, required_patient_condition=draft.required_patient_condition, patient_evidence=patient_evidence, external_evidence=guideline_evidence or [], missing_information=missing, generation_context=generation_context or {}, validation_trace=validation_trace, clinical_plausibility=draft.clinical_plausibility, temporal_plausibility=draft.temporal_plausibility, patient_specificity=draft.patient_specificity, status=status, pruning_code=code, critique=critique)
+        return FailureTreeNode(node_id=str(uuid4()), parent_id=parent.node_id if parent else None, depth=depth, outcome_id=outcome.outcome_id, hypothesis=draft.hypothesis, mechanism=draft.mechanism, causal_chain=draft.causal_chain, required_patient_condition=draft.required_patient_condition, patient_evidence=patient_evidence, external_evidence=guideline_evidence or [], missing_information=missing, generation_context=generation_context or {}, validation_trace=validation_trace, clinical_plausibility=draft.clinical_plausibility, temporal_plausibility=draft.temporal_plausibility, patient_specificity=draft.patient_specificity, status=status, pruning_code=code, critique=critique, critic_decision=decision, inference_level="supported_inference" if status == "supported" else "speculative")
 
 
 class ThyroidPrognosisPipeline:
@@ -310,14 +350,15 @@ class ThyroidPrognosisPipeline:
             eligibility = self.eligibility_agent.assess(state, treatment)
             if eligibility.status == "ineligible":
                 continue
-            tree = self.failure_engine.build(state, treatment)
+            treatment_context = normalize_treatment_context(state, treatment)
+            tree = self.failure_engine.build(state, treatment, treatment_context)
             impacts = self.impact_agent.run(state, treatment)
-            outcome_tree = self.outcome_generator.run(state, treatment)
+            outcome_tree = self.outcome_generator.run(state, treatment, treatment_context)
             supported = [node for node in tree.nodes if node.status == "supported"]
             unresolved = [node for node in tree.nodes if node.status == "unresolved"]
             all_pruned = bool(tree.nodes) and all(node.status == "pruned" for node in tree.nodes)
             candidate_status = "insufficient_information" if eligibility.status == "indeterminate" else "high_risk" if any(node.outcome_id.endswith("toxicity") for node in supported) else "remains_plausible" if supported or all_pruned else "insufficient_information"
             forecast = QualitativeForecast(horizon="12 months", disease_control="unknown", adverse_outcome_risk="high" if any(node.outcome_id.endswith("toxicity") for node in supported) else "unknown", confidence_in_reasoning="moderate" if supported and eligibility.status == "eligible" else "low", rationale=[node.hypothesis for node in supported])
             uncertainties = ["Nenhum mecanismo causal específico ao paciente foi sustentado; isso não demonstra segurança ou eficácia."] if all_pruned else ["Ausência de mecanismo suportado não demonstra eficácia."] if not supported else []
-            analyses.append(TreatmentAnalysis(treatment=treatment, eligibility=eligibility, outcome_tree=outcome_tree, candidate_status=candidate_status, failure_tree=tree, impacts=impacts, forecast=forecast, reasoning_summary=summarize_reasoning(tree), missing_information=state.missing_information + [item for node in unresolved for item in node.missing_information], uncertainties=uncertainties))
+            analyses.append(TreatmentAnalysis(treatment=treatment, treatment_context=treatment_context, eligibility=eligibility, outcome_tree=outcome_tree, candidate_status=candidate_status, failure_tree=tree, impacts=impacts, forecast=forecast, reasoning_summary=summarize_reasoning(tree), missing_information=state.missing_information + treatment_context.missing_information + [item for node in unresolved for item in node.missing_information], uncertainties=uncertainties))
         return AnalysisReport(run_id=run_id, case_id=record.case_id, patient_state=state, generated_treatments=candidates, candidate_treatments=analyses, reasoning_guidance_version="thyroid-architecture-v1", knowledge_base_version=self.retriever.version, catalog_version=catalog_version(), execution_parameters={"max_depth": self.failure_engine.max_depth, "beam_width": self.failure_engine.beam_width, "minimum_plausibility": self.failure_engine.minimum_plausibility}, audit_events=[{"event": "record_validated", "warnings": validation.warnings, "missing_information": validation.missing_information}, {"event": "catalog_evaluated", "candidate_count": len(candidates)}, {"event": "treatments_analyzed", "treatment_ids": [item.treatment.treatment_id for item in analyses]}], model=self.model_name, timestamp=datetime.now(timezone.utc).isoformat())

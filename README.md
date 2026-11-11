@@ -80,10 +80,10 @@ Os candidatos são dinâmicos. Uma hipótese de falha somente permanece na árvo
 
 ## Uso
 
-Instale o Qwen no Ollama:
+Instale o modelo configurado no Ollama:
 
 ```bash
-ollama pull qwen2.5:7b
+ollama pull qwen3.5:9b
 ```
 
 Indexe as diretrizes locais após atualizar os PDFs em `guidelines/`:
