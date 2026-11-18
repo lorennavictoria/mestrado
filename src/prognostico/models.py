@@ -288,6 +288,57 @@ class PatientState(BaseModel):
     data_warnings: list[str] = Field(default_factory=list)
 
 
+class KnowledgeGraphNode(BaseModel):
+    node_id: str
+    label: str
+    node_type: Literal["diagnosis", "cancer_feature", "clinical_fact", "laboratory", "vital_sign", "medication", "prior_treatment", "imaging", "clinical_note", "preference"]
+    source_ids: list[str] = Field(default_factory=list)
+    evidence: list[Evidence] = Field(default_factory=list)
+    observed_at: str | None = None
+
+
+class KnowledgeGraphEdge(BaseModel):
+    source_id: str
+    target_id: str
+    relation: Literal["documents", "has_feature", "has_condition", "has_measurement", "receives", "previously_received", "has_imaging", "has_note", "has_preference", "precedes"]
+
+
+class ClinicalKnowledgeGraph(BaseModel):
+    """Grafo factual do prontuário; não inclui hipóteses geradas pelo modelo."""
+
+    case_id: str
+    root_id: str
+    nodes: list[KnowledgeGraphNode] = Field(default_factory=list)
+    edges: list[KnowledgeGraphEdge] = Field(default_factory=list)
+
+
+class CausalThoughtNode(BaseModel):
+    """Nó de uma trajetória contrafactual, sempre expandida do diagnóstico à folha."""
+
+    node_id: str
+    parent_id: str | None = None
+    depth: int = Field(ge=0)
+    stage: Literal["diagnosis", "counterfactual_condition", "manifestation", "outcome"]
+    statement: str
+    mechanism: str | None = None
+    patient_fact_ids: list[str] = Field(default_factory=list)
+    patient_evidence: list[Evidence] = Field(default_factory=list)
+    external_evidence: list[Evidence] = Field(default_factory=list)
+    clinical_plausibility: float = Field(ge=0, le=1, default=1.0)
+    temporal_plausibility: float = Field(ge=0, le=1, default=1.0)
+    status: Literal["documented", "supported", "unresolved", "pruned"] = "unresolved"
+    missing_information: list[str] = Field(default_factory=list)
+    critique: str | None = None
+    outcome_label: Literal["oncologic_failure", "toxicity", "intolerance", "interruption", "progression", "hospitalization", "functional_decline", "mortality"] | None = None
+
+
+class CausalThoughtTree(BaseModel):
+    treatment_id: str
+    root_id: str
+    nodes: list[CausalThoughtNode] = Field(default_factory=list)
+    max_depth: int = 3
+
+
 class TreatmentCandidate(BaseModel):
     treatment_id: str
     name: str
@@ -429,6 +480,7 @@ class TreatmentAnalysis(BaseModel):
     treatment: TreatmentCandidate
     treatment_context: TreatmentContext | None = None
     eligibility: EligibilityAssessment | None = None
+    causal_tree: CausalThoughtTree | None = None
     outcome_tree: OutcomeTree | None = None
     candidate_status: Literal["remains_plausible", "high_risk", "contraindication_identified", "insufficient_information", "not_applicable"]
     failure_tree: CounterfactualTree
@@ -443,6 +495,7 @@ class AnalysisReport(BaseModel):
     run_id: str | None = None
     case_id: str
     patient_state: PatientState
+    knowledge_graph: ClinicalKnowledgeGraph | None = None
     generated_treatments: list[TreatmentCandidate]
     candidate_treatments: list[TreatmentAnalysis]
     reasoning_guidance_version: str

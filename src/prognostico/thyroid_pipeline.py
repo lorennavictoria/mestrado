@@ -13,8 +13,9 @@ from .clinical_guidance_prompts import FAILURE_CLINICAL_GUIDANCE_PROMPT, IMPACT_
 from .eligibility import ClinicalEligibilityAgent
 from .guidelines import GuidelineRetriever
 from .llm import LLMClient, build_message
-from .models import (AnalysisReport, CausalReasoningSummary, CounterfactualTree, EligibilityAssessment, Evidence, FailureOutcome, FailureTreeNode, MedicalRecord, OutcomeScenario, OutcomeTree, PatientState, QualitativeForecast, TreatmentAnalysis, TreatmentCandidate, TreatmentContext, TreatmentImpact)
-from .prompts import FAILURE_OUTCOME_PROMPT, FAILURE_PROMPT, IMPACT_PROMPT, OUTCOME_PROMPT, TREATMENT_PROMPT
+from .knowledge_graph import ClinicalKnowledgeGraphBuilder
+from .models import (AnalysisReport, CausalReasoningSummary, CausalThoughtNode, CausalThoughtTree, CounterfactualTree, EligibilityAssessment, Evidence, FailureOutcome, FailureTreeNode, MedicalRecord, OutcomeScenario, OutcomeTree, PatientState, QualitativeForecast, TreatmentAnalysis, TreatmentCandidate, TreatmentContext, TreatmentImpact)
+from .prompts import CAUSAL_CONDITION_PROMPT, CAUSAL_OUTCOME_PROMPT, FAILURE_OUTCOME_PROMPT, FAILURE_PROMPT, IMPACT_PROMPT, MANIFESTATION_PROMPT, OUTCOME_PROMPT, TREATMENT_PROMPT
 from .record import MedicalRecordValidator
 from .state import PatientStateBuilder
 from .treatment_catalog import catalog_version, evaluate_catalog, histology_scope
@@ -65,6 +66,35 @@ class OutcomeScenarioDraftList(BaseModel):
 
 class ImpactList(BaseModel):
     impacts: list[TreatmentImpact] = Field(max_length=3)
+
+
+class CausalConditionDraft(BaseModel):
+    statement: str = Field(max_length=280)
+    mechanism: str | None = Field(default=None, max_length=220)
+    patient_fact_ids: list[str] = Field(min_length=1)
+    clinical_plausibility: float = Field(ge=0, le=1)
+    temporal_plausibility: float = Field(ge=0, le=1)
+
+
+class CausalConditionList(BaseModel):
+    conditions: list[CausalConditionDraft] = Field(min_length=1, max_length=2)
+
+
+class ManifestationDraft(CausalConditionDraft):
+    condition_id: str
+
+
+class ManifestationList(BaseModel):
+    manifestations: list[ManifestationDraft] = Field(min_length=1, max_length=4)
+
+
+class CausalOutcomeDraft(CausalConditionDraft):
+    manifestation_id: str
+    outcome_label: Literal["oncologic_failure", "toxicity", "intolerance", "interruption", "progression", "hospitalization", "functional_decline", "mortality"]
+
+
+class CausalOutcomeList(BaseModel):
+    outcomes: list[CausalOutcomeDraft] = Field(min_length=1, max_length=4)
 
 
 def reasoning_context(state: PatientState) -> dict:
@@ -327,16 +357,107 @@ class CounterfactualEngine:
         return FailureTreeNode(node_id=str(uuid4()), parent_id=parent.node_id if parent else None, depth=depth, outcome_id=outcome.outcome_id, hypothesis=draft.hypothesis, mechanism=draft.mechanism, causal_chain=draft.causal_chain, required_patient_condition=draft.required_patient_condition, patient_evidence=patient_evidence, external_evidence=guideline_evidence or [], missing_information=missing, generation_context=generation_context or {}, validation_trace=validation_trace, clinical_plausibility=draft.clinical_plausibility, temporal_plausibility=draft.temporal_plausibility, patient_specificity=draft.patient_specificity, status=status, pruning_code=code, critique=critique, critic_decision=decision, inference_level="supported_inference" if status == "supported" else "speculative")
 
 
+class CausalThoughtEngine:
+    """Expande diagnóstico -> condição -> manifestação -> desfecho, nessa ordem estrita."""
+
+    def __init__(self, client: LLMClient, retriever: GuidelineRetriever) -> None:
+        self.client = client
+        self.retriever = retriever
+
+    def build(self, state: PatientState, treatment: TreatmentCandidate) -> CausalThoughtTree:
+        root = CausalThoughtNode(
+            node_id=f"{treatment.treatment_id}:diagnosis",
+            depth=0,
+            stage="diagnosis",
+            statement=f"Diagnóstico confirmado de câncer de tireoide: {state.cancer.histology}",
+            patient_fact_ids=["cancer_documented"],
+            patient_evidence=resolve_patient_facts(state, ["cancer_documented"])[0].evidence,
+            status="documented",
+        )
+        citations = self.retriever.retrieve(treatment.guideline_query or treatment.name, scope=histology_scope(state), limit=3)
+        base_context = {"patient_state": reasoning_context(state), "treatment": treatment.model_dump(), "guideline_evidence": [item.model_dump() for item in citations]}
+        conditions = CausalConditionList.model_validate(self.client.chat_json(CAUSAL_CONDITION_PROMPT, build_message("causal_conditions", base_context), schema=CausalConditionList)).conditions
+        nodes = [root]
+        condition_ids: set[str] = set()
+        for index, draft in enumerate(conditions, start=1):
+            node = self._node(f"{treatment.treatment_id}:condition:{index}", root.node_id, 1, "counterfactual_condition", draft, citations, state)
+            nodes.append(node)
+            if node.status == "supported":
+                condition_ids.add(node.node_id)
+        if not condition_ids:
+            return CausalThoughtTree(treatment_id=treatment.treatment_id, root_id=root.node_id, nodes=nodes)
+
+        manifestation_context = base_context | {"conditions": [node.model_dump() for node in nodes if node.node_id in condition_ids]}
+        manifestations = ManifestationList.model_validate(self.client.chat_json(MANIFESTATION_PROMPT, build_message("causal_manifestations", manifestation_context), schema=ManifestationList)).manifestations
+        manifestation_ids: set[str] = set()
+        for index, draft in enumerate(manifestations, start=1):
+            parent_id = draft.condition_id
+            if parent_id not in condition_ids:
+                continue
+            node = self._node(f"{treatment.treatment_id}:manifestation:{index}", parent_id, 2, "manifestation", draft, citations, state)
+            nodes.append(node)
+            if node.status == "supported":
+                manifestation_ids.add(node.node_id)
+        if not manifestation_ids:
+            return CausalThoughtTree(treatment_id=treatment.treatment_id, root_id=root.node_id, nodes=nodes)
+
+        outcome_context = base_context | {"manifestations": [node.model_dump() for node in nodes if node.node_id in manifestation_ids]}
+        outcomes = CausalOutcomeList.model_validate(self.client.chat_json(CAUSAL_OUTCOME_PROMPT, build_message("causal_outcomes", outcome_context), schema=CausalOutcomeList)).outcomes
+        for index, draft in enumerate(outcomes, start=1):
+            if draft.manifestation_id not in manifestation_ids:
+                continue
+            nodes.append(self._node(f"{treatment.treatment_id}:outcome:{index}", draft.manifestation_id, 3, "outcome", draft, citations, state, outcome_label=draft.outcome_label))
+        return CausalThoughtTree(treatment_id=treatment.treatment_id, root_id=root.node_id, nodes=nodes)
+
+    @staticmethod
+    def _node(node_id: str, parent_id: str, depth: int, stage: str, draft: CausalConditionDraft, citations: list[Evidence], state: PatientState, outcome_label: str | None = None) -> CausalThoughtNode:
+        facts = resolve_patient_facts(state, draft.patient_fact_ids)
+        unknown = sorted(set(draft.patient_fact_ids) - {fact.fact_id for fact in state.active_problems})
+        supported = bool(facts) and not unknown and bool(citations) and min(draft.clinical_plausibility, draft.temporal_plausibility) >= 0.6
+        return CausalThoughtNode(
+            node_id=node_id, parent_id=parent_id, depth=depth, stage=stage, statement=draft.statement,
+            mechanism=draft.mechanism, patient_fact_ids=draft.patient_fact_ids,
+            patient_evidence=[evidence for fact in facts for evidence in fact.evidence], external_evidence=citations,
+            clinical_plausibility=draft.clinical_plausibility, temporal_plausibility=draft.temporal_plausibility,
+            status="supported" if supported else "unresolved", missing_information=[f"unknown_patient_fact_id:{item}" for item in unknown],
+            critique="Nó sustentado por fatos do prontuário e diretriz recuperada." if supported else "Nó não avança sem fatos válidos, suporte externo e plausibilidade suficiente.",
+            outcome_label=outcome_label,
+        )
+
+
+def derive_legacy_trees(tree: CausalThoughtTree) -> tuple[CounterfactualTree, OutcomeTree]:
+    """Mantém o contrato do relatório, mas deriva as folhas após a cadeia causal completa."""
+    by_id = {node.node_id: node for node in tree.nodes}
+    leaves = [node for node in tree.nodes if node.stage == "outcome" and node.status == "supported" and node.outcome_label]
+    outcomes: list[FailureOutcome] = []
+    failure_nodes: list[FailureTreeNode] = []
+    scenarios: list[OutcomeScenario] = []
+    scenario_labels = {"oncologic_failure": "recurrence_progression", "progression": "recurrence_progression", "toxicity": "toxicity", "intolerance": "quality_of_life", "interruption": "subsequent_therapy", "hospitalization": "quality_of_life", "functional_decline": "quality_of_life", "mortality": "mortality"}
+    for index, leaf in enumerate(leaves, start=1):
+        outcome_id = f"{tree.treatment_id}:derived:{index}"
+        outcomes.append(FailureOutcome(outcome_id=outcome_id, label=leaf.outcome_label, description=leaf.statement))
+        path: list[CausalThoughtNode] = []
+        current: CausalThoughtNode | None = leaf
+        while current:
+            path.append(current)
+            current = by_id.get(current.parent_id or "")
+        path.reverse()
+        failure_nodes.append(FailureTreeNode(node_id=leaf.node_id, depth=leaf.depth, outcome_id=outcome_id, hypothesis=leaf.statement, mechanism=leaf.mechanism or "Cadeia causal derivada", causal_chain=[node.statement for node in path], patient_evidence=leaf.patient_evidence, external_evidence=leaf.external_evidence, clinical_plausibility=leaf.clinical_plausibility, temporal_plausibility=leaf.temporal_plausibility, patient_specificity=leaf.clinical_plausibility, status="supported", critic_decision="keep", inference_level="supported_inference"))
+        scenarios.append(OutcomeScenario(outcome_id=outcome_id, label=scenario_labels[leaf.outcome_label], description=leaf.statement, mechanism=leaf.mechanism))
+    return CounterfactualTree(treatment_id=tree.treatment_id, outcomes=outcomes, nodes=failure_nodes, max_depth=tree.max_depth), OutcomeTree(treatment_id=tree.treatment_id, root_description="Folhas derivadas após diagnóstico, condições contrafactuais e manifestações clínicas.", outcomes=scenarios)
+
+
 class ThyroidPrognosisPipeline:
     def __init__(self, client: LLMClient, *, model_name: str, max_depth: int = 5, guideline_index: Path | None = None) -> None:
         self.validator = MedicalRecordValidator()
         self.state_builder = PatientStateBuilder()
-        default_index = Path(__file__).resolve().parents[2] / "guidelines" / "processed" / "index.json"
+        self.graph_builder = ClinicalKnowledgeGraphBuilder()
+        default_index = Path(__file__).resolve().parents[2] / "guidelines" / "br" / "processed" / "index.json"
         self.retriever = GuidelineRetriever(guideline_index or default_index)
         self.generator = TreatmentGenerator(self.retriever)
         self.eligibility_agent = ClinicalEligibilityAgent(self.retriever)
         self.failure_engine = CounterfactualEngine(FailureHypothesisGenerator(client, self.retriever), FailureOutcomeGenerator(client, self.retriever), max_depth=max_depth)
-        self.outcome_generator = OutcomeTreeGenerator(client, self.retriever)
+        self.causal_engine = CausalThoughtEngine(client, self.retriever)
         self.impact_agent = ImpactAgent(client)
         self.model_name = model_name
 
@@ -344,6 +465,7 @@ class ThyroidPrognosisPipeline:
         run_id = str(uuid4())
         validation = self.validator.validate(record)
         state = self.state_builder.build(validation)
+        knowledge_graph = self.graph_builder.build(validation)
         candidates = self.generator.run(state)
         analyses: list[TreatmentAnalysis] = []
         for treatment in candidates:
@@ -351,14 +473,14 @@ class ThyroidPrognosisPipeline:
             if eligibility.status == "ineligible":
                 continue
             treatment_context = normalize_treatment_context(state, treatment)
-            tree = self.failure_engine.build(state, treatment, treatment_context)
+            causal_tree = self.causal_engine.build(state, treatment)
+            tree, outcome_tree = derive_legacy_trees(causal_tree)
             impacts = self.impact_agent.run(state, treatment)
-            outcome_tree = self.outcome_generator.run(state, treatment, treatment_context)
             supported = [node for node in tree.nodes if node.status == "supported"]
             unresolved = [node for node in tree.nodes if node.status == "unresolved"]
             all_pruned = bool(tree.nodes) and all(node.status == "pruned" for node in tree.nodes)
             candidate_status = "insufficient_information" if eligibility.status == "indeterminate" else "high_risk" if any(node.outcome_id.endswith("toxicity") for node in supported) else "remains_plausible" if supported or all_pruned else "insufficient_information"
             forecast = QualitativeForecast(horizon="12 months", disease_control="unknown", adverse_outcome_risk="high" if any(node.outcome_id.endswith("toxicity") for node in supported) else "unknown", confidence_in_reasoning="moderate" if supported and eligibility.status == "eligible" else "low", rationale=[node.hypothesis for node in supported])
             uncertainties = ["Nenhum mecanismo causal específico ao paciente foi sustentado; isso não demonstra segurança ou eficácia."] if all_pruned else ["Ausência de mecanismo suportado não demonstra eficácia."] if not supported else []
-            analyses.append(TreatmentAnalysis(treatment=treatment, treatment_context=treatment_context, eligibility=eligibility, outcome_tree=outcome_tree, candidate_status=candidate_status, failure_tree=tree, impacts=impacts, forecast=forecast, reasoning_summary=summarize_reasoning(tree), missing_information=state.missing_information + treatment_context.missing_information + [item for node in unresolved for item in node.missing_information], uncertainties=uncertainties))
-        return AnalysisReport(run_id=run_id, case_id=record.case_id, patient_state=state, generated_treatments=candidates, candidate_treatments=analyses, reasoning_guidance_version="thyroid-architecture-v1", knowledge_base_version=self.retriever.version, catalog_version=catalog_version(), execution_parameters={"max_depth": self.failure_engine.max_depth, "beam_width": self.failure_engine.beam_width, "minimum_plausibility": self.failure_engine.minimum_plausibility}, audit_events=[{"event": "record_validated", "warnings": validation.warnings, "missing_information": validation.missing_information}, {"event": "catalog_evaluated", "candidate_count": len(candidates)}, {"event": "treatments_analyzed", "treatment_ids": [item.treatment.treatment_id for item in analyses]}], model=self.model_name, timestamp=datetime.now(timezone.utc).isoformat())
+            analyses.append(TreatmentAnalysis(treatment=treatment, treatment_context=treatment_context, eligibility=eligibility, causal_tree=causal_tree, outcome_tree=outcome_tree, candidate_status=candidate_status, failure_tree=tree, impacts=impacts, forecast=forecast, reasoning_summary=summarize_reasoning(tree), missing_information=state.missing_information + treatment_context.missing_information + [item for node in unresolved for item in node.missing_information], uncertainties=uncertainties))
+        return AnalysisReport(run_id=run_id, case_id=record.case_id, patient_state=state, knowledge_graph=knowledge_graph, generated_treatments=candidates, candidate_treatments=analyses, reasoning_guidance_version="thyroid-causal-graph-v2", knowledge_base_version=self.retriever.version, catalog_version=catalog_version(), execution_parameters={"causal_order": ["diagnosis", "counterfactual_condition", "manifestation", "outcome"], "max_depth": 3}, audit_events=[{"event": "record_validated", "warnings": validation.warnings, "missing_information": validation.missing_information}, {"event": "knowledge_graph_built", "node_count": len(knowledge_graph.nodes), "edge_count": len(knowledge_graph.edges)}, {"event": "catalog_evaluated", "candidate_count": len(candidates)}, {"event": "treatments_analyzed", "treatment_ids": [item.treatment.treatment_id for item in analyses]}], model=self.model_name, timestamp=datetime.now(timezone.utc).isoformat())

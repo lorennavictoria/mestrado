@@ -114,6 +114,13 @@ def render_markdown(report: AnalysisReport) -> str:
         "## Fatos Ativos e Proveniência",
     ]
     lines.extend([f"- {translate_mimic_label(fact.statement)}. Fontes: {', '.join(fact.source_ids)}. Evidência: {evidence_text(fact.evidence)}" for fact in state.active_problems if fact.status == "active"] or ["- Nenhum fato ativo estruturado."])
+    graph = report.knowledge_graph
+    lines.extend(["", "## Grafo de Conhecimento do Prontuário"])
+    if graph:
+        lines.append(f"- Raiz: `{graph.root_id}`; nós: `{len(graph.nodes)}`; relações: `{len(graph.edges)}`.")
+        lines.extend([f"- `{node.node_id}` ({node.node_type}): {translate_mimic_label(node.label)}. Fontes: {', '.join(node.source_ids)}" for node in graph.nodes])
+    else:
+        lines.append("- Grafo não disponível.")
     lines.extend(["", "## Histórico Terapêutico"])
     lines.extend([f"- {translate_mimic_label(item.name)}: resposta `{display(item.response)}`; período `{item.started_at or 'desconhecido'} → {item.ended_at or 'em andamento/desconhecido'}`; toxicidades: {', '.join(item.toxicities) or 'não registradas'}" for item in state.previous_treatments] or ["- Não informado."])
     lines.extend(["", "## Lacunas e Alertas do Prontuário"])
@@ -131,6 +138,13 @@ def render_markdown(report: AnalysisReport) -> str:
         if outcome_tree:
             lines.append("#### Cenários de Desfecho")
             lines.extend([f"- `{display(item.label)}`: {item.description}. Mecanismo: {item.mechanism or 'não especificado'}; modificadores: {', '.join(item.modifiers) or 'não especificados'}" for item in outcome_tree.outcomes] or ["- Nenhum cenário registrado."])
+        causal_tree = analysis.causal_tree
+        lines.append("#### Árvore Causal Gerada")
+        if causal_tree:
+            for node in causal_tree.nodes:
+                lines.append(f"- Profundidade `{node.depth}` / `{node.stage}`: {node.statement}. Estado: `{display(node.status)}`; pai: `{node.parent_id or 'nenhum'}`; fatos: {', '.join(node.patient_fact_ids) or 'nenhum'}.")
+        else:
+            lines.append("- Árvore causal não disponível.")
         for outcome in analysis.failure_tree.outcomes:
             lines.append(f"#### Desfecho contrafactual: {outcome.description}")
             nodes = [node for node in analysis.failure_tree.nodes if node.outcome_id == outcome.outcome_id]

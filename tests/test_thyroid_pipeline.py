@@ -2,10 +2,12 @@ import json
 from pathlib import Path
 
 from prognostico.llm import OllamaClient
+from prognostico.guidelines import GuidelineRetriever
+from prognostico.knowledge_graph import ClinicalKnowledgeGraphBuilder
 from prognostico.models import CounterfactualTree, Evidence, FailureOutcome, FailureTreeNode, MedicalRecord, TreatmentCandidate, TreatmentContext
 from prognostico.record import MedicalRecordValidator
 from prognostico.state import PatientStateBuilder
-from prognostico.thyroid_pipeline import CounterfactualEngine, FailureDraft, ThyroidPrognosisPipeline, is_redundant_hypothesis, normalize_treatment_context, reasoning_context, resolve_patient_facts, summarize_reasoning
+from prognostico.thyroid_pipeline import CausalThoughtEngine, CounterfactualEngine, FailureDraft, ThyroidPrognosisPipeline, derive_legacy_trees, is_redundant_hypothesis, normalize_treatment_context, reasoning_context, resolve_patient_facts, summarize_reasoning
 
 
 ROOT = Path(__file__).parents[1]
@@ -181,3 +183,36 @@ def test_ebrt_with_unknown_field_keeps_distant_progression_uncertain():
     assert node.status == "unresolved"
     assert node.critic_decision == "uncertain"
     assert "radiation_field_sites" in node.missing_information
+
+
+def test_knowledge_graph_keeps_factual_nodes_and_temporal_edges():
+    validation = MedicalRecordValidator().validate(load_record())
+    graph = ClinicalKnowledgeGraphBuilder().build(validation)
+
+    assert graph.root_id == "diagnosis:thyroid_cancer"
+    assert any(node.node_id == "imaging:CT-2026" for node in graph.nodes)
+    assert any(edge.relation == "precedes" for edge in graph.edges)
+    assert all(node.node_type != "outcome" for node in graph.nodes)
+
+
+class CausalSequenceClient:
+    def chat_json(self, _system, _user, *, schema):
+        responses = {
+            "CausalConditionList": {"conditions": [{"statement": "Se a doença refratária mantiver progressão apesar da estratégia", "mechanism": "Persistência de doença iodo-refratária", "patient_fact_ids": ["cancer_iodine_avidity"], "clinical_plausibility": 0.8, "temporal_plausibility": 0.8}]},
+            "ManifestationList": {"manifestations": [{"condition_id": "TX-1:condition:1", "statement": "Pode haver aumento radiológico dos nódulos pulmonares", "mechanism": "Crescimento tumoral", "patient_fact_ids": ["metastatic_disease"], "clinical_plausibility": 0.8, "temporal_plausibility": 0.8}]},
+            "CausalOutcomeList": {"outcomes": [{"manifestation_id": "TX-1:manifestation:1", "statement": "Pode ocorrer progressão pulmonar com necessidade de reavaliação terapêutica", "mechanism": "Progressão radiológica", "patient_fact_ids": ["cancer_progression"], "clinical_plausibility": 0.8, "temporal_plausibility": 0.8, "outcome_label": "progression"}]},
+        }
+        return responses[schema.__name__]
+
+
+def test_causal_tree_generates_outcome_only_after_manifestation():
+    state = PatientStateBuilder().build(MedicalRecordValidator().validate(load_record()))
+    treatment = TreatmentCandidate(treatment_id="TX-1", name="Estratégia analítica", treatment_class="systemic_therapy", therapeutic_goal="controle", reason_for_consideration=["teste"], patient_evidence=[], patient_fact_ids=["cancer_documented"], guideline_query="radioiodine refractory differentiated thyroid cancer")
+    engine = CausalThoughtEngine(CausalSequenceClient(), GuidelineRetriever(ROOT / "guidelines" / "br" / "processed" / "index.json"))
+
+    tree = engine.build(state, treatment)
+    counterfactual, _ = derive_legacy_trees(tree)
+
+    assert [node.stage for node in tree.nodes] == ["diagnosis", "counterfactual_condition", "manifestation", "outcome"]
+    assert tree.nodes[-1].parent_id == tree.nodes[-2].node_id
+    assert counterfactual.outcomes[0].label == "progression"

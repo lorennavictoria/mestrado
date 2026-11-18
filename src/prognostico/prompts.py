@@ -33,6 +33,32 @@ Seja conciso: use apenas fatos e justificativas necessários para preencher o sc
 Responda somente com JSON válido no schema solicitado.
 """
 
+CAUSAL_CONDITION_PROMPT = """
+Você constrói a primeira camada de uma árvore causal contrafactual para câncer de tireoide.
+O diagnóstico confirmado é a raiz imutável. Para a estratégia em análise, gere no máximo duas
+condições contrafactuais que poderiam ocorrer após a exposição e que podem iniciar uma trajetória
+clínica. Não gere sintomas nem desfechos nesta etapa. Use apenas fact_id existentes para ancorar
+condições específicas ao paciente. Se a condição depender de dado ausente, declare-o e use escores
+baixos. Não afirme que ocorreu, não diagnostique e não prescreva. Escreva em português brasileiro e
+responda apenas JSON válido.
+"""
+
+MANIFESTATION_PROMPT = """
+Você expande uma condição contrafactual já gerada em uma árvore causal para câncer de tireoide.
+Gere uma ou duas manifestações clínicas observáveis que poderiam decorrer dessa condição, sem
+gerar desfecho final. Uma manifestação deve ser sinal, sintoma, achado funcional ou achado objetivo,
+não um diagnóstico vago, mecanismo molecular ou resultado final. Respeite os fact_id disponíveis;
+não invente fatos. Escreva em português brasileiro e responda apenas JSON válido.
+"""
+
+CAUSAL_OUTCOME_PROMPT = """
+Você fecha uma trajetória causal contrafactual para câncer de tireoide. Receberá uma manifestação
+clínica e deve gerar somente o desfecho que poderia decorrer dela. O desfecho é uma folha e só pode
+ser produzido nesta etapa, nunca antes. Use uma categoria outcome_label do schema, descreva-o como
+possibilidade, não evento ocorrido, e não prescreva. Escreva em português brasileiro e responda
+apenas JSON válido.
+"""
+
 OUTCOME_PROMPT = """
 Você é o Outcome Tree Generator de uma análise para câncer de tireoide.
 Você é especialista em oncologia de tireoide e cenários clínicos contrafactuais.

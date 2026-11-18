@@ -7,10 +7,10 @@ MVP auditável de apoio à análise terapêutica para câncer de tireoide confir
 ```text
 MedicalRecord JSON
   -> MedicalRecordValidator
-  -> PatientStateBuilder com proveniência
+  -> PatientStateBuilder com proveniência + grafo de conhecimento factual
   -> catálogo terapêutico + recuperação local de diretrizes
   -> avaliação determinística de elegibilidade
-  -> árvores independentes de desfecho e falha por tratamento elegível
+  -> árvore causal por tratamento: diagnóstico -> condição contrafactual -> manifestação -> desfecho
   -> validação e poda formal
   -> Treatment Impact Agent
   -> prognóstico qualitativo
@@ -66,12 +66,13 @@ flowchart TD
     X --> Z[Clinical Decision Memo Markdown]
 ```
 
-Os candidatos são dinâmicos. Uma hipótese de falha somente permanece na árvore quando contém condição do paciente, cadeia causal explícita, evidência do prontuário e suporte da base externa recuperada. Ausência de dados resulta em `UNRESOLVED_MISSING_DATA`; não é tratada como normalidade. A ausência de mecanismo suportado não demonstra eficácia.
+O grafo contém exclusivamente fatos estruturados e sua proveniência; hipóteses do modelo vivem apenas na árvore causal. O diagnóstico de câncer de tireoide confirmado é a raiz de toda análise. Para cada tratamento, o sistema só gera o desfecho após expandir uma condição contrafactual e sua manifestação clínica. Uma folha sem fatos válidos, suporte externo ou plausibilidade suficiente não avança. Ausência de dados não é tratada como normalidade.
 
 ## Componentes
 
 - `src/prognostico/record.py`: validação de datas, cronologia e conflitos temporais.
 - `src/prognostico/state.py`: estado clínico resumido com evidências de origem.
+- `src/prognostico/knowledge_graph.py`: grafo factual e temporal do prontuário.
 - `src/prognostico/treatment_catalog.py`: catálogo versionado e critérios explícitos de aplicabilidade.
 - `src/prognostico/eligibility.py`: decisão determinística de elegibilidade antes da expansão das árvores.
 - `src/prognostico/guidelines.py`: ingestão de PDFs, indexação com página e recuperação local citável.
