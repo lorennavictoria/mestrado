@@ -315,6 +315,7 @@ class CounterfactualEngine:
         unknown_fact_ids = sorted(set(draft.patient_fact_ids) - set(active_facts))
         context = treatment_context or normalize_treatment_context(state, treatment)
         status, code, missing, critique, decision = self.critic.evaluate(state, context, outcome, draft, selected_facts, unknown_fact_ids, guideline_evidence or [])
+        pruning_explanation = critique if status == "pruned" else None
         validation_trace = {
             "requested_patient_fact_ids": draft.patient_fact_ids,
             "resolved_patient_fact_ids": [fact.fact_id for fact in selected_facts],
@@ -323,8 +324,9 @@ class CounterfactualEngine:
             "minimum_patient_specificity": self.minimum_plausibility,
             "status": status,
             "pruning_code": code,
+            "pruning_explanation": pruning_explanation,
         }
-        return FailureTreeNode(node_id=str(uuid4()), parent_id=parent.node_id if parent else None, depth=depth, outcome_id=outcome.outcome_id, hypothesis=draft.hypothesis, mechanism=draft.mechanism, causal_chain=draft.causal_chain, required_patient_condition=draft.required_patient_condition, patient_evidence=patient_evidence, external_evidence=guideline_evidence or [], missing_information=missing, generation_context=generation_context or {}, validation_trace=validation_trace, clinical_plausibility=draft.clinical_plausibility, temporal_plausibility=draft.temporal_plausibility, patient_specificity=draft.patient_specificity, status=status, pruning_code=code, critique=critique, critic_decision=decision, inference_level="supported_inference" if status == "supported" else "speculative")
+        return FailureTreeNode(node_id=str(uuid4()), parent_id=parent.node_id if parent else None, depth=depth, outcome_id=outcome.outcome_id, hypothesis=draft.hypothesis, mechanism=draft.mechanism, causal_chain=draft.causal_chain, required_patient_condition=draft.required_patient_condition, patient_evidence=patient_evidence, external_evidence=guideline_evidence or [], missing_information=missing, generation_context=generation_context or {}, validation_trace=validation_trace, clinical_plausibility=draft.clinical_plausibility, temporal_plausibility=draft.temporal_plausibility, patient_specificity=draft.patient_specificity, status=status, pruning_code=code, pruning_explanation=pruning_explanation, critique=critique, critic_decision=decision, inference_level="supported_inference" if status == "supported" else "speculative")
 
 
 class ThyroidPrognosisPipeline:

@@ -137,6 +137,20 @@ def test_counterfactual_validation_keeps_valid_fact_ids_when_others_are_unknown(
     assert node.missing_information == ["unknown_patient_fact_id:lab:inexistente"]
 
 
+def test_pruned_node_has_explicit_explanation():
+    state = PatientStateBuilder().build(MedicalRecordValidator().validate(load_record()))
+    engine = CounterfactualEngine(None, None)
+    treatment = TreatmentCandidate(treatment_id="TX-1", name="estratégia analítica", treatment_class="systemic_therapy", therapeutic_goal="disease_control", reason_for_consideration=["teste"], patient_evidence=[], patient_fact_ids=["cancer_documented"])
+    outcome = FailureOutcome(outcome_id="TX-1:toxicity", label="toxicity", description="teste")
+    draft = FailureDraft(hypothesis="Hipótese sem condição documentada", mechanism="Mecanismo de teste", causal_chain=["condição", "exposição", "toxicidade"], required_patient_condition="dado ausente", patient_fact_ids=["fato_inexistente"], clinical_plausibility=0.8, temporal_plausibility=0.8, patient_specificity=0.8)
+
+    node = engine._validate_and_prune(state, treatment, normalize_treatment_context(state, treatment), outcome, None, 1, draft, guideline_evidence=[Evidence(finding="Trecho de diretriz", source="TEST:p1")])
+
+    assert node.status == "pruned"
+    assert node.pruning_explanation == "A condição necessária não está documentada no estado ativo."
+    assert node.validation_trace["pruning_explanation"] == node.pruning_explanation
+
+
 def test_counterfactual_validation_keeps_low_score_hypothesis_indeterminate():
     state = PatientStateBuilder().build(MedicalRecordValidator().validate(load_record()))
     engine = CounterfactualEngine(None, None)

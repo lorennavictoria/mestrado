@@ -367,6 +367,7 @@ class FailureTreeNode(BaseModel):
     patient_specificity: float = Field(ge=0, le=1)
     status: Literal["active", "supported", "pruned", "unresolved"] = "active"
     pruning_code: Literal["PRUNED_CONTRADICTION", "PRUNED_ABSENT_CONDITION", "PRUNED_TEMPORAL", "UNRESOLVED_MISSING_DATA", "UNRESOLVED_INSUFFICIENT_SUPPORT"] | None = None
+    pruning_explanation: str | None = None
     critique: str | None = None
     critic_decision: Literal["keep", "revise", "relocate", "prune", "uncertain"] = "uncertain"
     inference_level: Literal["documented", "supported_inference", "speculative"] = "speculative"
